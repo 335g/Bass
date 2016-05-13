@@ -43,6 +43,10 @@
 		8467A08F1CE6045E00B6E395 /* Pointed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A08D1CE6045E00B6E395 /* Pointed.swift */; };
 		8467A0911CE604AE00B6E395 /* OptionalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0901CE604AE00B6E395 /* OptionalType.swift */; };
 		8467A0921CE604AE00B6E395 /* OptionalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0901CE604AE00B6E395 /* OptionalType.swift */; };
+		8467A0971CE60D9900B6E395 /* OptionalTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0961CE60D9900B6E395 /* OptionalTypeSpec.swift */; };
+		8467A0981CE60D9900B6E395 /* OptionalTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0961CE60D9900B6E395 /* OptionalTypeSpec.swift */; };
+		8467A09A1CE647AF00B6E395 /* Semigroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0991CE647AF00B6E395 /* Semigroup.swift */; };
+		8467A09B1CE647AF00B6E395 /* Semigroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0991CE647AF00B6E395 /* Semigroup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +117,8 @@
 		8467A08A1CE6042100B6E395 /* Pack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pack.swift; path = Functions/Pack.swift; sourceTree = "<group>"; };
 		8467A08D1CE6045E00B6E395 /* Pointed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pointed.swift; path = Protocols/Pointed.swift; sourceTree = "<group>"; };
 		8467A0901CE604AE00B6E395 /* OptionalType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionalType.swift; path = Protocols/OptionalType.swift; sourceTree = "<group>"; };
+		8467A0961CE60D9900B6E395 /* OptionalTypeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionalTypeSpec.swift; path = Protocols/OptionalTypeSpec.swift; sourceTree = "<group>"; };
+		8467A0991CE647AF00B6E395 /* Semigroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Semigroup.swift; path = Protocols/Semigroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +199,9 @@
 			isa = PBXGroup;
 			children = (
 				8467A0251CE5FC4600B6E395 /* Info.plist */,
+				8467A0951CE60D6E00B6E395 /* Types */,
+				8467A0941CE60D6800B6E395 /* Functions */,
+				8467A0931CE60D6000B6E395 /* Protocols */,
 			);
 			path = BassTests;
 			sourceTree = "<group>";
@@ -222,6 +231,7 @@
 			children = (
 				8467A08D1CE6045E00B6E395 /* Pointed.swift */,
 				8467A0901CE604AE00B6E395 /* OptionalType.swift */,
+				8467A0991CE647AF00B6E395 /* Semigroup.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -238,6 +248,28 @@
 				8467A08A1CE6042100B6E395 /* Pack.swift */,
 			);
 			name = Functions;
+			sourceTree = "<group>";
+		};
+		8467A0931CE60D6000B6E395 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8467A0961CE60D9900B6E395 /* OptionalTypeSpec.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		8467A0941CE60D6800B6E395 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Functions;
+			sourceTree = "<group>";
+		};
+		8467A0951CE60D6E00B6E395 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Types;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,6 +455,7 @@
 				8467A08B1CE6042100B6E395 /* Pack.swift in Sources */,
 				8467A0791CE6018900B6E395 /* Optional.swift in Sources */,
 				8467A0881CE603D300B6E395 /* Base.swift in Sources */,
+				8467A09A1CE647AF00B6E395 /* Semigroup.swift in Sources */,
 				8467A0911CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8467A07C1CE6028900B6E395 /* Operators.swift in Sources */,
 				8467A08E1CE6045E00B6E395 /* Pointed.swift in Sources */,
@@ -433,6 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8467A0971CE60D9900B6E395 /* OptionalTypeSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +481,7 @@
 				8467A08C1CE6042100B6E395 /* Pack.swift in Sources */,
 				8467A07A1CE6018900B6E395 /* Optional.swift in Sources */,
 				8467A0891CE603D300B6E395 /* Base.swift in Sources */,
+				8467A09B1CE647AF00B6E395 /* Semigroup.swift in Sources */,
 				8467A0921CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8467A07D1CE6028900B6E395 /* Operators.swift in Sources */,
 				8467A08F1CE6045E00B6E395 /* Pointed.swift in Sources */,
@@ -457,6 +492,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8467A0981CE60D9900B6E395 /* OptionalTypeSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +644,7 @@
 		8467A02C1CE5FC4600B6E395 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -619,12 +656,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.335g.BassTests;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		8467A02D1CE5FC4600B6E395 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -686,6 +725,7 @@
 		8467A0481CE5FE2A00B6E395 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -700,12 +740,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Bass-iOSTests";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		8467A0491CE5FE2A00B6E395 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
