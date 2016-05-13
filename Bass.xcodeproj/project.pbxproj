@@ -31,6 +31,8 @@
 		8467A07D1CE6028900B6E395 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A07B1CE6028900B6E395 /* Operators.swift */; };
 		8467A07F1CE6033C00B6E395 /* Undefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A07E1CE6033C00B6E395 /* Undefined.swift */; };
 		8467A0801CE6033C00B6E395 /* Undefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A07E1CE6033C00B6E395 /* Undefined.swift */; };
+		8467A0821CE6037800B6E395 /* Flip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0811CE6037800B6E395 /* Flip.swift */; };
+		8467A0831CE6037800B6E395 /* Flip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0811CE6037800B6E395 /* Flip.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,7 @@
 		8467A0781CE6018900B6E395 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Functions/Optional.swift; sourceTree = "<group>"; };
 		8467A07B1CE6028900B6E395 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		8467A07E1CE6033C00B6E395 /* Undefined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Undefined.swift; path = Functions/Undefined.swift; sourceTree = "<group>"; };
+		8467A0811CE6037800B6E395 /* Flip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Flip.swift; path = Functions/Flip.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +215,7 @@
 				8467A0751CE6015A00B6E395 /* Curry.swift */,
 				8467A0781CE6018900B6E395 /* Optional.swift */,
 				8467A07E1CE6033C00B6E395 /* Undefined.swift */,
+				8467A0811CE6037800B6E395 /* Flip.swift */,
 			);
 			name = Functions;
 			sourceTree = "<group>";
@@ -394,6 +398,7 @@
 			files = (
 				8467A07F1CE6033C00B6E395 /* Undefined.swift in Sources */,
 				8467A0761CE6015A00B6E395 /* Curry.swift in Sources */,
+				8467A0821CE6037800B6E395 /* Flip.swift in Sources */,
 				8467A0791CE6018900B6E395 /* Optional.swift in Sources */,
 				8467A07C1CE6028900B6E395 /* Operators.swift in Sources */,
 			);
@@ -412,6 +417,7 @@
 			files = (
 				8467A0801CE6033C00B6E395 /* Undefined.swift in Sources */,
 				8467A0771CE6015A00B6E395 /* Curry.swift in Sources */,
+				8467A0831CE6037800B6E395 /* Flip.swift in Sources */,
 				8467A07A1CE6018900B6E395 /* Optional.swift in Sources */,
 				8467A07D1CE6028900B6E395 /* Operators.swift in Sources */,
 			);
