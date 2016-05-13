@@ -23,6 +23,8 @@
 		8467A06F1CE6009600B6E395 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8467A0691CE6009000B6E395 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8467A0701CE6009600B6E395 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8467A06A1CE6009000B6E395 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8467A0711CE6009600B6E395 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8467A06B1CE6009000B6E395 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8467A0761CE6015A00B6E395 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0751CE6015A00B6E395 /* Curry.swift */; };
+		8467A0771CE6015A00B6E395 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0751CE6015A00B6E395 /* Curry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,7 @@
 		8467A0691CE6009000B6E395 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		8467A06A1CE6009000B6E395 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		8467A06B1CE6009000B6E395 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/iOS/SwiftCheck.framework; sourceTree = "<group>"; };
+		8467A0751CE6015A00B6E395 /* Curry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Curry.swift; path = Functions/Curry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,9 @@
 			children = (
 				8467A0171CE5FC4600B6E395 /* Bass.h */,
 				8467A0191CE5FC4600B6E395 /* Info.plist */,
+				8467A0741CE600DD00B6E395 /* Functions */,
+				8467A0731CE600D800B6E395 /* Protocols */,
+				8467A0721CE600D200B6E395 /* Types */,
 			);
 			path = Bass;
 			sourceTree = "<group>";
@@ -174,6 +180,28 @@
 				8467A0621CE5FFA900B6E395 /* SwiftCheck.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8467A0721CE600D200B6E395 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Types;
+			sourceTree = "<group>";
+		};
+		8467A0731CE600D800B6E395 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		8467A0741CE600DD00B6E395 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				8467A0751CE6015A00B6E395 /* Curry.swift */,
+			);
+			name = Functions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8467A0761CE6015A00B6E395 /* Curry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +395,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8467A0771CE6015A00B6E395 /* Curry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +513,7 @@
 		8467A0291CE5FC4600B6E395 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -496,12 +527,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.335g.Bass;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		8467A02A1CE5FC4600B6E395 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -555,6 +588,7 @@
 		8467A0451CE5FE2A00B6E395 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -568,6 +602,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -575,6 +610,7 @@
 		8467A0461CE5FE2A00B6E395 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
