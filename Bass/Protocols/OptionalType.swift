@@ -26,3 +26,10 @@ public extension OptionalType {
 	}
 }
 
+public func <^> <A, OT: OptionalType>(@noescape f: OT.Wrapped throws -> A, optional: OT) rethrows -> A? {
+	return try optional.map(f)
+}
+
+public func >>- <A, OT: OptionalType>(optional: OT, @noescape f: OT.Wrapped throws -> A?) rethrows -> A? {
+	return try optional.flatMap(f)
+}
