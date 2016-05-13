@@ -381,6 +381,7 @@
 				8467A02A1CE5FC4600B6E395 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8467A02B1CE5FC4600B6E395 /* Build configuration list for PBXNativeTarget "BassTests" */ = {
 			isa = XCConfigurationList;
@@ -389,6 +390,7 @@
 				8467A02D1CE5FC4600B6E395 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
