@@ -2,11 +2,19 @@
 
 // MARK: - IdentityType
 
-public protocol IdentityType: Foldable {
+public protocol IdentityType: Pointed, Foldable {
 	associatedtype Value
 	
 	var value: Value { get }
 	init(_ value: Value)
+}
+
+// MARK: - IdentityType: Pointed
+
+public extension IdentityType {
+	public static func pure(a: Value) -> Self {
+		return Self.init(a)
+	}
 }
 
 // MARK: - IdentityType: Foldable
@@ -56,6 +64,8 @@ public extension IdentityType {
 // MARK: - Identity
 
 public final class Identity<T>: IdentityType {
+	public typealias PointedValue = T
+	
 	public let value: T
 	
 	public init(_ value: T) {
