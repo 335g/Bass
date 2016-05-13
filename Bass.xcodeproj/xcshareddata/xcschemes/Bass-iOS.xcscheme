@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8467A0131CE5FC4600B6E395"
-               BuildableName = "Bass.framework"
-               BlueprintName = "Bass"
+               BlueprintIdentifier = "8467A0321CE5FE2A00B6E395"
+               BuildableName = "Bass-iOS.framework"
+               BlueprintName = "Bass-iOS"
                ReferencedContainer = "container:Bass.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8467A01D1CE5FC4600B6E395"
-               BuildableName = "BassTests.xctest"
-               BlueprintName = "BassTests"
+               BlueprintIdentifier = "8467A03B1CE5FE2A00B6E395"
+               BuildableName = "Bass-iOSTests.xctest"
+               BlueprintName = "Bass-iOSTests"
                ReferencedContainer = "container:Bass.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8467A0131CE5FC4600B6E395"
-            BuildableName = "Bass.framework"
-            BlueprintName = "Bass"
+            BlueprintIdentifier = "8467A0321CE5FE2A00B6E395"
+            BuildableName = "Bass-iOS.framework"
+            BlueprintName = "Bass-iOS"
             ReferencedContainer = "container:Bass.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8467A0131CE5FC4600B6E395"
-            BuildableName = "Bass.framework"
-            BlueprintName = "Bass"
+            BlueprintIdentifier = "8467A0321CE5FE2A00B6E395"
+            BuildableName = "Bass-iOS.framework"
+            BlueprintName = "Bass-iOS"
             ReferencedContainer = "container:Bass.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8467A0131CE5FC4600B6E395"
-            BuildableName = "Bass.framework"
-            BlueprintName = "Bass"
+            BlueprintIdentifier = "8467A0321CE5FE2A00B6E395"
+            BuildableName = "Bass-iOS.framework"
+            BlueprintName = "Bass-iOS"
             ReferencedContainer = "container:Bass.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
