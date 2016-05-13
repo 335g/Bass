@@ -52,3 +52,13 @@ public extension IdentityType {
 		return [value]
 	}
 }
+
+// MARK: - Identity
+
+public final class Identity<T>: IdentityType {
+	public let value: T
+	
+	public init(_ value: T) {
+		self.value = value
+	}
+}
