@@ -1,0 +1,10 @@
+.DS_Store
+build
+xcuserdata
+*.mode*
+*.pbxuser
+*.xcuserdatad
+*.xccheckout
+
+Carthage/Build
+
