@@ -51,6 +51,8 @@
 		8467A0A11CE6485000B6E395 /* Monoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A09F1CE6485000B6E395 /* Monoid.swift */; };
 		8467A0A31CE648B500B6E395 /* Foldable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A21CE648B500B6E395 /* Foldable.swift */; };
 		8467A0A41CE648B500B6E395 /* Foldable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A21CE648B500B6E395 /* Foldable.swift */; };
+		8467A0A61CE64AD900B6E395 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A51CE64AD900B6E395 /* Identity.swift */; };
+		8467A0A71CE64AD900B6E395 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A51CE64AD900B6E395 /* Identity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +127,7 @@
 		8467A0991CE647AF00B6E395 /* Semigroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Semigroup.swift; path = Protocols/Semigroup.swift; sourceTree = "<group>"; };
 		8467A09F1CE6485000B6E395 /* Monoid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Monoid.swift; path = Protocols/Monoid.swift; sourceTree = "<group>"; };
 		8467A0A21CE648B500B6E395 /* Foldable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Foldable.swift; path = Protocols/Foldable.swift; sourceTree = "<group>"; };
+		8467A0A51CE64AD900B6E395 /* Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Identity.swift; path = Types/Identity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +231,7 @@
 		8467A0721CE600D200B6E395 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				8467A0A51CE64AD900B6E395 /* Identity.swift */,
 			);
 			name = Types;
 			sourceTree = "<group>";
@@ -236,10 +240,10 @@
 			isa = PBXGroup;
 			children = (
 				8467A08D1CE6045E00B6E395 /* Pointed.swift */,
-				8467A0901CE604AE00B6E395 /* OptionalType.swift */,
 				8467A0991CE647AF00B6E395 /* Semigroup.swift */,
 				8467A09F1CE6485000B6E395 /* Monoid.swift */,
 				8467A0A21CE648B500B6E395 /* Foldable.swift */,
+				8467A0901CE604AE00B6E395 /* OptionalType.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -469,6 +473,7 @@
 				8467A0A01CE6485000B6E395 /* Monoid.swift in Sources */,
 				8467A07C1CE6028900B6E395 /* Operators.swift in Sources */,
 				8467A08E1CE6045E00B6E395 /* Pointed.swift in Sources */,
+				8467A0A61CE64AD900B6E395 /* Identity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +502,7 @@
 				8467A0A11CE6485000B6E395 /* Monoid.swift in Sources */,
 				8467A07D1CE6028900B6E395 /* Operators.swift in Sources */,
 				8467A08F1CE6045E00B6E395 /* Pointed.swift in Sources */,
+				8467A0A71CE64AD900B6E395 /* Identity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
