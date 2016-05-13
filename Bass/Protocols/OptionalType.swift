@@ -33,3 +33,15 @@ public func <^> <A, OT: OptionalType>(@noescape f: OT.Wrapped throws -> A, optio
 public func >>- <A, OT: OptionalType>(optional: OT, @noescape f: OT.Wrapped throws -> A?) rethrows -> A? {
 	return try optional.flatMap(f)
 }
+
+// MARK: - OptionalType - ap
+
+public extension OptionalType {
+	public func ap<A, OT: OptionalType where OT.Wrapped == Wrapped -> A>(fn: OT) -> A? {
+		return fn >>- { f in self.map(f) }
+	}
+}
+
+public func <*> <A, B, OT1: OptionalType, OT2: OptionalType where OT1.Wrapped == A -> B, OT2.Wrapped == A>(fn: OT1, g: OT2) -> B? {
+	return g.ap(fn)
+}
