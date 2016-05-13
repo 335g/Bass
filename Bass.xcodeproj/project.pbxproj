@@ -35,6 +35,8 @@
 		8467A0831CE6037800B6E395 /* Flip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0811CE6037800B6E395 /* Flip.swift */; };
 		8467A0851CE6039C00B6E395 /* Fix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0841CE6039C00B6E395 /* Fix.swift */; };
 		8467A0861CE6039C00B6E395 /* Fix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0841CE6039C00B6E395 /* Fix.swift */; };
+		8467A0881CE603D300B6E395 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0871CE603D300B6E395 /* Base.swift */; };
+		8467A0891CE603D300B6E395 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0871CE603D300B6E395 /* Base.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,7 @@
 		8467A07E1CE6033C00B6E395 /* Undefined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Undefined.swift; path = Functions/Undefined.swift; sourceTree = "<group>"; };
 		8467A0811CE6037800B6E395 /* Flip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Flip.swift; path = Functions/Flip.swift; sourceTree = "<group>"; };
 		8467A0841CE6039C00B6E395 /* Fix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fix.swift; path = Functions/Fix.swift; sourceTree = "<group>"; };
+		8467A0871CE603D300B6E395 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base.swift; path = Functions/Base.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +223,7 @@
 				8467A07E1CE6033C00B6E395 /* Undefined.swift */,
 				8467A0811CE6037800B6E395 /* Flip.swift */,
 				8467A0841CE6039C00B6E395 /* Fix.swift */,
+				8467A0871CE603D300B6E395 /* Base.swift */,
 			);
 			name = Functions;
 			sourceTree = "<group>";
@@ -405,6 +409,7 @@
 				8467A0761CE6015A00B6E395 /* Curry.swift in Sources */,
 				8467A0821CE6037800B6E395 /* Flip.swift in Sources */,
 				8467A0791CE6018900B6E395 /* Optional.swift in Sources */,
+				8467A0881CE603D300B6E395 /* Base.swift in Sources */,
 				8467A07C1CE6028900B6E395 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,6 +430,7 @@
 				8467A0771CE6015A00B6E395 /* Curry.swift in Sources */,
 				8467A0831CE6037800B6E395 /* Flip.swift in Sources */,
 				8467A07A1CE6018900B6E395 /* Optional.swift in Sources */,
+				8467A0891CE603D300B6E395 /* Base.swift in Sources */,
 				8467A07D1CE6028900B6E395 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
