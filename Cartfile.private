@@ -1,4 +1,5 @@
 github "Quick/Quick"
 github "Quick/Nimble"
 github "typelift/SwiftCheck"
+github "typelift/Operadics"
 

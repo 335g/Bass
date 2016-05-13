@@ -27,6 +27,8 @@
 		8467A0771CE6015A00B6E395 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0751CE6015A00B6E395 /* Curry.swift */; };
 		8467A0791CE6018900B6E395 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0781CE6018900B6E395 /* Optional.swift */; };
 		8467A07A1CE6018900B6E395 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0781CE6018900B6E395 /* Optional.swift */; };
+		8467A07C1CE6028900B6E395 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A07B1CE6028900B6E395 /* Operators.swift */; };
+		8467A07D1CE6028900B6E395 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A07B1CE6028900B6E395 /* Operators.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,7 @@
 		8467A06B1CE6009000B6E395 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/iOS/SwiftCheck.framework; sourceTree = "<group>"; };
 		8467A0751CE6015A00B6E395 /* Curry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Curry.swift; path = Functions/Curry.swift; sourceTree = "<group>"; };
 		8467A0781CE6018900B6E395 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Functions/Optional.swift; sourceTree = "<group>"; };
+		8467A07B1CE6028900B6E395 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				8467A0171CE5FC4600B6E395 /* Bass.h */,
+				8467A07B1CE6028900B6E395 /* Operators.swift */,
 				8467A0191CE5FC4600B6E395 /* Info.plist */,
 				8467A0741CE600DD00B6E395 /* Functions */,
 				8467A0731CE600D800B6E395 /* Protocols */,
@@ -386,6 +390,7 @@
 			files = (
 				8467A0761CE6015A00B6E395 /* Curry.swift in Sources */,
 				8467A0791CE6018900B6E395 /* Optional.swift in Sources */,
+				8467A07C1CE6028900B6E395 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +407,7 @@
 			files = (
 				8467A0771CE6015A00B6E395 /* Curry.swift in Sources */,
 				8467A07A1CE6018900B6E395 /* Optional.swift in Sources */,
+				8467A07D1CE6028900B6E395 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
