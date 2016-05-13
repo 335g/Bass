@@ -25,6 +25,8 @@
 		8467A0711CE6009600B6E395 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8467A06B1CE6009000B6E395 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8467A0761CE6015A00B6E395 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0751CE6015A00B6E395 /* Curry.swift */; };
 		8467A0771CE6015A00B6E395 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0751CE6015A00B6E395 /* Curry.swift */; };
+		8467A0791CE6018900B6E395 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0781CE6018900B6E395 /* Optional.swift */; };
+		8467A07A1CE6018900B6E395 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0781CE6018900B6E395 /* Optional.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,7 @@
 		8467A06A1CE6009000B6E395 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		8467A06B1CE6009000B6E395 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/iOS/SwiftCheck.framework; sourceTree = "<group>"; };
 		8467A0751CE6015A00B6E395 /* Curry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Curry.swift; path = Functions/Curry.swift; sourceTree = "<group>"; };
+		8467A0781CE6018900B6E395 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optional.swift; path = Functions/Optional.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				8467A0751CE6015A00B6E395 /* Curry.swift */,
+				8467A0781CE6018900B6E395 /* Optional.swift */,
 			);
 			name = Functions;
 			sourceTree = "<group>";
@@ -381,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8467A0761CE6015A00B6E395 /* Curry.swift in Sources */,
+				8467A0791CE6018900B6E395 /* Optional.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8467A0771CE6015A00B6E395 /* Curry.swift in Sources */,
+				8467A07A1CE6018900B6E395 /* Optional.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
