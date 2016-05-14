@@ -143,7 +143,7 @@ public func <*> <M: Monoid, T1, T2, WT1: WriterType, WT2: WriterType where WT1.O
 	return g.ap(fn)
 }
 
-// MARK: - WriterType - Kleisli
+// MARK: - Writer - Kleisli
 
 public func >>->> <W: Monoid, A, B, C>(left: A -> Writer<W, B, (B, W)>, right: B -> Writer<W, C, (C, W)>) -> A -> Writer<W, C, (C, W)> {
 	return { left($0) >>- right }

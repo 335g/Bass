@@ -128,6 +128,16 @@ public func <*> <S, R1, R2, ST1: StateType, ST2: StateType where ST1.StateS == S
 	return g.ap(fn)
 }
 
+// MAKR: - State - Kleisli
+
+public func >>->> <S, A, B, C>(left: A -> State<S, B, (B, S)>, right: B -> State<S, C, (C, S)>) -> A -> State<S, C, (C, S)> {
+	return { left($0) >>- right }
+}
+
+public func <<-<< <S, A, B, C>(left: B -> State<S, C, (C, S)>, right: A -> State<S, B, (B, S)>) -> A -> State<S, C, (C, S)> {
+	return right >>->> left
+}
+
 // MARK: - State
 
 public struct State<S, A, V> {

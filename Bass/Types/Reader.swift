@@ -92,7 +92,7 @@ public func <*> <R, A: OptionalType, B, RT1: ReaderType, RT2: ReaderType where R
 	return g.ap(fn)
 }
 
-// MARK: - ReaderType - Kleisli
+// MARK: - Reader - Kleisli
 
 public func >>->> <R, A, B, C>(left: A -> Reader<R, B>, right: B -> Reader<R, C>) -> A -> Reader<R, C> {
 	return { left($0) >>- right }
