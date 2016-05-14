@@ -30,7 +30,7 @@ public extension ReaderType {
 	}
 }
 
-// MARK: - ReaderType - map/flatMap
+// MARK: - ReaderType - map/flatMap/ap
 
 public extension ReaderType {
 	public func map<Value2>(f: ValueR -> Value2) -> Reader<EnvR, Value2> {
@@ -39,6 +39,10 @@ public extension ReaderType {
 	
 	public func flatMap<Value2>(fn: ValueR -> Reader<EnvR, Value2>) -> Reader<EnvR, Value2> {
 		return Reader { fn(self.run($0)).run($0) }
+	}
+	
+	public func ap<A, RT: ReaderType where RT.EnvR == EnvR, RT.ValueR == ValueR -> A>(fn: RT) -> Reader<EnvR, A> {
+		return self >>- { m in fn >>- { f in .pure(f(m)) } }
 	}
 }
 
@@ -52,7 +56,12 @@ public func >>- <R, A, B, RT: ReaderType where RT.EnvR == R, RT.ValueR == A>(m: 
 	return m.flatMap(fn)
 }
 
-// MARK: - ReaderType (ValueR: OptionalType) - map/flatMap
+/// Alias for `ap(fn:)`
+public func <*> <R, A, B, RT1: ReaderType, RT2: ReaderType where RT1.EnvR == R, RT1.ValueR == A -> B, RT2.EnvR == R, RT2.ValueR == A>(fn: RT1, g: RT2) -> Reader<R, B> {
+	return g.ap(fn)
+}
+
+// MARK: - ReaderType (ValueR: OptionalType) - map/flatMap/ap
 
 public extension ReaderType where ValueR: OptionalType {
 	public func map<Value2>(f: ValueR.Wrapped -> Value2) -> Reader<EnvR, Value2?> {
@@ -61,6 +70,10 @@ public extension ReaderType where ValueR: OptionalType {
 	
 	public func flatMap<Value2>(fn: ValueR.Wrapped -> Reader<EnvR, Value2>) -> Reader<EnvR, Value2?> {
 		return Reader { (self.run($0) >>- fn)?.run($0) }
+	}
+	
+	public func ap<A, RT: ReaderType where RT.EnvR == EnvR, RT.ValueR == ValueR.Wrapped -> A>(fn: RT) -> Reader<EnvR, A?> {
+		return self >>- { m in fn >>- { f in .pure(f(m)) } }
 	}
 }
 
@@ -72,27 +85,6 @@ public func <^> <R, A: OptionalType, B, RT: ReaderType where RT.EnvR == R, RT.Va
 /// Alias for `flatMap(fn:)`
 public func >>- <R, A: OptionalType, B, RT: ReaderType where RT.EnvR == R, RT.ValueR == A>(m: RT, fn: A.Wrapped -> Reader<R, B>) -> Reader<R, B?> {
 	return m.flatMap(fn)
-}
-
-// MARK: - ReaderType - ap
-
-public extension ReaderType {
-	public func ap<A, RT: ReaderType where RT.EnvR == EnvR, RT.ValueR == ValueR -> A>(fn: RT) -> Reader<EnvR, A> {
-		return self >>- { m in fn >>- { f in .pure(f(m)) } }
-	}
-}
-
-/// Alias for `ap(fn:)`
-public func <*> <R, A, B, RT1: ReaderType, RT2: ReaderType where RT1.EnvR == R, RT1.ValueR == A -> B, RT2.EnvR == R, RT2.ValueR == A>(fn: RT1, g: RT2) -> Reader<R, B> {
-	return g.ap(fn)
-}
-
-// MARK: - ReaderType (ValueR: OptionalType) - ap
-
-public extension ReaderType where ValueR: OptionalType {
-	public func ap<A, RT: ReaderType where RT.EnvR == EnvR, RT.ValueR == ValueR.Wrapped -> A>(fn: RT) -> Reader<EnvR, A?> {
-		return self >>- { m in fn >>- { f in .pure(f(m)) } }
-	}
 }
 
 /// Alias for `ap(fn:)`
