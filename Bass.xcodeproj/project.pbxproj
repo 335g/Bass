@@ -57,6 +57,8 @@
 		8467A0AA1CE6574300B6E395 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A81CE6574300B6E395 /* Reader.swift */; };
 		8467A0B01CE6CA8400B6E395 /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0AF1CE6CA8400B6E395 /* SequenceType.swift */; };
 		8467A0B11CE6CA8400B6E395 /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0AF1CE6CA8400B6E395 /* SequenceType.swift */; };
+		8467A0B31CE6F5B500B6E395 /* Writer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0B21CE6F5B500B6E395 /* Writer.swift */; };
+		8467A0B41CE6F5B500B6E395 /* Writer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0B21CE6F5B500B6E395 /* Writer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +136,7 @@
 		8467A0A51CE64AD900B6E395 /* Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Identity.swift; path = Types/Identity.swift; sourceTree = "<group>"; };
 		8467A0A81CE6574300B6E395 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reader.swift; path = Types/Reader.swift; sourceTree = "<group>"; };
 		8467A0AF1CE6CA8400B6E395 /* SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceType.swift; path = Extensions/SequenceType.swift; sourceTree = "<group>"; };
+		8467A0B21CE6F5B500B6E395 /* Writer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Writer.swift; path = Types/Writer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +243,7 @@
 			children = (
 				8467A0A51CE64AD900B6E395 /* Identity.swift */,
 				8467A0A81CE6574300B6E395 /* Reader.swift */,
+				8467A0B21CE6F5B500B6E395 /* Writer.swift */,
 			);
 			name = Types;
 			sourceTree = "<group>";
@@ -488,6 +492,7 @@
 				8467A0911CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8467A0A31CE648B500B6E395 /* Foldable.swift in Sources */,
 				8467A0A01CE6485000B6E395 /* Monoid.swift in Sources */,
+				8467A0B31CE6F5B500B6E395 /* Writer.swift in Sources */,
 				8467A07C1CE6028900B6E395 /* Operators.swift in Sources */,
 				8467A0A91CE6574300B6E395 /* Reader.swift in Sources */,
 				8467A08E1CE6045E00B6E395 /* Pointed.swift in Sources */,
@@ -519,6 +524,7 @@
 				8467A0921CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8467A0A41CE648B500B6E395 /* Foldable.swift in Sources */,
 				8467A0A11CE6485000B6E395 /* Monoid.swift in Sources */,
+				8467A0B41CE6F5B500B6E395 /* Writer.swift in Sources */,
 				8467A07D1CE6028900B6E395 /* Operators.swift in Sources */,
 				8467A0AA1CE6574300B6E395 /* Reader.swift in Sources */,
 				8467A08F1CE6045E00B6E395 /* Pointed.swift in Sources */,

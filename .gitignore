@@ -7,4 +7,5 @@ xcuserdata
 *.xccheckout
 
 Carthage/Build
+dev.playground
 
