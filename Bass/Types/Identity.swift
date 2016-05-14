@@ -7,6 +7,8 @@ public protocol IdentityType: Pointed, Foldable {
 	
 	var value: Value { get }
 	init(_ value: Value)
+	
+	var identity: Identity<Value> { get }
 }
 
 // MARK: - IdentityType: Pointed
@@ -127,11 +129,19 @@ public func <*> <T: OptionalType, U, IT1: IdentityType, IT2: IdentityType where 
 
 // MARK: - Identity
 
-public struct Identity<T>: IdentityType {
+public struct Identity<T> {
 	public let value: T
-	
+}
+
+// MARK: - Identity: IdentityType
+
+extension Identity: IdentityType {
 	public init(_ value: T) {
 		self.value = value
+	}
+	
+	public var identity: Identity<T> {
+		return self
 	}
 }
 
