@@ -103,7 +103,7 @@ public func <*> <M: Monoid, T1, T2, WT1: WriterType, WT2: WriterType where WT1.O
 	return g.ap(fn)
 }
 
-// MARK: - WriterType (Values: OptionalType) - map/flatMap
+// MARK: - WriterType (Values: OptionalType) - map/flatMap/ap
 
 public extension WriterType where ValuesW == (ResultW, OutputW)? {
 	public func map<Result2, Output2: Monoid>(f: (ResultW, OutputW) -> (Result2, Output2)) -> Writer<Output2, Result2, (Result2, Output2)?> {

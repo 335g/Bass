@@ -50,7 +50,6 @@ public extension StateType where ValuesS == (ResultS, StateS) {
 // MARK: - StateType - map/flatMap
 
 public extension StateType where ValuesS == (ResultS, StateS) {
-	
 	public func map<Result2>(f: (ResultS, StateS) -> (Result2, StateS)) -> State<StateS, Result2, (Result2, StateS)> {
 		return State {
 			let (r, s) = self.run($0).value
@@ -68,14 +67,25 @@ public extension StateType where ValuesS == (ResultS, StateS) {
 			self.run(s).map { g($0).run($1).value }
 		}
 	}
+	
+	public func ap<Result2, ST: StateType where ST.StateS == StateS, ST.ResultS == ResultS -> Result2, ST.ValuesS == (ResultS -> Result2, StateS)>(fn: ST) -> State<StateS, Result2, (Result2, StateS)> {
+		return self >>- { m in fn >>- { f in .pure(f(m)) }}
+	}
 }
 
+/// Alias for `map(f:)`
 public func <^> <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)>(f: R1 -> R2, state: ST) -> State<S, R2, (R2, S)> {
 	return state.map(f)
 }
 
+/// Alias for `flatMap(g:)`
 public func >>- <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)>(state: ST, f: R1 -> State<S, R2, (R2, S)>) -> State<S, R2, (R2, S)> {
 	return state.flatMap(f)
+}
+
+/// Alias for `ap(fn:)`
+public func <*> <S, R1, R2, ST1: StateType, ST2: StateType where ST1.StateS == S, ST1.ResultS == R1 -> R2, ST1.ValuesS == (R1 -> R2, S), ST2.StateS == S, ST2.ResultS == R1, ST2.ValuesS == (R1, S)>(fn: ST1, g: ST2) -> State<S, R2, (R2, S)> {
+	return g.ap(fn)
 }
 
 // MARK: - StateType (ValuesS: OptionalType) - map/flatMap
@@ -97,14 +107,25 @@ public extension StateType where ValuesS == (ResultS, StateS)? {
 			self.run(s).map { g($0).run($1).value }
 		}
 	}
+	
+	public func ap<Result2, ST: StateType where ST.StateS == StateS, ST.ResultS == ResultS -> Result2, ST.ValuesS == (ResultS -> Result2, StateS)>(fn: ST) -> State<StateS, Result2, (Result2, StateS)?> {
+		return self >>- { m in fn >>- { f in .pure(f(m)) }}
+	}
 }
 
+/// Alias for `map(f:)`
 public func <^> <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)?>(f: R1 -> R2, state: ST) -> State<S, R2, (R2, S)?> {
 	return state.map(f)
 }
 
+/// Alias for `flatMap(g:)`
 public func >>- <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)?>(state: ST, f: R1 -> State<S, R2, (R2, S)>) -> State<S, R2, (R2, S)?> {
 	return state.flatMap(f)
+}
+
+/// Alias for `ap(fn:)`
+public func <*> <S, R1, R2, ST1: StateType, ST2: StateType where ST1.StateS == S, ST1.ResultS == R1 -> R2, ST1.ValuesS == (R1 -> R2, S), ST2.StateS == S, ST2.ResultS == R1, ST2.ValuesS == (R1, S)?>(fn: ST1, g: ST2) -> State<S, R2, (R2, S)?> {
+	return g.ap(fn)
 }
 
 // MARK: - State
