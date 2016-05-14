@@ -70,17 +70,19 @@ public extension IdentityType {
 		return Identity(f(self.value))
 	}
 	
-	public func flatMap<U>(f: Value -> Identity<U>) -> Identity<U> {
-		return f(self.value)
+	public func flatMap<U>(fn: Value -> Identity<U>) -> Identity<U> {
+		return fn(self.value)
 	}
 }
 
-public func <^> <U, IT: IdentityType>(f: IT.Value -> U, id: IT) -> Identity<U> {
-	return id.map(f)
+/// Alias for `map(f:)`
+public func <^> <U, IT: IdentityType>(f: IT.Value -> U, g: IT) -> Identity<U> {
+	return g.map(f)
 }
 
-public func >>- <U, IT: IdentityType>(id: IT, f: IT.Value -> Identity<U>) -> Identity<U> {
-	return id.flatMap(f)
+/// Alias for `flatMap(fn:)`
+public func >>- <U, IT: IdentityType>(m: IT, fn: IT.Value -> Identity<U>) -> Identity<U> {
+	return m.flatMap(fn)
 }
 
 // MARK: - IdentityType (Value: OptionalType) - map/flatMap
@@ -90,41 +92,45 @@ public extension IdentityType where Value: OptionalType {
 		return Identity(f <^> self.value)
 	}
 	
-	public func flatMap<U>(f: Value.Wrapped -> Identity<U>) -> Identity<U?> {
-		return Identity( (self.value >>- f)?.value )
+	public func flatMap<U>(fn: Value.Wrapped -> Identity<U>) -> Identity<U?> {
+		return Identity( (self.value >>- fn)?.value )
 	}
 }
 
-public func <^> <U, IT: IdentityType where IT.Value: OptionalType>(f: IT.Value.Wrapped -> U, id: IT) -> Identity<U?> {
-	return id.map(f)
+/// Alias for `map(f:)`
+public func <^> <U, IT: IdentityType where IT.Value: OptionalType>(f: IT.Value.Wrapped -> U, g: IT) -> Identity<U?> {
+	return g.map(f)
 }
 
-public func >>- <U, IT: IdentityType where IT.Value: OptionalType>(id: IT, f: IT.Value.Wrapped -> Identity<U>) -> Identity<U?> {
-	return id.flatMap(f)
+/// Alias for `flatMap(fn:)`
+public func >>- <U, IT: IdentityType where IT.Value: OptionalType>(m: IT, fn: IT.Value.Wrapped -> Identity<U>) -> Identity<U?> {
+	return m.flatMap(fn)
 }
 
 // MARK: - IdentityType - ap
 
 public extension IdentityType {
-	public func ap<T, IT: IdentityType where IT.Value == Value -> T>(id: IT) -> Identity<T> {
-		return .pure(id.value(self.value))
+	public func ap<T, IT: IdentityType where IT.Value == Value -> T>(fn: IT) -> Identity<T> {
+		return .pure(fn.value(self.value))
 	}
 }
 
-public func <*> <T, U, IT1: IdentityType, IT2: IdentityType where IT1.Value == T -> U, IT2.Value == T>(left: IT1, right: IT2) -> Identity<U> {
-	return right.ap(left)
+/// Alias for `ap(fn:)`
+public func <*> <T, U, IT1: IdentityType, IT2: IdentityType where IT1.Value == T -> U, IT2.Value == T>(fn: IT1, g: IT2) -> Identity<U> {
+	return g.ap(fn)
 }
 
 // MARK: - IdentityType (Value: OptionalType) - ap
 
 public extension IdentityType where Value: OptionalType {
-	public func ap<T, IT: IdentityType where IT.Value == Value.Wrapped -> T>(id: IT) -> Identity<T?> {
-		return .pure(id.value <^> self.value)
+	public func ap<T, IT: IdentityType where IT.Value == Value.Wrapped -> T>(fn: IT) -> Identity<T?> {
+		return .pure(fn.value <^> self.value)
 	}
 }
 
-public func <*> <T: OptionalType, U, IT1: IdentityType, IT2: IdentityType where IT1.Value == T.Wrapped -> U, IT2.Value == T>(left: IT1, right: IT2) -> Identity<U?> {
-	return right.ap(left)
+/// Alias for `ap(fn:)`
+public func <*> <T: OptionalType, U, IT1: IdentityType, IT2: IdentityType where IT1.Value == T.Wrapped -> U, IT2.Value == T>(fn: IT1, g: IT2) -> Identity<U?> {
+	return g.ap(fn)
 }
 
 // MARK: - Identity
