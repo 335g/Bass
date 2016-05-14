@@ -186,3 +186,10 @@ extension Writer: WriterType {
 public extension Writer {
 	public typealias PointedValue = T
 }
+
+// MARK: - Functions
+
+/// `tell(output:)` is an action that produces the `output`.
+public func tell<M: Monoid>(output: M) -> Writer<M, (), ((), M)> {
+	return Writer( Identity((), output) )
+}
