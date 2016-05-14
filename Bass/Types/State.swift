@@ -17,12 +17,9 @@ public extension StateType {
 	public typealias PointedValue = ResultS
 	
 	public static func pure(a: ResultS) -> Self {
-		let values: StateS -> Identity<ValuesS> = {
-			let values = (a, $0) as! ValuesS
-			return Identity(values)
+		return Self.init {
+			Identity((a, $0) as! ValuesS)
 		}
-		
-		return Self.init(values)
 	}
 }
 
@@ -44,7 +41,9 @@ public extension StateType where ValuesS == (ResultS, StateS) {
 	
 	/// `with(f:)` executes action on a state modified by applying `f`.
 	public func with(f: StateS -> StateS) -> Self {
-		return Self.init{ self.run(f($0)) }
+		return Self.init {
+			self.run(f($0))
+		}
 	}
 }
 
@@ -55,6 +54,7 @@ public extension StateType where ValuesS == (ResultS, StateS) {
 	public func map<Result2>(f: (ResultS, StateS) -> (Result2, StateS)) -> State<StateS, Result2, (Result2, StateS)> {
 		return State {
 			let (r, s) = self.run($0).value
+			
 			return Identity(f(r, s))
 		}
 	}
@@ -84,7 +84,7 @@ public extension StateType where ValuesS == (ResultS, StateS)? {
 	
 	public func map<Result2>(f: (ResultS, StateS) -> (Result2, StateS)) -> State<StateS, Result2, (Result2, StateS)?> {
 		return State {
-			return Identity(f <^> self.run($0).value)
+			Identity(f <^> self.run($0).value)
 		}
 	}
 	
@@ -135,23 +135,31 @@ public extension State {
 
 /// Fetch the current value of the state within the monad.
 public func get<S>() -> State<S, S, (S, S)> {
-	return State { Identity($0, $0) }
+	return State {
+		Identity($0, $0)
+	}
 }
 
 /// `put(state:)` sets the state within the monad to `s`
 public func put<S>(state: S) -> State<S, (), ((), S)> {
-	return State { _ in Identity((), state) }
+	return State { _ in
+		Identity((), state)
+	}
 }
 
 /// Get a specific component of the state, using a projection function supplied.
 public func gets<S, A>(f: S -> A) -> State<S, A, (A, S)> {
-	return State { Identity(f($0), $0) }
+	return State {
+		Identity(f($0), $0)
+	}
 }
 
 /// `modify(f:)` is an action that updates the state to the result of applying `f`
 /// to the current state.
 public func modify<S>(f: S -> S) -> State<S, (), ((), S)> {
-	return State { Identity((), f($0)) }
+	return State {
+		Identity((), f($0))
+	}
 }
 
 /// A variant of `modify(f:)` in which the computation is strict in the new state.
