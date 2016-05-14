@@ -1,4 +1,4 @@
-//  Copyright © 2016年 Yoshiki Kudo. All rights reserved.
+//  Copyright © 2016 Yoshiki Kudo. All rights reserved.
 
 // MARK: - StateType
 

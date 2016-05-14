@@ -18,7 +18,7 @@ extension Int: Monoid {
 	}
 }
 
-let a: Writer<Int, Int, (Int, Int)> = .pure(0)
-"a"
-
-
+let a: [Int] = []
+let b: [Int] = [0,0]
+let c: [Int] = []
+(a <> b) <> c == a <> (b <> c)

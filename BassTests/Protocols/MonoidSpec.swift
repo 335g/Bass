@@ -1,35 +1,25 @@
-//
-//  MonoidSpec.swift
-//  Bass
-//
-//  Created by Yoshiki Kudo on 2016/05/14.
-//  Copyright © 2016年 Yoshiki Kudo. All rights reserved.
-//
+//  Copyright © 2016 Yoshiki Kudo. All rights reserved.
 
 import XCTest
+import SwiftCheck
+@testable import Bass
 
 class MonoidSpec: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+	func testProperties(){
+		property("left identity") <- forAll { (i: ArrayOf<Int>) in
+			return (.mempty <> i.getArray) == i.getArray
+		}
+		
+		property("right identity") <- forAll { (i: ArrayOf<Int>) in
+			return (i.getArray <> .mempty) == i.getArray
+		}
+		
+		property("associativity") <- forAll { (i: ArrayOf<Int>, j: ArrayOf<Int>, k: ArrayOf<Int>) in
+			let i2 = i.getArray
+			let j2 = j.getArray
+			let k2 = k.getArray
+			
+			return (i2 <> j2) <> k2 == i2 <> (j2 <> k2)
+		}
+	}
 }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8402079D1CE744380029F7E1 /* MonoidSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */; };
+		84563F1D1CE7395A005D41B7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1C1CE7395A005D41B7 /* Array.swift */; };
+		84563F1E1CE7395A005D41B7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1C1CE7395A005D41B7 /* Array.swift */; };
+		84563F211CE73CE0005D41B7 /* MonoidSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */; };
 		8467A0181CE5FC4600B6E395 /* Bass.h in Headers */ = {isa = PBXBuildFile; fileRef = 8467A0171CE5FC4600B6E395 /* Bass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8467A01F1CE5FC4600B6E395 /* Bass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8467A0141CE5FC4600B6E395 /* Bass.framework */; };
 		8467A03D1CE5FE2A00B6E395 /* Bass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8467A0331CE5FE2A00B6E395 /* Bass.framework */; };
@@ -43,8 +47,6 @@
 		8467A08F1CE6045E00B6E395 /* Pointed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A08D1CE6045E00B6E395 /* Pointed.swift */; };
 		8467A0911CE604AE00B6E395 /* OptionalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0901CE604AE00B6E395 /* OptionalType.swift */; };
 		8467A0921CE604AE00B6E395 /* OptionalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0901CE604AE00B6E395 /* OptionalType.swift */; };
-		8467A0971CE60D9900B6E395 /* OptionalTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0961CE60D9900B6E395 /* OptionalTypeSpec.swift */; };
-		8467A0981CE60D9900B6E395 /* OptionalTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0961CE60D9900B6E395 /* OptionalTypeSpec.swift */; };
 		8467A09A1CE647AF00B6E395 /* Semigroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0991CE647AF00B6E395 /* Semigroup.swift */; };
 		8467A09B1CE647AF00B6E395 /* Semigroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0991CE647AF00B6E395 /* Semigroup.swift */; };
 		8467A0A01CE6485000B6E395 /* Monoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A09F1CE6485000B6E395 /* Monoid.swift */; };
@@ -108,13 +110,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		84563F1C1CE7395A005D41B7 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Extensions/Array.swift; sourceTree = "<group>"; };
+		84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonoidSpec.swift; path = Protocols/MonoidSpec.swift; sourceTree = "<group>"; };
 		8467A0141CE5FC4600B6E395 /* Bass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8467A0171CE5FC4600B6E395 /* Bass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bass.h; sourceTree = "<group>"; };
 		8467A0191CE5FC4600B6E395 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8467A01E1CE5FC4600B6E395 /* Bass.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Bass.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8467A01E1CE5FC4600B6E395 /* Bass-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bass-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8467A0251CE5FC4600B6E395 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8467A0331CE5FE2A00B6E395 /* Bass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8467A03C1CE5FE2A00B6E395 /* Bass.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Bass.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8467A03C1CE5FE2A00B6E395 /* Bass-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bass-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8467A0601CE5FFA900B6E395 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
 		8467A0611CE5FFA900B6E395 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		8467A0621CE5FFA900B6E395 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/Mac/SwiftCheck.framework; sourceTree = "<group>"; };
@@ -131,7 +135,6 @@
 		8467A08A1CE6042100B6E395 /* Pack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pack.swift; path = Functions/Pack.swift; sourceTree = "<group>"; };
 		8467A08D1CE6045E00B6E395 /* Pointed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pointed.swift; path = Protocols/Pointed.swift; sourceTree = "<group>"; };
 		8467A0901CE604AE00B6E395 /* OptionalType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionalType.swift; path = Protocols/OptionalType.swift; sourceTree = "<group>"; };
-		8467A0961CE60D9900B6E395 /* OptionalTypeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionalTypeSpec.swift; path = Protocols/OptionalTypeSpec.swift; sourceTree = "<group>"; };
 		8467A0991CE647AF00B6E395 /* Semigroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Semigroup.swift; path = Protocols/Semigroup.swift; sourceTree = "<group>"; };
 		8467A09F1CE6485000B6E395 /* Monoid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Monoid.swift; path = Protocols/Monoid.swift; sourceTree = "<group>"; };
 		8467A0A21CE648B500B6E395 /* Foldable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Foldable.swift; path = Protocols/Foldable.swift; sourceTree = "<group>"; };
@@ -196,9 +199,9 @@
 			isa = PBXGroup;
 			children = (
 				8467A0141CE5FC4600B6E395 /* Bass.framework */,
-				8467A01E1CE5FC4600B6E395 /* Bass.xctest */,
+				8467A01E1CE5FC4600B6E395 /* Bass-MacTests.xctest */,
 				8467A0331CE5FE2A00B6E395 /* Bass.framework */,
-				8467A03C1CE5FE2A00B6E395 /* Bass.xctest */,
+				8467A03C1CE5FE2A00B6E395 /* Bass-iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -281,7 +284,7 @@
 		8467A0931CE60D6000B6E395 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				8467A0961CE60D9900B6E395 /* OptionalTypeSpec.swift */,
+				84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				8467A0AF1CE6CA8400B6E395 /* SequenceType.swift */,
+				84563F1C1CE7395A005D41B7 /* Array.swift */,
 			);
 			name = Extenstions;
 			sourceTree = "<group>";
@@ -364,7 +368,7 @@
 			);
 			name = "Bass-MacTests";
 			productName = BassTests;
-			productReference = 8467A01E1CE5FC4600B6E395 /* Bass.xctest */;
+			productReference = 8467A01E1CE5FC4600B6E395 /* Bass-MacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		8467A0321CE5FE2A00B6E395 /* Bass-iOS */ = {
@@ -401,7 +405,7 @@
 			);
 			name = "Bass-iOSTests";
 			productName = "Bass-iOSTests";
-			productReference = 8467A03C1CE5FE2A00B6E395 /* Bass.xctest */;
+			productReference = 8467A03C1CE5FE2A00B6E395 /* Bass-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -493,6 +497,7 @@
 				8467A0791CE6018900B6E395 /* Optional.swift in Sources */,
 				8467A0881CE603D300B6E395 /* Base.swift in Sources */,
 				8467A09A1CE647AF00B6E395 /* Semigroup.swift in Sources */,
+				84563F1D1CE7395A005D41B7 /* Array.swift in Sources */,
 				8467A0B01CE6CA8400B6E395 /* SequenceType.swift in Sources */,
 				8467A0911CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8467A0A31CE648B500B6E395 /* Foldable.swift in Sources */,
@@ -509,7 +514,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8467A0971CE60D9900B6E395 /* OptionalTypeSpec.swift in Sources */,
+				8402079D1CE744380029F7E1 /* MonoidSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +531,7 @@
 				8467A07A1CE6018900B6E395 /* Optional.swift in Sources */,
 				8467A0891CE603D300B6E395 /* Base.swift in Sources */,
 				8467A09B1CE647AF00B6E395 /* Semigroup.swift in Sources */,
+				84563F1E1CE7395A005D41B7 /* Array.swift in Sources */,
 				8467A0B11CE6CA8400B6E395 /* SequenceType.swift in Sources */,
 				8467A0921CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8467A0A41CE648B500B6E395 /* Foldable.swift in Sources */,
@@ -542,7 +548,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8467A0981CE60D9900B6E395 /* OptionalTypeSpec.swift in Sources */,
+				84563F211CE73CE0005D41B7 /* MonoidSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,7 +711,7 @@
 				INFOPLIST_FILE = BassTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.335g.BassTests;
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -724,7 +730,7 @@
 				INFOPLIST_FILE = BassTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.335g.BassTests;
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -788,7 +794,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Bass-iOSTests";
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -810,7 +816,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Bass-iOSTests";
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -853,6 +859,7 @@
 				8467A0461CE5FE2A00B6E395 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8467A0471CE5FE2A00B6E395 /* Build configuration list for PBXNativeTarget "Bass-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -861,6 +868,7 @@
 				8467A0491CE5FE2A00B6E395 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
