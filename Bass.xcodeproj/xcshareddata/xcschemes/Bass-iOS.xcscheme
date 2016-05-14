@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8467A0321CE5FE2A00B6E395"
-               BuildableName = "Bass-iOS.framework"
+               BuildableName = "Bass.framework"
                BlueprintName = "Bass-iOS"
                ReferencedContainer = "container:Bass.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8467A03B1CE5FE2A00B6E395"
-               BuildableName = "Bass-iOSTests.xctest"
+               BuildableName = "Bass.xctest"
                BlueprintName = "Bass-iOSTests"
                ReferencedContainer = "container:Bass.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8467A0321CE5FE2A00B6E395"
-            BuildableName = "Bass-iOS.framework"
+            BuildableName = "Bass.framework"
             BlueprintName = "Bass-iOS"
             ReferencedContainer = "container:Bass.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8467A0321CE5FE2A00B6E395"
-            BuildableName = "Bass-iOS.framework"
+            BuildableName = "Bass.framework"
             BlueprintName = "Bass-iOS"
             ReferencedContainer = "container:Bass.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8467A0321CE5FE2A00B6E395"
-            BuildableName = "Bass-iOS.framework"
+            BuildableName = "Bass.framework"
             BlueprintName = "Bass-iOS"
             ReferencedContainer = "container:Bass.xcodeproj">
          </BuildableReference>
