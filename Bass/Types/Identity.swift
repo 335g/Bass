@@ -63,7 +63,7 @@ public extension IdentityType {
 
 // MARK: - Identity
 
-public final class Identity<T>: IdentityType {
+public struct Identity<T>: IdentityType {
 	public typealias PointedValue = T
 	
 	public let value: T

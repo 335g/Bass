@@ -53,6 +53,8 @@
 		8467A0A41CE648B500B6E395 /* Foldable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A21CE648B500B6E395 /* Foldable.swift */; };
 		8467A0A61CE64AD900B6E395 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A51CE64AD900B6E395 /* Identity.swift */; };
 		8467A0A71CE64AD900B6E395 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A51CE64AD900B6E395 /* Identity.swift */; };
+		8467A0A91CE6574300B6E395 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A81CE6574300B6E395 /* Reader.swift */; };
+		8467A0AA1CE6574300B6E395 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0A81CE6574300B6E395 /* Reader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +130,7 @@
 		8467A09F1CE6485000B6E395 /* Monoid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Monoid.swift; path = Protocols/Monoid.swift; sourceTree = "<group>"; };
 		8467A0A21CE648B500B6E395 /* Foldable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Foldable.swift; path = Protocols/Foldable.swift; sourceTree = "<group>"; };
 		8467A0A51CE64AD900B6E395 /* Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Identity.swift; path = Types/Identity.swift; sourceTree = "<group>"; };
+		8467A0A81CE6574300B6E395 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reader.swift; path = Types/Reader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				8467A0A51CE64AD900B6E395 /* Identity.swift */,
+				8467A0A81CE6574300B6E395 /* Reader.swift */,
 			);
 			name = Types;
 			sourceTree = "<group>";
@@ -472,6 +476,7 @@
 				8467A0A31CE648B500B6E395 /* Foldable.swift in Sources */,
 				8467A0A01CE6485000B6E395 /* Monoid.swift in Sources */,
 				8467A07C1CE6028900B6E395 /* Operators.swift in Sources */,
+				8467A0A91CE6574300B6E395 /* Reader.swift in Sources */,
 				8467A08E1CE6045E00B6E395 /* Pointed.swift in Sources */,
 				8467A0A61CE64AD900B6E395 /* Identity.swift in Sources */,
 			);
@@ -501,6 +506,7 @@
 				8467A0A41CE648B500B6E395 /* Foldable.swift in Sources */,
 				8467A0A11CE6485000B6E395 /* Monoid.swift in Sources */,
 				8467A07D1CE6028900B6E395 /* Operators.swift in Sources */,
+				8467A0AA1CE6574300B6E395 /* Reader.swift in Sources */,
 				8467A08F1CE6045E00B6E395 /* Pointed.swift in Sources */,
 				8467A0A71CE64AD900B6E395 /* Identity.swift in Sources */,
 			);
