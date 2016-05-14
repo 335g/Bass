@@ -59,6 +59,8 @@
 		8467A0B11CE6CA8400B6E395 /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0AF1CE6CA8400B6E395 /* SequenceType.swift */; };
 		8467A0B31CE6F5B500B6E395 /* Writer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0B21CE6F5B500B6E395 /* Writer.swift */; };
 		8467A0B41CE6F5B500B6E395 /* Writer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0B21CE6F5B500B6E395 /* Writer.swift */; };
+		8467A0B71CE7077D00B6E395 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0B61CE7077D00B6E395 /* State.swift */; };
+		8467A0B81CE7077D00B6E395 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467A0B61CE7077D00B6E395 /* State.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +139,7 @@
 		8467A0A81CE6574300B6E395 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reader.swift; path = Types/Reader.swift; sourceTree = "<group>"; };
 		8467A0AF1CE6CA8400B6E395 /* SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceType.swift; path = Extensions/SequenceType.swift; sourceTree = "<group>"; };
 		8467A0B21CE6F5B500B6E395 /* Writer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Writer.swift; path = Types/Writer.swift; sourceTree = "<group>"; };
+		8467A0B61CE7077D00B6E395 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = State.swift; path = Types/State.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +247,7 @@
 				8467A0A51CE64AD900B6E395 /* Identity.swift */,
 				8467A0A81CE6574300B6E395 /* Reader.swift */,
 				8467A0B21CE6F5B500B6E395 /* Writer.swift */,
+				8467A0B61CE7077D00B6E395 /* State.swift */,
 			);
 			name = Types;
 			sourceTree = "<group>";
@@ -485,6 +489,7 @@
 				8467A0761CE6015A00B6E395 /* Curry.swift in Sources */,
 				8467A0821CE6037800B6E395 /* Flip.swift in Sources */,
 				8467A08B1CE6042100B6E395 /* Pack.swift in Sources */,
+				8467A0B71CE7077D00B6E395 /* State.swift in Sources */,
 				8467A0791CE6018900B6E395 /* Optional.swift in Sources */,
 				8467A0881CE603D300B6E395 /* Base.swift in Sources */,
 				8467A09A1CE647AF00B6E395 /* Semigroup.swift in Sources */,
@@ -517,6 +522,7 @@
 				8467A0771CE6015A00B6E395 /* Curry.swift in Sources */,
 				8467A0831CE6037800B6E395 /* Flip.swift in Sources */,
 				8467A08C1CE6042100B6E395 /* Pack.swift in Sources */,
+				8467A0B81CE7077D00B6E395 /* State.swift in Sources */,
 				8467A07A1CE6018900B6E395 /* Optional.swift in Sources */,
 				8467A0891CE603D300B6E395 /* Base.swift in Sources */,
 				8467A09B1CE647AF00B6E395 /* Semigroup.swift in Sources */,
