@@ -98,3 +98,15 @@ public extension Reader {
 	public typealias PointedValue = R -> A
 }
 
+// MARK: - Functions
+
+/// Fetch the value of the environment
+public func ask<R>() -> Reader<R, R> {
+	return Reader(id)
+}
+
+/// Retrieve a function of the current environment.
+public func asks<R, A>(f: R -> A) -> Reader<R, A> {
+	return Reader(f)
+}
+
