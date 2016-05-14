@@ -125,6 +125,30 @@ public func >>- <M: Monoid, T1, T2, WT: WriterType where WT.OutputW == M, WT.Res
 	return m.flatMap(fn)
 }
 
+// MARK: - WriterType - ap
+
+public extension WriterType where ValuesW == (ResultW, OutputW) {
+	public func ap<Result2, WT: WriterType where WT.ResultW == ResultW -> Result2, WT.OutputW == OutputW, WT.ValuesW == (ResultW -> Result2, OutputW)>(fn: WT) -> Writer<OutputW, Result2, (Result2, OutputW)> {
+		return self >>- { m in fn >>- { f in .pure(f(m)) } }
+	}
+}
+
+public func <*> <M: Monoid, T1, T2, WT1: WriterType, WT2: WriterType where WT1.OutputW == M, WT1.ResultW == T1 -> T2, WT1.ValuesW == (T1 -> T2, M), WT2.OutputW == M, WT2.ResultW == T1, WT2.ValuesW == (T1, M)>(fn: WT1, g: WT2) -> Writer<M, T2, (T2, M)> {
+	return g.ap(fn)
+}
+
+// MARK: - WriterType (Values: OptionalType) - ap
+
+public extension WriterType where ValuesW == (ResultW, OutputW)? {
+	public func ap<Result2, WT: WriterType where WT.ResultW == ResultW -> Result2, WT.OutputW == OutputW, WT.ValuesW == (ResultW -> Result2, OutputW)>(fn: WT) -> Writer<OutputW, Result2, (Result2, OutputW)?> {
+		return self >>- { m in fn >>- { f in .pure(f(m)) } }
+	}
+}
+
+public func <*> <M: Monoid, T1, T2, WT1: WriterType, WT2: WriterType where WT1.OutputW == M, WT1.ResultW == T1 -> T2, WT1.ValuesW == (T1 -> T2, M), WT2.OutputW == M, WT2.ResultW == T1, WT2.ValuesW == (T1, M)?>(fn: WT1, g: WT2) -> Writer<M, T2, (T2, M)?> {
+	return g.ap(fn)
+}
+
 // MARK: - Writer
 
 // TODO: re-define Writer (Swift3)

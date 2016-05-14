@@ -78,7 +78,7 @@ public func >>- <R, A: OptionalType, B, RT: ReaderType where RT.EnvR == R, RT.Va
 
 public extension ReaderType {
 	public func ap<A, RT: ReaderType where RT.EnvR == EnvR, RT.ValueR == ValueR -> A>(fn: RT) -> Reader<EnvR, A> {
-		return fn >>- { f in self >>- { .pure(f($0)) } }
+		return self >>- { m in fn >>- { f in .pure(f(m)) } }
 	}
 }
 
@@ -91,7 +91,7 @@ public func <*> <R, A, B, RT1: ReaderType, RT2: ReaderType where RT1.EnvR == R, 
 
 public extension ReaderType where ValueR: OptionalType {
 	public func ap<A, RT: ReaderType where RT.EnvR == EnvR, RT.ValueR == ValueR.Wrapped -> A>(fn: RT) -> Reader<EnvR, A?> {
-		return fn >>- { f in self >>- { .pure(f($0)) } }
+		return self >>- { m in fn >>- { f in .pure(f(m)) } }
 	}
 }
 
