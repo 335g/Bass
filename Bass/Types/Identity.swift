@@ -64,13 +64,17 @@ public extension IdentityType {
 // MARK: - Identity
 
 public struct Identity<T>: IdentityType {
-	public typealias PointedValue = T
-	
 	public let value: T
 	
 	public init(_ value: T) {
 		self.value = value
 	}
+}
+
+// MARK: - Identity: Pointed
+
+public extension Identity {
+	public typealias PointedValue = T
 }
 
 // MARK: - IdentityType - map/flatMap

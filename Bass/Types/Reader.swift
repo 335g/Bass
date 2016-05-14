@@ -2,7 +2,7 @@
 
 // MARK: - ReaderType
 
-public protocol ReaderType {
+public protocol ReaderType: Pointed {
 	associatedtype EnvR
 	associatedtype ValueR
 	
@@ -10,6 +10,15 @@ public protocol ReaderType {
 	init(_ run: EnvR -> ValueR)
 	
 	var reader: Reader<EnvR, ValueR> { get }
+}
+
+// MARK: - ReaderType: Pointed
+
+public extension ReaderType {
+	public typealias PointedValue = EnvR -> ValueR
+	public static func pure(a: EnvR -> ValueR) -> Self {
+		return Self.init(a)
+	}
 }
 
 // MARK: - Reader
@@ -28,5 +37,11 @@ extension Reader: ReaderType {
 	public var reader: Reader<R, A> {
 		return self
 	}
+}
+
+// MARK: - Reader: Pointed
+
+public extension Reader {
+	public typealias PointedValue = R -> A
 }
 
