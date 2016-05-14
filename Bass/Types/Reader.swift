@@ -15,10 +15,10 @@ public protocol ReaderType: Pointed {
 // MARK: - ReaderType: Pointed
 
 public extension ReaderType {
-	public typealias PointedValue = EnvR -> ValueR
+	public typealias PointedValue = ValueR
 	
-	public static func pure(a: EnvR -> ValueR) -> Self {
-		return Self.init(a)
+	public static func pure(a: ValueR) -> Self {
+		return Self.init { _ in a }
 	}
 }
 
@@ -74,6 +74,32 @@ public func >>- <R, A: OptionalType, B, RT: ReaderType where RT.EnvR == R, RT.Va
 	return m.flatMap(fn)
 }
 
+// MARK: - ReaderType - ap
+
+public extension ReaderType {
+	public func ap<A, RT: ReaderType where RT.EnvR == EnvR, RT.ValueR == ValueR -> A>(fn: RT) -> Reader<EnvR, A> {
+		return fn >>- { f in self >>- { .pure(f($0)) } }
+	}
+}
+
+/// Alias for `ap(fn:)`
+public func <*> <R, A, B, RT1: ReaderType, RT2: ReaderType where RT1.EnvR == R, RT1.ValueR == A -> B, RT2.EnvR == R, RT2.ValueR == A>(fn: RT1, g: RT2) -> Reader<R, B> {
+	return g.ap(fn)
+}
+
+// MARK: - ReaderType (ValueR: OptionalType) - ap
+
+public extension ReaderType where ValueR: OptionalType {
+	public func ap<A, RT: ReaderType where RT.EnvR == EnvR, RT.ValueR == ValueR.Wrapped -> A>(fn: RT) -> Reader<EnvR, A?> {
+		return fn >>- { f in self >>- { .pure(f($0)) } }
+	}
+}
+
+/// Alias for `ap(fn:)`
+public func <*> <R, A: OptionalType, B, RT1: ReaderType, RT2: ReaderType where RT1.EnvR == R, RT1.ValueR == A.Wrapped -> B, RT2.EnvR == R, RT2.ValueR == A>(fn: RT1, g: RT2) -> Reader<R, B?> {
+	return g.ap(fn)
+}
+
 // MARK: - Reader
 
 public struct Reader<R, A> {
@@ -95,7 +121,7 @@ extension Reader: ReaderType {
 // MARK: - Reader: Pointed
 
 public extension Reader {
-	public typealias PointedValue = R -> A
+	public typealias PointedValue = A
 }
 
 // MARK: - Functions

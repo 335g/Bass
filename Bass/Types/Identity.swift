@@ -111,7 +111,7 @@ public func >>- <U, IT: IdentityType where IT.Value: OptionalType>(m: IT, fn: IT
 
 public extension IdentityType {
 	public func ap<T, IT: IdentityType where IT.Value == Value -> T>(fn: IT) -> Identity<T> {
-		return .pure(fn.value(self.value))
+		return self >>- { i in fn >>- { f in .pure(f(i)) } }
 	}
 }
 
@@ -124,7 +124,7 @@ public func <*> <T, U, IT1: IdentityType, IT2: IdentityType where IT1.Value == T
 
 public extension IdentityType where Value: OptionalType {
 	public func ap<T, IT: IdentityType where IT.Value == Value.Wrapped -> T>(fn: IT) -> Identity<T?> {
-		return .pure(fn.value <^> self.value)
+		return self >>- { i in fn >>- { f in .pure(f(i)) } }
 	}
 }
 
