@@ -61,22 +61,6 @@ public extension IdentityType {
 	}
 }
 
-// MARK: - Identity
-
-public struct Identity<T>: IdentityType {
-	public let value: T
-	
-	public init(_ value: T) {
-		self.value = value
-	}
-}
-
-// MARK: - Identity: Pointed
-
-public extension Identity {
-	public typealias PointedValue = T
-}
-
 // MARK: - IdentityType - map/flatMap
 
 public extension IdentityType {
@@ -139,4 +123,20 @@ public extension IdentityType where Value: OptionalType {
 
 public func <*> <T: OptionalType, U, IT1: IdentityType, IT2: IdentityType where IT1.Value == T.Wrapped -> U, IT2.Value == T>(left: IT1, right: IT2) -> Identity<U?> {
 	return right.ap(left)
+}
+
+// MARK: - Identity
+
+public struct Identity<T>: IdentityType {
+	public let value: T
+	
+	public init(_ value: T) {
+		self.value = value
+	}
+}
+
+// MARK: - Identity: Pointed
+
+public extension Identity {
+	public typealias PointedValue = T
 }
