@@ -21,7 +21,6 @@ public extension ContType {
 // MARK: - ContType - method
 
 public extension ContType where IRC == FRC {
-	
 	/// The result of running a CPS computation with the identity as the final continuation.
 	public var eval: FRC {
 		return run { $0 }
@@ -29,8 +28,10 @@ public extension ContType where IRC == FRC {
 }
 
 public extension ContType {
-	/// 
-	
+	/// Apply a function to transform the continuation passed to a CPS computation.
+	public func with<I>(f: (I -> FRC) -> (IRC -> FRC)) -> Cont<FRC, I> {
+		return Cont { self.run(f($0)) }
+	}
 }
 
 // MARK: - ContType - map/flatMap/ap
