@@ -13,8 +13,8 @@ public protocol ContType: Pointed {
 // MARK: - ContType: Pointed
 
 public extension ContType {
-	public static func pure(a: FRC) -> Self {
-		return Self.init { _ in a }
+	public static func pure(a: IRC) -> Self {
+		return Self.init{ f in f(a) }
 	}
 }
 
@@ -94,5 +94,5 @@ extension Cont: ContType {
 // MARK: - Cont: Pointed
 
 extension Cont {
-	public typealias PointedValue = F
+	public typealias PointedValue = I
 }
