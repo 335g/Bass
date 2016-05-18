@@ -153,6 +153,20 @@ public func <<-<< <W: Monoid, A, B, C>(left: B -> Writer<W, C, (C, W)>, right: A
 	return right >>->> left
 }
 
+// MARK: - Lift
+
+public func lift<W: Monoid, A, B, C>(f: (A, B) -> C) -> Writer<W, A -> B -> C, (A -> B -> C, W)> {
+	return .pure(curry(f))
+}
+
+public func lift<W: Monoid, A, B, C, D>(f: (A, B, C) -> D) -> Writer<W, A -> B -> C -> D, (A -> B -> C -> D, W)> {
+	return .pure(curry(f))
+}
+
+public func lift<W: Monoid, A, B, C, D, E>(f: (A, B, C, D) -> E) -> Writer<W, A -> B -> C -> D -> E, (A -> B -> C -> D -> E, W)> {
+	return .pure(curry(f))
+}
+
 // MARK: - Writer
 
 // TODO: re-define Writer (Swift3)

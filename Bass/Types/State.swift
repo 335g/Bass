@@ -138,6 +138,20 @@ public func <<-<< <S, A, B, C>(left: B -> State<S, C, (C, S)>, right: A -> State
 	return right >>->> left
 }
 
+// MARK: - Lift
+
+public func lift<S, A, B, C>(f: (A, B) -> C) -> State<S, A -> B -> C, (A -> B -> C, S)> {
+	return .pure(curry(f))
+}
+
+public func lift<S, A, B, C, D>(f: (A, B, C) -> D) -> State<S, A -> B -> C -> D, (A -> B -> C -> D, S)> {
+	return .pure(curry(f))
+}
+
+public func lift<S, A, B, C, D, E>(f: (A, B, C, D) -> E) -> State<S, A -> B -> C -> D -> E, (A -> B -> C -> D -> E, S)> {
+	return .pure(curry(f))
+}
+
 // MARK: - State
 
 public struct State<S, A, V> {

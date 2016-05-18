@@ -102,6 +102,20 @@ public func <<-<< <R, A, B, C>(left: B -> Reader<R, C>, right: A -> Reader<R, B>
 	return right >>->> left
 }
 
+// MARK: - Lift
+
+public func lift<S, A, B, C>(f: (A, B) -> C) -> Reader<S, A -> B -> C> {
+	return .pure(curry(f))
+}
+
+public func lift<S, A, B, C, D>(f: (A, B, C) -> D) -> Reader<S, A -> B -> C -> D> {
+	return .pure(curry(f))
+}
+
+public func lift<S, A, B, C, D, E>(f: (A, B, C, D) -> E) -> Reader<S, A -> B -> C -> D -> E> {
+	return .pure(curry(f))
+}
+
 // MARK: - Reader
 
 public struct Reader<R, A> {
