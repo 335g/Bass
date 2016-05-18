@@ -64,12 +64,16 @@ public extension StateType where ValuesS == (ResultS, StateS) {
 	
 	public func flatMap<Result2>(g: ResultS -> State<StateS, Result2, (Result2, StateS)>) -> State<StateS, Result2, (Result2, StateS)> {
 		return State { s in
-			self.run(s).map { g($0).run($1).value }
+			self.run(s).map{ g($0).run($1).value }
 		}
 	}
 	
 	public func ap<Result2, ST: StateType where ST.StateS == StateS, ST.ResultS == ResultS -> Result2, ST.ValuesS == (ResultS -> Result2, StateS)>(fn: ST) -> State<StateS, Result2, (Result2, StateS)> {
-		return self >>- { m in fn >>- { f in .pure(f(m)) }}
+		return State { s in
+			fn.run(s).flatMap{ f, s2 in
+				self.run(s2).map{ (f($0), $1) }
+			}
+		}
 	}
 }
 
@@ -109,7 +113,11 @@ public extension StateType where ValuesS == (ResultS, StateS)? {
 	}
 	
 	public func ap<Result2, ST: StateType where ST.StateS == StateS, ST.ResultS == ResultS -> Result2, ST.ValuesS == (ResultS -> Result2, StateS)>(fn: ST) -> State<StateS, Result2, (Result2, StateS)?> {
-		return self >>- { m in fn >>- { f in .pure(f(m)) }}
+		return State { s in
+			fn.run(s).flatMap{ f, s2 in
+				self.run(s2).map{ (f($0), $1) }
+			}
+		}
 	}
 }
 
