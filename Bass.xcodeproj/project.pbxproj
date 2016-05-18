@@ -11,6 +11,8 @@
 		84563F1D1CE7395A005D41B7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1C1CE7395A005D41B7 /* Array.swift */; };
 		84563F1E1CE7395A005D41B7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1C1CE7395A005D41B7 /* Array.swift */; };
 		84563F211CE73CE0005D41B7 /* MonoidSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */; };
+		845DF7F11CEC890A00B83D07 /* ReaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845DF7F01CEC890A00B83D07 /* ReaderSpec.swift */; };
+		845DF7F21CEC890A00B83D07 /* ReaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845DF7F01CEC890A00B83D07 /* ReaderSpec.swift */; };
 		8467A0181CE5FC4600B6E395 /* Bass.h in Headers */ = {isa = PBXBuildFile; fileRef = 8467A0171CE5FC4600B6E395 /* Bass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8467A01F1CE5FC4600B6E395 /* Bass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8467A0141CE5FC4600B6E395 /* Bass.framework */; };
 		8467A03D1CE5FE2A00B6E395 /* Bass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8467A0331CE5FE2A00B6E395 /* Bass.framework */; };
@@ -116,6 +118,7 @@
 /* Begin PBXFileReference section */
 		84563F1C1CE7395A005D41B7 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Extensions/Array.swift; sourceTree = "<group>"; };
 		84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonoidSpec.swift; path = Protocols/MonoidSpec.swift; sourceTree = "<group>"; };
+		845DF7F01CEC890A00B83D07 /* ReaderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReaderSpec.swift; path = Types/ReaderSpec.swift; sourceTree = "<group>"; };
 		8467A0141CE5FC4600B6E395 /* Bass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8467A0171CE5FC4600B6E395 /* Bass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bass.h; sourceTree = "<group>"; };
 		8467A0191CE5FC4600B6E395 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -307,6 +310,7 @@
 		8467A0951CE60D6E00B6E395 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				845DF7F01CEC890A00B83D07 /* ReaderSpec.swift */,
 			);
 			name = Types;
 			sourceTree = "<group>";
@@ -525,6 +529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8402079D1CE744380029F7E1 /* MonoidSpec.swift in Sources */,
+				845DF7F11CEC890A00B83D07 /* ReaderSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84563F211CE73CE0005D41B7 /* MonoidSpec.swift in Sources */,
+				845DF7F21CEC890A00B83D07 /* ReaderSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
