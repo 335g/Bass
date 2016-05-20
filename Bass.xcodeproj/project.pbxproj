@@ -75,6 +75,8 @@
 		8479DD651CE7D75D0046CB43 /* Cont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479DD631CE7D75D0046CB43 /* Cont.swift */; };
 		8479DD671CE7E0090046CB43 /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479DD661CE7E0090046CB43 /* Chain.swift */; };
 		8479DD681CE7E0090046CB43 /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479DD661CE7E0090046CB43 /* Chain.swift */; };
+		84ED17001CEFC5FA0037140B /* These.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ED16FF1CEFC5FA0037140B /* These.swift */; };
+		84ED17011CEFC5FA0037140B /* These.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ED16FF1CEFC5FA0037140B /* These.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +163,7 @@
 		8467A0B61CE7077D00B6E395 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = State.swift; path = Types/State.swift; sourceTree = "<group>"; };
 		8479DD631CE7D75D0046CB43 /* Cont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cont.swift; path = Types/Cont.swift; sourceTree = "<group>"; };
 		8479DD661CE7E0090046CB43 /* Chain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Chain.swift; path = Functions/Chain.swift; sourceTree = "<group>"; };
+		84ED16FF1CEFC5FA0037140B /* These.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = These.swift; path = Types/These.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +274,7 @@
 				8467A0B61CE7077D00B6E395 /* State.swift */,
 				8479DD631CE7D75D0046CB43 /* Cont.swift */,
 				840261E71CEF78A30058B13B /* Either.swift */,
+				84ED16FF1CEFC5FA0037140B /* These.swift */,
 			);
 			name = Types;
 			sourceTree = "<group>";
@@ -526,6 +530,7 @@
 				8467A0B01CE6CA8400B6E395 /* SequenceType.swift in Sources */,
 				8467A0911CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8467A0A31CE648B500B6E395 /* Foldable.swift in Sources */,
+				84ED17001CEFC5FA0037140B /* These.swift in Sources */,
 				8479DD641CE7D75D0046CB43 /* Cont.swift in Sources */,
 				8467A0A01CE6485000B6E395 /* Monoid.swift in Sources */,
 				8467A0B31CE6F5B500B6E395 /* Writer.swift in Sources */,
@@ -566,6 +571,7 @@
 				8467A0B11CE6CA8400B6E395 /* SequenceType.swift in Sources */,
 				8467A0921CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8467A0A41CE648B500B6E395 /* Foldable.swift in Sources */,
+				84ED17011CEFC5FA0037140B /* These.swift in Sources */,
 				8479DD651CE7D75D0046CB43 /* Cont.swift in Sources */,
 				8467A0A11CE6485000B6E395 /* Monoid.swift in Sources */,
 				8467A0B41CE6F5B500B6E395 /* Writer.swift in Sources */,
