@@ -13,6 +13,58 @@ public protocol TheseType {
 	func these<T>(@noescape ifThis ifThis: ThisType throws -> T, ifThat: ThatType throws -> T, ifBoth: (ThisType, ThatType) throws -> T) rethrows -> T
 }
 
+// MARK: - TheseType - method
+
+public extension TheseType {
+	public var this: ThisType? {
+		return these(
+			ifThis: id,
+			ifThat: const(nil),
+			ifBoth: const(nil)
+		)
+	}
+	
+	public var that: ThatType? {
+		return these(
+			ifThis: const(nil),
+			ifThat: id,
+			ifBoth: const(nil)
+		)
+	}
+	
+	public var both: (ThisType, ThatType)? {
+		return these(
+			ifThis: const(nil),
+			ifThat: const(nil),
+			ifBoth: id
+		)
+	}
+	
+	public var isThis: Bool {
+		return these(
+			ifThis: const(true),
+			ifThat: const(false),
+			ifBoth: const(false)
+		)
+	}
+	
+	public var isThat: Bool {
+		return these(
+			ifThis: const(false),
+			ifThat: const(true),
+			ifBoth: const(false)
+		)
+	}
+	
+	public var isBoth: Bool {
+		return these(
+			ifThis: const(false),
+			ifThat: const(false),
+			ifBoth: const(true)
+		)
+	}
+}
+
 // MARK; - These
 
 public enum These<A, B> {
