@@ -146,6 +146,16 @@ public func <*> <L, T, U, ET1: EitherType, ET2: EitherType where ET1.LeftType ==
 	return m.ap(fn)
 }
 
+// MAKR: - State - Kleisli
+
+public func >>->> <L, A, B, C>(left: A -> Either<L, B>, right: B -> Either<L, C>) -> A -> Either<L, C> {
+	return { a in left(a) >>- right }
+}
+
+public func <<-<< <L, A, B, C>(left: B -> Either<L, C>, right: A -> Either<L, B>) -> A -> Either<L, C> {
+	return right >>->> left
+}
+
 // MARK: - Lift
 
 public func lift<L, A, B, C>(f: (A, B) -> C) -> Either<L, A -> B -> C> {
