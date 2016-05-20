@@ -48,4 +48,10 @@ public extension SequenceType where Generator.Element: EitherType {
 	public var partition: ([Generator.Element.LeftType], [Generator.Element.RightType]) {
 		return (lefts, rights)
 	}
+	
+	public func sequence() -> Either<Generator.Element.LeftType, [Generator.Element.RightType]> {
+		return reduce(.pure([])){ acc, elem in
+			acc >>- { xs in elem >>- { .pure(xs + [$0]) } }
+		}
+	}
 }

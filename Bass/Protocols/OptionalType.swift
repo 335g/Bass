@@ -38,7 +38,7 @@ public func >>- <A, OT: OptionalType>(optional: OT, @noescape f: OT.Wrapped thro
 
 public extension OptionalType {
 	public func ap<A, OT: OptionalType where OT.Wrapped == Wrapped -> A>(fn: OT) -> A? {
-		return fn >>- { f in self.map(f) }
+		return fn >>- { f in map(f) }
 	}
 }
 
