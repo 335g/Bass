@@ -45,7 +45,7 @@ public extension EitherType {
 	}
 	
 	public func null() -> Bool {
-		return isRight
+		return isLeft
 	}
 	
 	public func length() -> Int {

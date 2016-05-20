@@ -2,7 +2,7 @@
 
 // MARK: - TheseType
 
-public protocol TheseType: Pointed {
+public protocol TheseType: Pointed, Foldable {
 	associatedtype ThisType
 	associatedtype ThatType
 	
@@ -18,6 +18,54 @@ public protocol TheseType: Pointed {
 public extension TheseType {
 	public static func pure(x: ThatType) -> Self {
 		return .that(x)
+	}
+}
+
+// MARK: - TheseType: Foldable
+
+public extension TheseType {
+	public func foldMap<M : Monoid>(f: ThatType -> M) -> M {
+		return these(
+			ifThis: const(.mempty),
+			ifThat: { f($0) },
+			ifBoth: { f($1) }
+		)
+	}
+	
+	public func foldr<T>(initial: T, _ f: ThatType -> T -> T) -> T {
+		return these(
+			ifThis: const(initial),
+			ifThat: { f($0)(initial) },
+			ifBoth: { f($1)(initial) }
+		)
+	}
+	
+	public func null() -> Bool {
+		return isThis
+	}
+	
+	public func length() -> Int {
+		return these(
+			ifThis: const(0),
+			ifThat: const(1),
+			ifBoth: const(1)
+		)
+	}
+	
+	public func find(predicate: ThatType -> Bool) throws -> ThatType? {
+		return these(
+			ifThis: const(nil),
+			ifThat: { predicate($0) ? $0 : nil },
+			ifBoth: { predicate($1) ? $1 : nil }
+		)
+	}
+	
+	public func toList() -> [ThatType] {
+		return these(
+			ifThis: const([]),
+			ifThat: { [$0] },
+			ifBoth: { [$1] }
+		)
 	}
 }
 
