@@ -8,7 +8,7 @@ public protocol TheseType {
 	
 	static func this(x: ThisType) -> Self
 	static func that(x: ThatType) -> Self
-	static func both(x: ThisType, y: ThatType) -> Self
+	static func both(x: ThisType, _ y: ThatType) -> Self
 	
 	func these<T>(@noescape ifThis ifThis: ThisType throws -> T, ifThat: ThatType throws -> T, ifBoth: (ThisType, ThatType) throws -> T) rethrows -> T
 }
@@ -65,6 +65,25 @@ public extension TheseType {
 	}
 }
 
+// MARK: - TheseType - map/flatMap/ap
+
+public extension TheseType {
+	public func map<T>(f: ThisType -> T) -> These<T, ThatType> {
+		return bimap(f, id)
+	}
+	
+	public func map<T>(f: ThatType -> T) -> These<ThisType, T> {
+		return bimap(id, f)
+	}
+	
+	public func bimap<T, U>(f: ThisType -> T, _ g: ThatType -> U) -> These<T, U> {
+		return these(
+			ifThis: { .this(f($0)) },
+			ifThat: { .that(g($0)) },
+			ifBoth: { .both(f($0), g($1)) })
+	}
+}
+
 // MARK; - These
 
 public enum These<A, B> {
@@ -87,7 +106,7 @@ extension These: TheseType {
 		return .That(x)
 	}
 	
-	public static func both(x: A, y: B) -> These {
+	public static func both(x: A, _ y: B) -> These {
 		return .Both(x, y)
 	}
 	

@@ -105,8 +105,18 @@ public extension EitherType {
 // MARK: - EitherType - map/flatMap/ap
 
 public extension EitherType {
-	public func map<T>(@noescape f: RightType -> T) -> Either<LeftType, T> {
-		return flatMap { .right(f($0)) }
+	public func map<T>(f: LeftType -> T) -> Either<T, RightType> {
+		return either(
+			ifLeft: { .left(f($0)) },
+			ifRight: Either.right
+		)
+	}
+	
+	public func map<T>(f: RightType -> T) -> Either<LeftType, T> {
+		return either(
+			ifLeft: Either.left,
+			ifRight: { .right(f($0)) }
+		)
 	}
 	
 	public func bimap<T, U>(@noescape f: LeftType -> T, @noescape g: RightType -> U) -> Either<T, U> {
