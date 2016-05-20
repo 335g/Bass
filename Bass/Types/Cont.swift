@@ -101,7 +101,6 @@ extension Cont {
 
 public func callCC<F, I1, I2>(f: (I1 -> Cont<F, I2>) -> Cont<F, I1>) -> Cont<F, I1> {
 	return Cont { c in
-		let f2: I1 -> Cont<F, I2> = { x in Cont{ _ in c(x) } }
-		return f(f2).run(c)
+		f{ x in Cont{ _ in c(x) } }.run(c)
 	}
 }
