@@ -2,7 +2,7 @@
 
 // MARK: - EitherType
 
-public protocol EitherType: Pointed {
+public protocol EitherType: Pointed, Foldable {
 	associatedtype LeftType
 	associatedtype RightType
 	
@@ -17,6 +17,56 @@ public protocol EitherType: Pointed {
 public extension EitherType {
 	public static func pure(x: RightType) -> Self {
 		return .right(x)
+	}
+}
+
+// MARK: - EitherType: Foldable
+
+public extension EitherType {
+	public func foldMap<M : Monoid>(f: RightType -> M) -> M {
+		return either(
+			ifLeft: const(.mempty),
+			ifRight: { f($0) }
+		)
+	}
+	
+	public func foldr<T>(initial: T, _ f: RightType -> T -> T) -> T {
+		return either(
+			ifLeft: const(initial),
+			ifRight: { f($0)(initial) }
+		)
+	}
+	
+	public func foldl<T>(initial: T, _ f: T -> RightType -> T) -> T {
+		return either(
+			ifLeft: const(initial),
+			ifRight: { f(initial)($0) }
+		)
+	}
+	
+	public func null() -> Bool {
+		return isRight
+	}
+	
+	public func length() -> Int {
+		return either(
+			ifLeft: const(0),
+			ifRight: const(1)
+		)
+	}
+	
+	public func find(predicate: RightType -> Bool) throws -> RightType? {
+		return either(
+			ifLeft: const(nil),
+			ifRight: { predicate($0) ? $0 : nil }
+		)
+	}
+	
+	public func toList() -> [RightType] {
+		return either(
+			ifLeft: const([]),
+			ifRight: { [$0] }
+		)
 	}
 }
 
