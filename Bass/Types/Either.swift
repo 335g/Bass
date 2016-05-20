@@ -44,25 +44,17 @@ public extension EitherType {
 	}
 }
 
-// MARK: - EitherType - map/flatMap
+// MARK: - EitherType - map/flatMap/ap
 
 public extension EitherType {
-	public func map<T>(@noescape f: LeftType -> T) -> Either<T, RightType> {
-		return flatMap { .left(f($0)) }
-	}
-	
 	public func map<T>(@noescape f: RightType -> T) -> Either<LeftType, T> {
 		return flatMap { .right(f($0)) }
 	}
 	
-	public func map<T, U>(@noescape lf: LeftType -> T, @noescape rf: RightType -> U) -> Either<T, U> {
-		return map(lf).map(rf)
-	}
-	
-	public func flatMap<T>(@noescape g: LeftType -> Either<T, RightType>) -> Either<T, RightType> {
+	public func bimap<T, U>(@noescape f: LeftType -> T, @noescape g: RightType -> U) -> Either<T, U> {
 		return either(
-			ifLeft: g,
-			ifRight: Either.right
+			ifLeft: { .left(f($0)) },
+			ifRight: { .right(g($0)) }
 		)
 	}
 	
@@ -72,11 +64,13 @@ public extension EitherType {
 			ifRight: g
 		)
 	}
-}
-
-/// Alias for `map(f:)`
-public func <^> <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(f: A -> C, g: ET) -> Either<C, B> {
-	return g.map(f)
+	
+	public func ap<T, ET: EitherType where ET.LeftType == LeftType, ET.RightType == RightType -> T>(fn: ET) -> Either<LeftType, T> {
+		return fn.either(
+			ifLeft: { .left($0) },
+			ifRight: { map($0) }
+		)
+	}
 }
 
 /// Alias for `map(f:)`
@@ -85,13 +79,13 @@ public func <^> <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType ==
 }
 
 /// Alias for `flatMap(fn:)`
-public func >>- <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(m: ET, fn: A -> Either<C, B>) -> Either<C, B> {
+public func >>- <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(m: ET, fn: B -> Either<A, C>) -> Either<A, C> {
 	return m.flatMap(fn)
 }
 
-/// Alias for `flatMap(fn:)`
-public func >>- <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(m: ET, fn: B -> Either<A, C>) -> Either<A, C> {
-	return m.flatMap(fn)
+/// Alias for `ap(fn:)`
+public func <*> <L, T, U, ET1: EitherType, ET2: EitherType where ET1.LeftType == L, ET1.RightType == T -> U, ET2.LeftType == L, ET2.RightType == T>(fn: ET1, m: ET2) -> Either<L, U> {
+	return m.ap(fn)
 }
 
 // MARK: - Either

@@ -1,6 +1,6 @@
 //  Copyright © 2016 Yoshiki Kudo. All rights reserved.
 
-// MARK: - SequenceType
+// MARK: - SequenceType (ReaderType)
 
 public extension SequenceType where Generator.Element: ReaderType {
 	public func sequece() -> Reader<Generator.Element.EnvR, [Generator.Element.ValueR]> {
@@ -10,6 +10,8 @@ public extension SequenceType where Generator.Element: ReaderType {
 	}
 }
 
+// MARK: - SequenceType (WriterType)
+
 public extension SequenceType where Generator.Element: WriterType, Generator.Element.ValuesW == (Generator.Element.ResultW, Generator.Element.OutputW) {
 	public func sequence() -> Writer<Generator.Element.OutputW, [Generator.Element.ResultW], ([Generator.Element.ResultW], Generator.Element.OutputW)> {
 		return reduce(.pure([])){ acc, elem in
@@ -18,6 +20,8 @@ public extension SequenceType where Generator.Element: WriterType, Generator.Ele
 	}
 }
 
+// MARK: - SequenceType (StateType)
+
 public extension SequenceType where Generator.Element: StateType, Generator.Element.ValuesS == (Generator.Element.ResultS, Generator.Element.StateS) {
 	public func sequence() -> State<Generator.Element.StateS, [Generator.Element.ResultS], ([Generator.Element.ResultS], Generator.Element.StateS)> {
 		return reduce(.pure([])){ acc, elem in
@@ -25,6 +29,8 @@ public extension SequenceType where Generator.Element: StateType, Generator.Elem
 		}
 	}
 }
+
+// MARK: - SequenceType (EitherType)
 
 public extension SequenceType where Generator.Element: EitherType {
 	public var rights: [Generator.Element.RightType] {
