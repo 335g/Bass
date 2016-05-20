@@ -71,9 +71,9 @@ public extension WriterType where ValuesW == (ResultW, OutputW) {
 		return map { (f($0), $1) }
 	}
 	
-	public func flatMap<Result2>(g: ResultW -> Writer<OutputW, Result2, (Result2, OutputW)>) -> Writer<OutputW, Result2, (Result2, OutputW)> {
+	public func flatMap<Result2>(fn: ResultW -> Writer<OutputW, Result2, (Result2, OutputW)>) -> Writer<OutputW, Result2, (Result2, OutputW)> {
 		let f2: (ResultW, OutputW) -> (Result2, OutputW) = { r, o in
-			let (r2, o2) = g(r).run.value
+			let (r2, o2) = fn(r).run.value
 			return (r2, o.mappend(o2))
 		}
 		
@@ -114,9 +114,9 @@ public extension WriterType where ValuesW == (ResultW, OutputW)? {
 		return map { (f($0), $1) }
 	}
 	
-	public func flatMap<Result2>(g: ResultW -> Writer<OutputW, Result2, (Result2, OutputW)>) -> Writer<OutputW, Result2, (Result2, OutputW)?> {
+	public func flatMap<Result2>(fn: ResultW -> Writer<OutputW, Result2, (Result2, OutputW)>) -> Writer<OutputW, Result2, (Result2, OutputW)?> {
 		let f2: (ResultW, OutputW) -> (Result2, OutputW) = { r, o in
-			let (r2, o2) = g(r).run.value
+			let (r2, o2) = fn(r).run.value
 			return (r2, o.mappend(o2))
 		}
 		

@@ -62,9 +62,9 @@ public extension StateType where ValuesS == (ResultS, StateS) {
 		return map { r, s in (f(r), s) }
 	}
 	
-	public func flatMap<Result2>(g: ResultS -> State<StateS, Result2, (Result2, StateS)>) -> State<StateS, Result2, (Result2, StateS)> {
+	public func flatMap<Result2>(fn: ResultS -> State<StateS, Result2, (Result2, StateS)>) -> State<StateS, Result2, (Result2, StateS)> {
 		return State { s in
-			self.run(s).map{ g($0).run($1).value }
+			self.run(s).map{ fn($0).run($1).value }
 		}
 	}
 	
@@ -106,9 +106,9 @@ public extension StateType where ValuesS == (ResultS, StateS)? {
 		return map { r, s in (f(r), s) }
 	}
 	
-	public func flatMap<Result2>(g: ResultS -> State<StateS, Result2, (Result2, StateS)>) -> State<StateS, Result2, (Result2, StateS)?> {
+	public func flatMap<Result2>(fn: ResultS -> State<StateS, Result2, (Result2, StateS)>) -> State<StateS, Result2, (Result2, StateS)?> {
 		return State { s in
-			self.run(s).map { g($0).run($1).value }
+			self.run(s).map { fn($0).run($1).value }
 		}
 	}
 	

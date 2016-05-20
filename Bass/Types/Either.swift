@@ -2,7 +2,7 @@
 
 // MARK: - EitherType
 
-public protocol EitherType {
+public protocol EitherType: Pointed {
 	associatedtype LeftType
 	associatedtype RightType
 	
@@ -10,6 +10,14 @@ public protocol EitherType {
 	static func right(x: RightType) -> Self
 	
 	func either<A>(@noescape ifLeft ifLeft: LeftType throws -> A, @noescape ifRight: RightType throws -> A) rethrows -> A
+}
+
+// MARK: - EitherType: Pointed
+
+public extension EitherType {
+	public static func pure(x: RightType) -> Self {
+		return .right(x)
+	}
 }
 
 // MARK: - EitherType - method
@@ -58,10 +66,10 @@ public extension EitherType {
 		)
 	}
 	
-	public func flatMap<T>(@noescape g: RightType -> Either<LeftType, T>) -> Either<LeftType, T> {
+	public func flatMap<T>(@noescape fn: RightType -> Either<LeftType, T>) -> Either<LeftType, T> {
 		return either(
 			ifLeft: Either.left,
-			ifRight: g
+			ifRight: fn
 		)
 	}
 	
@@ -117,4 +125,10 @@ extension Either: EitherType {
 			return try ifRight(x)
 		}
 	}
+}
+
+// MARK: - Either: Pointed
+
+extension Either: Pointed {
+	public typealias PointedValue = R
 }

@@ -45,8 +45,8 @@ public extension ContType {
 		return Cont { self.run($0 • f) }
 	}
 	
-	public func flatMap<I>(g: IRC -> Cont<FRC, I>) -> Cont<FRC, I> {
-		return Cont { c in self.run{ g($0).run(c) } }
+	public func flatMap<I>(fn: IRC -> Cont<FRC, I>) -> Cont<FRC, I> {
+		return Cont { c in self.run{ fn($0).run(c) } }
 	}
 	
 	public func ap<I, CT: ContType where CT.IRC == IRC -> I, CT.FRC == FRC>(fn: CT) -> Cont<FRC, I> {
