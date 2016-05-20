@@ -146,6 +146,20 @@ public func <*> <L, T, U, ET1: EitherType, ET2: EitherType where ET1.LeftType ==
 	return m.ap(fn)
 }
 
+// MARK: - Lift
+
+public func lift<L, A, B, C>(f: (A, B) -> C) -> Either<L, A -> B -> C> {
+	return .pure(curry(f))
+}
+
+public func lift<L, A, B, C, D>(f: (A, B, C) -> D) -> Either<L, A -> B -> C -> D> {
+	return .pure(curry(f))
+}
+
+public func lift<L, A, B, C, D, E>(f: (A, B, C, D) -> E) -> Either<L, A -> B -> C -> D -> E> {
+	return .pure(curry(f))
+}
+
 // MARK: - Either
 
 public enum Either<L, R> {
