@@ -12,6 +12,38 @@ public protocol EitherType {
 	func either<A>(@noescape ifLeft ifLeft: LeftType throws -> A, @noescape ifRight: RightType throws -> A) rethrows -> A
 }
 
+// MARK: - EitherType - method
+
+public extension EitherType {
+	public var left: LeftType? {
+		return either(
+			ifLeft: id,
+			ifRight: const(nil)
+		)
+	}
+	
+	public var right: RightType? {
+		return either(
+			ifLeft: const(nil),
+			ifRight: id
+		)
+	}
+	
+	public var isLeft: Bool {
+		return either(
+			ifLeft: const(true),
+			ifRight: const(false)
+		)
+	}
+	
+	public var isRight: Bool {
+		return either(
+			ifLeft: const(false),
+			ifRight: const(true)
+		)
+	}
+}
+
 // MARK: - EitherType - map/flatMap
 
 public extension EitherType {
