@@ -2,7 +2,7 @@
 
 // MARK: - TheseType
 
-public protocol TheseType {
+public protocol TheseType: Pointed {
 	associatedtype ThisType
 	associatedtype ThatType
 	
@@ -11,6 +11,14 @@ public protocol TheseType {
 	static func both(x: ThisType, _ y: ThatType) -> Self
 	
 	func these<T>(@noescape ifThis ifThis: ThisType throws -> T, ifThat: ThatType throws -> T, ifBoth: (ThisType, ThatType) throws -> T) rethrows -> T
+}
+
+// MARK: - TheseType: Pointed
+
+public extension TheseType {
+	public static func pure(x: ThatType) -> Self {
+		return .that(x)
+	}
 }
 
 // MARK: - TheseType - method
@@ -120,4 +128,10 @@ extension These: TheseType {
 			return try ifBoth(a, b)
 		}
 	}
+}
+
+// MARK: These: Pointed
+
+extension These: Pointed {
+	public typealias PointedValue = B
 }
