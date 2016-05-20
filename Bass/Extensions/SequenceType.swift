@@ -25,3 +25,21 @@ public extension SequenceType where Generator.Element: StateType, Generator.Elem
 		}
 	}
 }
+
+public extension SequenceType where Generator.Element: EitherType {
+	public var rights: [Generator.Element.RightType] {
+		return map{ $0.right }
+			.filter{ $0 != nil }
+			.map{ $0! }
+	}
+	
+	public var lefts: [Generator.Element.LeftType] {
+		return map{ $0.left }
+			.filter{ $0 != nil }
+			.map{ $0! }
+	}
+	
+	public var partition: ([Generator.Element.LeftType], [Generator.Element.RightType]) {
+		return (lefts, rights)
+	}
+}
