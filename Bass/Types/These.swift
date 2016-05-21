@@ -69,6 +69,40 @@ public extension TheseType {
 	}
 }
 
+// MARK: - These: Semigroup (This, That : Semigroup)
+
+public extension TheseType where ThisType: Semigroup, ThatType: Semigroup {
+	public func mappend(other: Self) -> Self {
+		return these(
+			ifThis: { a in
+				return other.these(
+					ifThis: { .this(a <> $0) },
+					ifThat: { .both(a, $0) },
+					ifBoth: { .both(a <> $0, $1) }
+				)
+			},
+			ifThat: { b in
+				return other.these(
+					ifThis: { .both($0, b) },
+					ifThat: { .that(b <> $0) },
+					ifBoth: { .both($0, b <> $1) }
+				)
+			},
+			ifBoth: { a, b in
+				return other.these(
+					ifThis: { .both(a <> $0, b) },
+					ifThat: { .both(a, b <> $0) },
+					ifBoth: { .both(a <> $0, b <> $1) }
+				)
+			}
+		)
+	}
+}
+
+public func <> <TT: TheseType where TT.ThisType: Semigroup, TT.ThatType: Semigroup>(lhs: TT, rhs: TT) -> TT {
+	return lhs.mappend(rhs)
+}
+
 // MARK: - TheseType - method
 
 public extension TheseType {
