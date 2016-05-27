@@ -10,6 +10,8 @@
 		8402079D1CE744380029F7E1 /* MonoidSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */; };
 		840261E81CEF78A30058B13B /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840261E71CEF78A30058B13B /* Either.swift */; };
 		840261E91CEF78A30058B13B /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840261E71CEF78A30058B13B /* Either.swift */; };
+		844889241CF1692100914320 /* Bass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8467A0141CE5FC4600B6E395 /* Bass.framework */; };
+		8448892D1CF1699F00914320 /* Cont2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8448892C1CF1699F00914320 /* Cont2.swift */; };
 		84563F1D1CE7395A005D41B7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1C1CE7395A005D41B7 /* Array.swift */; };
 		84563F1E1CE7395A005D41B7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1C1CE7395A005D41B7 /* Array.swift */; };
 		84563F211CE73CE0005D41B7 /* MonoidSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */; };
@@ -80,6 +82,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		844889251CF1692100914320 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8467A00B1CE5FC4600B6E395 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8467A0131CE5FC4600B6E395;
+			remoteInfo = "Bass-OSX";
+		};
 		8467A0201CE5FC4600B6E395 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8467A00B1CE5FC4600B6E395 /* Project object */;
@@ -125,6 +134,8 @@
 
 /* Begin PBXFileReference section */
 		840261E71CEF78A30058B13B /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Either.swift; path = Types/Either.swift; sourceTree = "<group>"; };
+		8448891F1CF1692100914320 /* Benchmarks-OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Benchmarks-OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8448892C1CF1699F00914320 /* Cont2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cont2.swift; path = Benchmark/Cont2.swift; sourceTree = "<group>"; };
 		84563F1C1CE7395A005D41B7 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Extensions/Array.swift; sourceTree = "<group>"; };
 		84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonoidSpec.swift; path = Protocols/MonoidSpec.swift; sourceTree = "<group>"; };
 		845DF7F01CEC890A00B83D07 /* ReaderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReaderSpec.swift; path = Types/ReaderSpec.swift; sourceTree = "<group>"; };
@@ -167,6 +178,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8448891C1CF1692100914320 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				844889241CF1692100914320 /* Bass.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8467A0101CE5FC4600B6E395 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,6 +225,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		844889301CF169BD00914320 /* Benchmark */ = {
+			isa = PBXGroup;
+			children = (
+				8448892C1CF1699F00914320 /* Cont2.swift */,
+			);
+			name = Benchmark;
+			sourceTree = "<group>";
+		};
 		8467A00A1CE5FC4600B6E395 = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +250,7 @@
 				8467A01E1CE5FC4600B6E395 /* Bass-MacTests.xctest */,
 				8467A0331CE5FE2A00B6E395 /* Bass.framework */,
 				8467A03C1CE5FE2A00B6E395 /* Bass-iOSTests.xctest */,
+				8448891F1CF1692100914320 /* Benchmarks-OSX.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -245,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				8467A0251CE5FC4600B6E395 /* Info.plist */,
+				844889301CF169BD00914320 /* Benchmark */,
 				8467A0951CE60D6E00B6E395 /* Types */,
 				8467A0941CE60D6800B6E395 /* Functions */,
 				8467A0931CE60D6000B6E395 /* Protocols */,
@@ -362,6 +391,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8448891E1CF1692100914320 /* Benchmarks-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 844889271CF1692100914320 /* Build configuration list for PBXNativeTarget "Benchmarks-OSX" */;
+			buildPhases = (
+				8448891B1CF1692100914320 /* Sources */,
+				8448891C1CF1692100914320 /* Frameworks */,
+				8448891D1CF1692100914320 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				844889261CF1692100914320 /* PBXTargetDependency */,
+			);
+			name = "Benchmarks-OSX";
+			productName = "Benchmarks-OSX";
+			productReference = 8448891F1CF1692100914320 /* Benchmarks-OSX.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8467A0131CE5FC4600B6E395 /* Bass-OSX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8467A0281CE5FC4600B6E395 /* Build configuration list for PBXNativeTarget "Bass-OSX" */;
@@ -446,6 +493,9 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Yoshiki Kudo";
 				TargetAttributes = {
+					8448891E1CF1692100914320 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					8467A0131CE5FC4600B6E395 = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
@@ -476,11 +526,19 @@
 				8467A01D1CE5FC4600B6E395 /* Bass-MacTests */,
 				8467A0321CE5FE2A00B6E395 /* Bass-iOS */,
 				8467A03B1CE5FE2A00B6E395 /* Bass-iOSTests */,
+				8448891E1CF1692100914320 /* Benchmarks-OSX */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8448891D1CF1692100914320 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8467A0121CE5FC4600B6E395 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -512,6 +570,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8448891B1CF1692100914320 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8448892D1CF1699F00914320 /* Cont2.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8467A00F1CE5FC4600B6E395 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -597,6 +663,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		844889261CF1692100914320 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8467A0131CE5FC4600B6E395 /* Bass-OSX */;
+			targetProxy = 844889251CF1692100914320 /* PBXContainerItemProxy */;
+		};
 		8467A0211CE5FC4600B6E395 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8467A0131CE5FC4600B6E395 /* Bass-OSX */;
@@ -610,6 +681,31 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		844889281CF1692100914320 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = BassTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Benchmarks-OSX";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		844889291CF1692100914320 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = BassTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Benchmarks-OSX";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		8467A0261CE5FC4600B6E395 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -867,6 +963,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		844889271CF1692100914320 /* Build configuration list for PBXNativeTarget "Benchmarks-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				844889281CF1692100914320 /* Debug */,
+				844889291CF1692100914320 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8467A00E1CE5FC4600B6E395 /* Build configuration list for PBXProject "Bass" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
