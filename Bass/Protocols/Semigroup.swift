@@ -3,9 +3,9 @@
 // MARK: - Semigroup
 
 public protocol Semigroup {
-	func mappend(x: Self) -> Self
+	func mappend(_ x: Self) -> Self
 }
 
-public func <> <S: Semigroup>(lhs: S, rhs: S) -> S {
+public func <> <S: Semigroup>(_ lhs: S, _ rhs: S) -> S {
 	return lhs.mappend(rhs)
 }

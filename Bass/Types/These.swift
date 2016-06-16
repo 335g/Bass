@@ -6,17 +6,17 @@ public protocol TheseType: Pointed, Foldable {
 	associatedtype ThisType
 	associatedtype ThatType
 	
-	static func this(x: ThisType) -> Self
-	static func that(x: ThatType) -> Self
-	static func both(x: ThisType, _ y: ThatType) -> Self
+	static func this(_ x: ThisType) -> Self
+	static func that(_ x: ThatType) -> Self
+	static func both(this: ThisType, that: ThatType) -> Self
 	
-	func these<T>(@noescape ifThis ifThis: ThisType throws -> T, ifThat: ThatType throws -> T, ifBoth: (ThisType, ThatType) throws -> T) rethrows -> T
+	func these<T>(ifThis: @noescape (ThisType) throws -> T, ifThat: @noescape (ThatType) throws -> T, ifBoth: @noescape (ThisType, ThatType) throws -> T) rethrows -> T
 }
 
 // MARK: - TheseType: Pointed
 
 public extension TheseType {
-	public static func pure(x: ThatType) -> Self {
+	public static func pure(_ x: ThatType) -> Self {
 		return .that(x)
 	}
 }
@@ -24,7 +24,7 @@ public extension TheseType {
 // MARK: - TheseType: Foldable
 
 public extension TheseType {
-	public func foldMap<M : Monoid>(f: ThatType -> M) -> M {
+	public func foldMap<M : Monoid>(f: (ThatType) -> M) -> M {
 		return these(
 			ifThis: const(.mempty),
 			ifThat: { f($0) },
@@ -32,7 +32,7 @@ public extension TheseType {
 		)
 	}
 	
-	public func foldr<T>(initial: T, _ f: ThatType -> T -> T) -> T {
+	public func foldr<T>(initial: T, _ f: (ThatType) -> (T) -> T) -> T {
 		return these(
 			ifThis: const(initial),
 			ifThat: { f($0)(initial) },
@@ -52,7 +52,7 @@ public extension TheseType {
 		)
 	}
 	
-	public func find(predicate: ThatType -> Bool) throws -> ThatType? {
+	public func find(predicate: (ThatType) -> Bool) throws -> ThatType? {
 		return these(
 			ifThis: const(nil),
 			ifThat: { predicate($0) ? $0 : nil },
@@ -72,34 +72,34 @@ public extension TheseType {
 // MARK: - These: Semigroup (This, That : Semigroup)
 
 public extension TheseType where ThisType: Semigroup, ThatType: Semigroup {
-	public func mappend(other: Self) -> Self {
+	public func mappend(_ x: Self) -> Self {
 		return these(
 			ifThis: { a in
-				return other.these(
+				return x.these(
 					ifThis: { .this(a <> $0) },
-					ifThat: { .both(a, $0) },
-					ifBoth: { .both(a <> $0, $1) }
+					ifThat: { .both(this: a, that: $0) },
+					ifBoth: { .both(this: a <> $0, that: $1) }
 				)
 			},
 			ifThat: { b in
-				return other.these(
-					ifThis: { .both($0, b) },
+				return x.these(
+					ifThis: { .both(this: $0, that: b) },
 					ifThat: { .that(b <> $0) },
-					ifBoth: { .both($0, b <> $1) }
+					ifBoth: { .both(this: $0, that: b <> $1) }
 				)
 			},
 			ifBoth: { a, b in
-				return other.these(
-					ifThis: { .both(a <> $0, b) },
-					ifThat: { .both(a, b <> $0) },
-					ifBoth: { .both(a <> $0, b <> $1) }
+				return x.these(
+					ifThis: { .both(this: a <> $0, that: b) },
+					ifThat: { .both(this: a, that: b <> $0) },
+					ifBoth: { .both(this: a <> $0, that: b <> $1) }
 				)
 			}
 		)
 	}
 }
 
-public func <> <TT: TheseType where TT.ThisType: Semigroup, TT.ThatType: Semigroup>(lhs: TT, rhs: TT) -> TT {
+public func <> <TT: TheseType where TT.ThisType: Semigroup, TT.ThatType: Semigroup>(_ lhs: TT, _ rhs: TT) -> TT {
 	return lhs.mappend(rhs)
 }
 
@@ -158,19 +158,19 @@ public extension TheseType {
 // MARK: - TheseType - map/flatMap/ap
 
 public extension TheseType {
-	public func map<T>(f: ThisType -> T) -> These<T, ThatType> {
+	public func map<T>(_ f: (ThisType) -> T) -> These<T, ThatType> {
 		return bimap(f, id)
 	}
 	
-	public func map<T>(f: ThatType -> T) -> These<ThisType, T> {
+	public func map<T>(_ f: (ThatType) -> T) -> These<ThisType, T> {
 		return bimap(id, f)
 	}
 	
-	public func bimap<T, U>(f: ThisType -> T, _ g: ThatType -> U) -> These<T, U> {
+	public func bimap<T, U>(_ f: (ThisType) -> T, _ g: (ThatType) -> U) -> These<T, U> {
 		return these(
 			ifThis: { .this(f($0)) },
 			ifThat: { .that(g($0)) },
-			ifBoth: { .both(f($0), g($1)) })
+			ifBoth: { .both(this: f($0), that: g($1)) })
 	}
 }
 
@@ -188,19 +188,19 @@ extension These: TheseType {
 	public typealias ThisType = A
 	public typealias ThatType = B
 	
-	public static func this(x: A) -> These {
+	public static func this(_ x: A) -> These {
 		return .This(x)
 	}
 	
-	public static func that(x: B) -> These {
+	public static func that(_ x: B) -> These {
 		return .That(x)
 	}
 	
-	public static func both(x: A, _ y: B) -> These {
-		return .Both(x, y)
+	public static func both(this: A, that: B) -> These {
+		return .Both(this, that)
 	}
 	
-	public func these<T>(@noescape ifThis ifThis: A throws -> T, ifThat: B throws -> T, ifBoth: (A, B) throws -> T) rethrows -> T {
+	public func these<T>(ifThis: @noescape (A) throws -> T, ifThat: @noescape (B) throws -> T, ifBoth: @noescape (A, B) throws -> T) rethrows -> T {
 		switch self {
 		case .This(let a):
 			return try ifThis(a)

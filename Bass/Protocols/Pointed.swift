@@ -5,5 +5,5 @@
 public protocol Pointed {
 	associatedtype PointedValue
 	
-	static func pure(a: PointedValue) -> Self
+	static func pure(_ a: PointedValue) -> Self
 }

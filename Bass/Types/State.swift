@@ -7,8 +7,8 @@ public protocol StateType: Pointed {
 	associatedtype ResultS
 	associatedtype ValuesS = (ResultS, StateS)
 	
-	var run: StateS -> Identity<ValuesS> { get }
-	init(_ run: StateS -> Identity<ValuesS>)
+	var run: (StateS) -> Identity<ValuesS> { get }
+	init(_ run: (StateS) -> Identity<ValuesS>)
 }
 
 // MARK: - StateType: Pointed
@@ -16,7 +16,7 @@ public protocol StateType: Pointed {
 public extension StateType {
 	public typealias PointedValue = ResultS
 	
-	public static func pure(a: ResultS) -> Self {
+	public static func pure(_ a: ResultS) -> Self {
 		return Self.init {
 			Identity((a, $0) as! ValuesS)
 		}
@@ -40,7 +40,7 @@ public extension StateType where ValuesS == (ResultS, StateS) {
 	}
 	
 	/// `with(f:)` executes action on a state modified by applying `f`.
-	public func with(f: StateS -> StateS) -> Self {
+	public func with(_ f: (StateS) -> StateS) -> Self {
 		return Self.init {
 			self.run(f($0))
 		}
@@ -58,17 +58,17 @@ public extension StateType where ValuesS == (ResultS, StateS) {
 		}
 	}
 	
-	public func map<Result2>(f: ResultS -> Result2) -> State<StateS, Result2, (Result2, StateS)> {
+	public func map<Result2>(_ f: (ResultS) -> Result2) -> State<StateS, Result2, (Result2, StateS)> {
 		return map { r, s in (f(r), s) }
 	}
 	
-	public func flatMap<Result2>(fn: ResultS -> State<StateS, Result2, (Result2, StateS)>) -> State<StateS, Result2, (Result2, StateS)> {
+	public func flatMap<Result2>(_ fn: (ResultS) -> State<StateS, Result2, (Result2, StateS)>) -> State<StateS, Result2, (Result2, StateS)> {
 		return State { s in
 			self.run(s).map{ fn($0).run($1).value }
 		}
 	}
 	
-	public func ap<Result2, ST: StateType where ST.StateS == StateS, ST.ResultS == ResultS -> Result2, ST.ValuesS == (ResultS -> Result2, StateS)>(fn: ST) -> State<StateS, Result2, (Result2, StateS)> {
+	public func ap<Result2, ST: StateType where ST.StateS == StateS, ST.ResultS == (ResultS) -> Result2, ST.ValuesS == ((ResultS) -> Result2, StateS)>(_ fn: ST) -> State<StateS, Result2, (Result2, StateS)> {
 		return State { s in
 			fn.run(s).flatMap{ f, s2 in
 				self.run(s2).map{ (f($0), $1) }
@@ -78,17 +78,17 @@ public extension StateType where ValuesS == (ResultS, StateS) {
 }
 
 /// Alias for `map(f:)`
-public func <^> <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)>(f: R1 -> R2, state: ST) -> State<S, R2, (R2, S)> {
+public func <^> <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)>(_ f: (R1) -> R2, state: ST) -> State<S, R2, (R2, S)> {
 	return state.map(f)
 }
 
 /// Alias for `flatMap(g:)`
-public func >>- <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)>(state: ST, f: R1 -> State<S, R2, (R2, S)>) -> State<S, R2, (R2, S)> {
+public func >>- <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)>(_ state: ST, _ f: (R1) -> State<S, R2, (R2, S)>) -> State<S, R2, (R2, S)> {
 	return state.flatMap(f)
 }
 
 /// Alias for `ap(fn:)`
-public func <*> <S, R1, R2, ST1: StateType, ST2: StateType where ST1.StateS == S, ST1.ResultS == R1 -> R2, ST1.ValuesS == (R1 -> R2, S), ST2.StateS == S, ST2.ResultS == R1, ST2.ValuesS == (R1, S)>(fn: ST1, g: ST2) -> State<S, R2, (R2, S)> {
+public func <*> <S, R1, R2, ST1: StateType, ST2: StateType where ST1.StateS == S, ST1.ResultS == (R1) -> R2, ST1.ValuesS == ((R1) -> R2, S), ST2.StateS == S, ST2.ResultS == R1, ST2.ValuesS == (R1, S)>(_ fn: ST1, _ g: ST2) -> State<S, R2, (R2, S)> {
 	return g.ap(fn)
 }
 
@@ -102,17 +102,17 @@ public extension StateType where ValuesS == (ResultS, StateS)? {
 		}
 	}
 	
-	public func map<Result2>(f: ResultS -> Result2) -> State<StateS, Result2, (Result2, StateS)?> {
+	public func map<Result2>(_ f: (ResultS) -> Result2) -> State<StateS, Result2, (Result2, StateS)?> {
 		return map { r, s in (f(r), s) }
 	}
 	
-	public func flatMap<Result2>(fn: ResultS -> State<StateS, Result2, (Result2, StateS)>) -> State<StateS, Result2, (Result2, StateS)?> {
+	public func flatMap<Result2>(_ fn: (ResultS) -> State<StateS, Result2, (Result2, StateS)>) -> State<StateS, Result2, (Result2, StateS)?> {
 		return State { s in
 			self.run(s).map { fn($0).run($1).value }
 		}
 	}
 	
-	public func ap<Result2, ST: StateType where ST.StateS == StateS, ST.ResultS == ResultS -> Result2, ST.ValuesS == (ResultS -> Result2, StateS)>(fn: ST) -> State<StateS, Result2, (Result2, StateS)?> {
+	public func ap<Result2, ST: StateType where ST.StateS == StateS, ST.ResultS == (ResultS) -> Result2, ST.ValuesS == ((ResultS) -> Result2, StateS)>(_ fn: ST) -> State<StateS, Result2, (Result2, StateS)?> {
 		return State { s in
 			fn.run(s).flatMap{ f, s2 in
 				self.run(s2).map{ (f($0), $1) }
@@ -122,48 +122,50 @@ public extension StateType where ValuesS == (ResultS, StateS)? {
 }
 
 /// Alias for `map(f:)`
-public func <^> <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)?>(f: R1 -> R2, state: ST) -> State<S, R2, (R2, S)?> {
+public func <^> <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)?>(_ f: (R1) -> R2, _ state: ST) -> State<S, R2, (R2, S)?> {
 	return state.map(f)
 }
 
 /// Alias for `flatMap(g:)`
-public func >>- <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)?>(state: ST, f: R1 -> State<S, R2, (R2, S)>) -> State<S, R2, (R2, S)?> {
+public func >>- <S, R1, R2, ST: StateType where ST.StateS == S, ST.ResultS == R1, ST.ValuesS == (R1, S)?>(_ state: ST, _ f: (R1) -> State<S, R2, (R2, S)>) -> State<S, R2, (R2, S)?> {
 	return state.flatMap(f)
 }
 
 /// Alias for `ap(fn:)`
-public func <*> <S, R1, R2, ST1: StateType, ST2: StateType where ST1.StateS == S, ST1.ResultS == R1 -> R2, ST1.ValuesS == (R1 -> R2, S), ST2.StateS == S, ST2.ResultS == R1, ST2.ValuesS == (R1, S)?>(fn: ST1, g: ST2) -> State<S, R2, (R2, S)?> {
+public func <*> <S, R1, R2, ST1: StateType, ST2: StateType where ST1.StateS == S, ST1.ResultS == (R1) -> R2, ST1.ValuesS == ((R1) -> R2, S), ST2.StateS == S, ST2.ResultS == R1, ST2.ValuesS == (R1, S)?>(_ fn: ST1, _ g: ST2) -> State<S, R2, (R2, S)?> {
 	return g.ap(fn)
 }
 
 // MAKR: - State - Kleisli
 
-public func >>->> <S, A, B, C>(left: A -> State<S, B, (B, S)>, right: B -> State<S, C, (C, S)>) -> A -> State<S, C, (C, S)> {
+public func >>->> <S, A, B, C>(_ left: (A) -> State<S, B, (B, S)>, _ right: (B) -> State<S, C, (C, S)>) -> (A) -> State<S, C, (C, S)> {
 	return { left($0) >>- right }
 }
 
-public func <<-<< <S, A, B, C>(left: B -> State<S, C, (C, S)>, right: A -> State<S, B, (B, S)>) -> A -> State<S, C, (C, S)> {
+public func <<-<< <S, A, B, C>(_ left: (B) -> State<S, C, (C, S)>, _ right: (A) -> State<S, B, (B, S)>) -> (A) -> State<S, C, (C, S)> {
 	return right >>->> left
 }
 
 // MARK: - Lift
 
-public func lift<S, A, B, C>(f: (A, B) -> C) -> State<S, A -> B -> C, (A -> B -> C, S)> {
+public func lift<S, A, B, C>(_ f: (A, B) -> C) -> State<S, (A) -> (B) -> C, ((A) -> (B) -> C, S)> {
 	return .pure(curry(f))
 }
 
-public func lift<S, A, B, C, D>(f: (A, B, C) -> D) -> State<S, A -> B -> C -> D, (A -> B -> C -> D, S)> {
+public func lift<S, A, B, C, D>(_ f: (A, B, C) -> D) -> State<S, (A) -> (B) -> (C) -> D, ((A) -> (B) -> (C) -> D, S)> {
 	return .pure(curry(f))
 }
 
-public func lift<S, A, B, C, D, E>(f: (A, B, C, D) -> E) -> State<S, A -> B -> C -> D -> E, (A -> B -> C -> D -> E, S)> {
+public func lift<S, A, B, C, D, E>(_
+	
+	f: (A, B, C, D) -> E) -> State<S, (A) -> (B) -> (C) -> (D) -> E, ((A) -> (B) -> (C) -> (D) -> E, S)> {
 	return .pure(curry(f))
 }
 
 // MARK: - State
 
 public struct State<S, A, V> {
-	public let run: S -> Identity<V>
+	public let run: (S) -> Identity<V>
 }
 
 // MARK: - State: StateType
@@ -173,7 +175,7 @@ extension State: StateType {
 	public typealias ResultS = A
 	public typealias ValuesS = V
 	
-	public init(_ run: S -> Identity<V>) {
+	public init(_ run: (S) -> Identity<V>) {
 		self.run = run
 	}
 }
@@ -201,7 +203,7 @@ public func put<S>(state: S) -> State<S, (), ((), S)> {
 }
 
 /// Get a specific component of the state, using a projection function supplied.
-public func gets<S, A>(f: S -> A) -> State<S, A, (A, S)> {
+public func gets<S, A>(_ f: (S) -> A) -> State<S, A, (A, S)> {
 	return State {
 		Identity(f($0), $0)
 	}
@@ -209,13 +211,14 @@ public func gets<S, A>(f: S -> A) -> State<S, A, (A, S)> {
 
 /// `modify(f:)` is an action that updates the state to the result of applying `f`
 /// to the current state.
-public func modify<S>(f: S -> S) -> State<S, (), ((), S)> {
+public func modify<S>(_
+	f: (S) -> S) -> State<S, (), ((), S)> {
 	return State {
 		Identity((), f($0))
 	}
 }
 
 /// A variant of `modify(f:)` in which the computation is strict in the new state.
-public func modify2<S>(f: S -> S) -> State<S, (), ((), S)> {
-	return get() >>- { put(f($0)) }
+public func modify2<S>(_ f: (S) -> S) -> State<S, (), ((), S)> {
+	return get() >>- { put(state: f($0)) }
 }

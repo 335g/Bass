@@ -6,16 +6,16 @@ public protocol EitherType: Pointed, Foldable {
 	associatedtype LeftType
 	associatedtype RightType
 	
-	static func left(x: LeftType) -> Self
-	static func right(x: RightType) -> Self
+	static func left(_ x: LeftType) -> Self
+	static func right(_ x: RightType) -> Self
 	
-	func either<A>(@noescape ifLeft ifLeft: LeftType throws -> A, @noescape ifRight: RightType throws -> A) rethrows -> A
+	func either<A>(ifLeft: @noescape (LeftType) throws -> A, ifRight: @noescape (RightType) throws -> A) rethrows -> A
 }
 
 // MARK: - EitherType: Pointed
 
 public extension EitherType {
-	public static func pure(x: RightType) -> Self {
+	public static func pure(_ x: RightType) -> Self {
 		return .right(x)
 	}
 }
@@ -23,21 +23,21 @@ public extension EitherType {
 // MARK: - EitherType: Foldable
 
 public extension EitherType {
-	public func foldMap<M : Monoid>(f: RightType -> M) -> M {
+	public func foldMap<M : Monoid>(_ f: (RightType) -> M) -> M {
 		return either(
 			ifLeft: const(.mempty),
 			ifRight: { f($0) }
 		)
 	}
 	
-	public func foldr<T>(initial: T, _ f: RightType -> T -> T) -> T {
+	public func foldr<T>(initial: T, _ f: (RightType) -> (T) -> T) -> T {
 		return either(
 			ifLeft: const(initial),
 			ifRight: { f($0)(initial) }
 		)
 	}
 	
-	public func foldl<T>(initial: T, _ f: T -> RightType -> T) -> T {
+	public func foldl<T>(initial: T, _ f: (T) -> (RightType) -> T) -> T {
 		return either(
 			ifLeft: const(initial),
 			ifRight: { f(initial)($0) }
@@ -55,7 +55,7 @@ public extension EitherType {
 		)
 	}
 	
-	public func find(predicate: RightType -> Bool) throws -> RightType? {
+	public func find(predicate: (RightType) -> Bool) throws -> RightType? {
 		return either(
 			ifLeft: const(nil),
 			ifRight: { predicate($0) ? $0 : nil }
@@ -105,35 +105,35 @@ public extension EitherType {
 // MARK: - EitherType - map/flatMap/ap
 
 public extension EitherType {
-	public func map<T>(f: LeftType -> T) -> Either<T, RightType> {
+	public func map<T>(_ f: (LeftType) -> T) -> Either<T, RightType> {
 		return either(
 			ifLeft: { .left(f($0)) },
 			ifRight: Either.right
 		)
 	}
 	
-	public func map<T>(f: RightType -> T) -> Either<LeftType, T> {
+	public func map<T>(_ f: (RightType) -> T) -> Either<LeftType, T> {
 		return either(
 			ifLeft: Either.left,
 			ifRight: { .right(f($0)) }
 		)
 	}
 	
-	public func bimap<T, U>(@noescape f: LeftType -> T, @noescape g: RightType -> U) -> Either<T, U> {
+	public func bimap<T, U>(_ f: @noescape (LeftType) -> T, _ g: @noescape (RightType) -> U) -> Either<T, U> {
 		return either(
 			ifLeft: { .left(f($0)) },
 			ifRight: { .right(g($0)) }
 		)
 	}
 	
-	public func flatMap<T>(@noescape fn: RightType -> Either<LeftType, T>) -> Either<LeftType, T> {
+	public func flatMap<T>(_ fn: @noescape (RightType) -> Either<LeftType, T>) -> Either<LeftType, T> {
 		return either(
 			ifLeft: Either.left,
 			ifRight: fn
 		)
 	}
 	
-	public func ap<T, ET: EitherType where ET.LeftType == LeftType, ET.RightType == RightType -> T>(fn: ET) -> Either<LeftType, T> {
+	public func ap<T, ET: EitherType where ET.LeftType == LeftType, ET.RightType == (RightType) -> T>(_ fn: ET) -> Either<LeftType, T> {
 		return fn.either(
 			ifLeft: { .left($0) },
 			ifRight: { map($0) }
@@ -142,41 +142,41 @@ public extension EitherType {
 }
 
 /// Alias for `map(f:)`
-public func <^> <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(f: B -> C, g: ET) -> Either<A, C> {
+public func <^> <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(_ f: (B) -> C, _ g: ET) -> Either<A, C> {
 	return g.map(f)
 }
 
 /// Alias for `flatMap(fn:)`
-public func >>- <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(m: ET, fn: B -> Either<A, C>) -> Either<A, C> {
+public func >>- <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(_ m: ET, _ fn: (B) -> Either<A, C>) -> Either<A, C> {
 	return m.flatMap(fn)
 }
 
 /// Alias for `ap(fn:)`
-public func <*> <L, T, U, ET1: EitherType, ET2: EitherType where ET1.LeftType == L, ET1.RightType == T -> U, ET2.LeftType == L, ET2.RightType == T>(fn: ET1, m: ET2) -> Either<L, U> {
+public func <*> <L, T, U, ET1: EitherType, ET2: EitherType where ET1.LeftType == L, ET1.RightType == (T) -> U, ET2.LeftType == L, ET2.RightType == T>(_ fn: ET1, _ m: ET2) -> Either<L, U> {
 	return m.ap(fn)
 }
 
 // MAKR: - State - Kleisli
 
-public func >>->> <L, A, B, C>(left: A -> Either<L, B>, right: B -> Either<L, C>) -> A -> Either<L, C> {
+public func >>->> <L, A, B, C>(_ left: (A) -> Either<L, B>, _ right: (B) -> Either<L, C>) -> (A) -> Either<L, C> {
 	return { a in left(a) >>- right }
 }
 
-public func <<-<< <L, A, B, C>(left: B -> Either<L, C>, right: A -> Either<L, B>) -> A -> Either<L, C> {
+public func <<-<< <L, A, B, C>(_ left: (B) -> Either<L, C>, _ right: (A) -> Either<L, B>) -> (A) -> Either<L, C> {
 	return right >>->> left
 }
 
 // MARK: - Lift
 
-public func lift<L, A, B, C>(f: (A, B) -> C) -> Either<L, A -> B -> C> {
+public func lift<L, A, B, C>(_ f: (A, B) -> C) -> Either<L, (A) -> (B) -> C> {
 	return .pure(curry(f))
 }
 
-public func lift<L, A, B, C, D>(f: (A, B, C) -> D) -> Either<L, A -> B -> C -> D> {
+public func lift<L, A, B, C, D>(_ f: (A, B, C) -> D) -> Either<L, (A) -> (B) -> (C) -> D> {
 	return .pure(curry(f))
 }
 
-public func lift<L, A, B, C, D, E>(f: (A, B, C, D) -> E) -> Either<L, A -> B -> C -> D -> E> {
+public func lift<L, A, B, C, D, E>(_ f: (A, B, C, D) -> E) -> Either<L, (A) -> (B) -> (C) -> (D) -> E> {
 	return .pure(curry(f))
 }
 
@@ -190,18 +190,20 @@ public enum Either<L, R> {
 // MARK: - Either: EitherType
 
 extension Either: EitherType {
+	public typealias Element = R
+	
 	public typealias LeftType = L
 	public typealias RightType = R
 	
-	public static func left(x: LeftType) -> Either<L, R> {
+	public static func left(_ x: LeftType) -> Either<L, R> {
 		return .Left(x)
 	}
 	
-	public static func right(x: RightType) -> Either<L, R> {
+	public static func right(_ x: RightType) -> Either<L, R> {
 		return .Right(x)
 	}
 	
-	public func either<A>(@noescape ifLeft ifLeft: L throws -> A, @noescape ifRight: R throws -> A) rethrows -> A {
+	public func either<A>(ifLeft: @noescape (L) throws -> A, ifRight: @noescape (R) throws -> A) rethrows -> A {
 		switch self {
 		case .Left(let x):
 			return try ifLeft(x)
