@@ -14,7 +14,7 @@ extension Optional: OptionalType {
 	}
 }
 
-// MARK: - OptionalType - map/flatMap
+// MARK: - OptionalType - map/flatMap/ap
 
 public extension OptionalType {
 	public func map<A>(_ f: @noescape (Wrapped) throws -> A) rethrows -> A? {
@@ -24,6 +24,10 @@ public extension OptionalType {
 	public func flatMap<A>(_ f: @noescape (Wrapped) throws -> A?) rethrows -> A? {
 		return try optional.flatMap(f)
 	}
+	
+	public func ap<A, OT: OptionalType where OT.Wrapped == (Wrapped) -> A>(_ fn: OT) -> A? {
+		return fn >>- { f in map(f) }
+	}
 }
 
 public func <^> <A, OT: OptionalType>(_ f: @noescape (OT.Wrapped) throws -> A, _ optional: OT) rethrows -> A? {
@@ -32,14 +36,6 @@ public func <^> <A, OT: OptionalType>(_ f: @noescape (OT.Wrapped) throws -> A, _
 
 public func >>- <A, OT: OptionalType>(_ optional: OT, _ f: @noescape (OT.Wrapped) throws -> A?) rethrows -> A? {
 	return try optional.flatMap(f)
-}
-
-// MARK: - OptionalType - ap
-
-public extension OptionalType {
-	public func ap<A, OT: OptionalType where OT.Wrapped == (Wrapped) -> A>(_ fn: OT) -> A? {
-		return fn >>- { f in map(f) }
-	}
 }
 
 public func <*> <A, B, OT1: OptionalType, OT2: OptionalType where OT1.Wrapped == (A) -> B, OT2.Wrapped == A>(fn: OT1, g: OT2) -> B? {
