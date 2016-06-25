@@ -3,7 +3,7 @@
 // MARK: - SequenceType (ReaderType)
 
 public extension Sequence where Iterator.Element: ReaderType {
-	public func sequece() -> Reader<Iterator.Element.EnvR, [Iterator.Element.ValueR]> {
+	public func sequece() -> Reader<Iterator.Element.EnvR, [Iterator.Element.ValR]> {
 		return reduce(.pure([])){ acc, elem in
 			acc >>- { xs in elem >>- { .pure(xs + [$0]) } }
 		}
