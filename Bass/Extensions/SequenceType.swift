@@ -12,8 +12,8 @@ public extension Sequence where Iterator.Element: ReaderType {
 
 // MARK: - SequenceType (WriterType)
 
-public extension Sequence where Iterator.Element: WriterType, Iterator.Element.ValuesW == (Iterator.Element.ResultW, Iterator.Element.OutputW) {
-	public func sequence() -> Writer<Iterator.Element.OutputW, [Iterator.Element.ResultW], ([Iterator.Element.ResultW], Iterator.Element.OutputW)> {
+public extension Sequence where Iterator.Element: WriterType, Iterator.Element.ValW == (Iterator.Element.ResW, Iterator.Element.OutW) {
+	public func sequence() -> Writer<Iterator.Element.OutW, [Iterator.Element.ResW], ([Iterator.Element.ResW], Iterator.Element.OutW)> {
 		return reduce(.pure([])){ acc, elem in
 			acc >>- { xs in elem >>- { .pure(xs + [$0]) } }
 		}
