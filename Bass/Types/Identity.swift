@@ -3,12 +3,8 @@
 // MARK: - IdentityType
 
 public protocol IdentityType: Pointed, Foldable {
-	associatedtype Value
-	
 	var value: Value { get }
 	init(_ value: Value)
-	
-	var identity: Identity<Value> { get }
 }
 
 // MARK: - IdentityType: Pointed
@@ -134,17 +130,9 @@ public struct Identity<T> {
 // MARK: - Identity: IdentityType
 
 extension Identity: IdentityType {
+	public typealias Value = T
+	
 	public init(_ value: T) {
 		self.value = value
 	}
-	
-	public var identity: Identity<T> {
-		return self
-	}
-}
-
-// MARK: - Identity: Pointed
-
-public extension Identity {
-	public typealias Value = T
 }
