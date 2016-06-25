@@ -94,7 +94,7 @@ extension Cont: ContType {
 // MARK: - Cont: Pointed
 
 extension Cont {
-	public typealias PointedValue = I
+	public typealias Value = I
 }
 
 // MARK: - Functions

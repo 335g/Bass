@@ -146,5 +146,5 @@ extension Identity: IdentityType {
 // MARK: - Identity: Pointed
 
 public extension Identity {
-	public typealias PointedValue = T
+	public typealias Value = T
 }

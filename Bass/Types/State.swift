@@ -14,7 +14,7 @@ public protocol StateType: Pointed {
 // MARK: - StateType: Pointed
 
 public extension StateType {
-	public typealias PointedValue = ResultS
+	public typealias Value = ResultS
 	
 	public static func pure(_ a: ResultS) -> Self {
 		return Self.init {
@@ -183,7 +183,7 @@ extension State: StateType {
 // MARK: - State: Pointed
 
 public extension State {
-	public typealias PointedValue = A
+	public typealias Value = A
 }
 
 // MARK: - Functions

@@ -14,7 +14,7 @@ public protocol WriterType: Pointed {
 // MARK: - WriterType: Pointed
 
 public extension WriterType {
-	public typealias PointedValue = ResultW
+	public typealias Value = ResultW
 	
 	public static func pure(_ a: ResultW) -> Self {
 		let values = (a, OutputW.mempty) as! ValuesW
@@ -194,7 +194,7 @@ extension Writer: WriterType {
 // MARK: - Writer: Pointed
 
 public extension Writer {
-	public typealias PointedValue = T
+	public typealias Value = T
 }
 
 // MARK: - Functions

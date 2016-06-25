@@ -216,5 +216,5 @@ extension Either: EitherType {
 // MARK: - Either: Pointed
 
 extension Either: Pointed {
-	public typealias PointedValue = R
+	public typealias Value = R
 }

@@ -215,5 +215,5 @@ extension These: TheseType {
 // MARK: These: Pointed
 
 extension These: Pointed {
-	public typealias PointedValue = B
+	public typealias Value = B
 }

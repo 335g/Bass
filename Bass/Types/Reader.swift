@@ -15,7 +15,7 @@ public protocol ReaderType: Pointed {
 // MARK: - ReaderType: Pointed
 
 public extension ReaderType {
-	public typealias PointedValue = ValueR
+	public typealias Value = ValueR
 	
 	public static func pure(_ a: ValueR) -> Self {
 		return Self.init { _ in a }
@@ -137,7 +137,7 @@ extension Reader: ReaderType {
 // MARK: - Reader: Pointed
 
 public extension Reader {
-	public typealias PointedValue = A
+	public typealias Value = A
 }
 
 // MARK: - Functions
