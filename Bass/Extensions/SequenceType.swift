@@ -22,8 +22,8 @@ public extension Sequence where Iterator.Element: WriterType, Iterator.Element.V
 
 // MARK: - SequenceType (StateType)
 
-public extension Sequence where Iterator.Element: StateType, Iterator.Element.ValuesS == (Iterator.Element.ResultS, Iterator.Element.StateS) {
-	public func sequence() -> State<Iterator.Element.StateS, [Iterator.Element.ResultS], ([Iterator.Element.ResultS], Iterator.Element.StateS)> {
+public extension Sequence where Iterator.Element: StateType, Iterator.Element.ValS == (Iterator.Element.ResS, Iterator.Element.StaS) {
+	public func sequence() -> State<Iterator.Element.StaS, [Iterator.Element.ResS], ([Iterator.Element.ResS], Iterator.Element.StaS)> {
 		return reduce(.pure([])){ acc, elem in
 			acc >>- { xs in elem >>- { .pure(xs + [$0]) } }
 		}
