@@ -3,35 +3,34 @@
 // MARK: - PrismType
 
 public protocol PrismType: OpticType {
-	var forward: (Source) -> Target? { get }
-	var backward: (AltTarget) -> AltSource { get }
-	
-	init(forward: (Source) -> Target?, backward: (AltTarget) -> AltSource)
+	func forward (_ x: Source) -> Target?
+	func backward (_ x: AltTarget) -> AltSource
 }
 
 extension PrismType {
-	public func compose <Other: PrismType, To: PrismType where Target == Other.Source, AltTarget == Other.AltSource, To.Source == Source, To.AltSource == AltSource, To.Target == Other.Target, To.AltTarget == Other.AltTarget> (_ other: Other) -> To {
+	public func compose <P: PrismType where Target == P.Source, AltTarget == P.AltSource> (_ other: P) -> Prism<Source, AltSource, P.Target, P.AltTarget> {
 		
-		return To(
+		return Prism(
 			forward: { self.forward($0).flatMap(other.forward) },
 			backward: self.backward • other.backward
 		)
 	}
 }
 
-public func >>> <L: PrismType, R: PrismType, To: PrismType where L.Target == R.Source, L.AltTarget == R.AltSource, To.Source == L.Source, To.AltSource == L.AltSource, To.Target == R.Target, To.AltTarget == R.AltTarget>(lhs: L, rhs: R) -> To {
+public func >>> <L: PrismType, R: PrismType where L.Target == R.Source, L.AltTarget == R.AltSource>(lhs: L, rhs: R) -> Prism<L.Source, L.AltSource, R.Target, R.AltTarget> {
+	
 	return lhs.compose(rhs)
 }
 
 // MARK: - Prism
 
 public struct Prism<S, T, A, B> {
-	public let forward: (S) -> A?
-	public let backward: (B) -> T
+	private let _forward: (S) -> A?
+	private let _backward: (B) -> T
 	
 	public init(forward: (S) -> A?, backward: (B) -> T) {
-		self.forward = forward
-		self.backward = backward
+		_forward = forward
+		_backward = backward
 	}
 }
 
@@ -39,20 +38,28 @@ public struct Prism<S, T, A, B> {
 
 extension Prism: PrismType {
 	public typealias Source = S
-	public typealias Target = A
 	public typealias AltSource = T
+	public typealias Target = A
 	public typealias AltTarget = B
+	
+	public func forward(_ x: S) -> A? {
+		return _forward(x)
+	}
+	
+	public func backward(_ x: B) -> T {
+		return _backward(x)
+	}
 }
 
 // MARK: - SimplePrism
 
 public struct SimplePrism<S, A> {
-	public let forward: (S) -> A?
-	public let backward: (A) -> S
+	private let _forward: (S) -> A?
+	private let _backward: (A) -> S
 	
 	public init(forward: (S) -> A?, backward: (A) -> S){
-		self.forward = forward
-		self.backward = backward
+		_forward = forward
+		_backward = backward
 	}
 }
 
@@ -60,7 +67,15 @@ public struct SimplePrism<S, A> {
 
 extension SimplePrism: PrismType {
 	public typealias Source = S
-	public typealias Target = A
 	public typealias AltSource = S
+	public typealias Target = A
 	public typealias AltTarget = A
+	
+	public func forward(_ x: S) -> A? {
+		return _forward(x)
+	}
+	
+	public func backward(_ x: A) -> S {
+		return _backward(x)
+	}
 }
