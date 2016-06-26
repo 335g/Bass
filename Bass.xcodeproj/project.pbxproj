@@ -18,6 +18,8 @@
 		8453244B1D1EA502005277C4 /* OpticType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845324491D1EA502005277C4 /* OpticType.swift */; };
 		8453244D1D1EA54E005277C4 /* Setter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453244C1D1EA54E005277C4 /* Setter.swift */; };
 		8453244E1D1EA54E005277C4 /* Setter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453244C1D1EA54E005277C4 /* Setter.swift */; };
+		845324531D1F4EEA005277C4 /* Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845324521D1F4EEA005277C4 /* Prism.swift */; };
+		845324541D1F4EEA005277C4 /* Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845324521D1F4EEA005277C4 /* Prism.swift */; };
 		84563F1D1CE7395A005D41B7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1C1CE7395A005D41B7 /* Array.swift */; };
 		84563F1E1CE7395A005D41B7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1C1CE7395A005D41B7 /* Array.swift */; };
 		84563F211CE73CE0005D41B7 /* MonoidSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */; };
@@ -147,6 +149,7 @@
 		845324461D1E8C4E005277C4 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Const.swift; path = Types/Const.swift; sourceTree = "<group>"; };
 		845324491D1EA502005277C4 /* OpticType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpticType.swift; path = Protocols/OpticType.swift; sourceTree = "<group>"; };
 		8453244C1D1EA54E005277C4 /* Setter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Setter.swift; path = Types/Setter.swift; sourceTree = "<group>"; };
+		845324521D1F4EEA005277C4 /* Prism.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Prism.swift; path = Types/Prism.swift; sourceTree = "<group>"; };
 		84563F1C1CE7395A005D41B7 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Extensions/Array.swift; sourceTree = "<group>"; };
 		84563F1F1CE73CE0005D41B7 /* MonoidSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonoidSpec.swift; path = Protocols/MonoidSpec.swift; sourceTree = "<group>"; };
 		845DF7F01CEC890A00B83D07 /* ReaderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReaderSpec.swift; path = Types/ReaderSpec.swift; sourceTree = "<group>"; };
@@ -318,6 +321,7 @@
 				84ED16FF1CEFC5FA0037140B /* These.swift */,
 				845324461D1E8C4E005277C4 /* Const.swift */,
 				8453244C1D1EA54E005277C4 /* Setter.swift */,
+				845324521D1F4EEA005277C4 /* Prism.swift */,
 			);
 			name = Types;
 			sourceTree = "<group>";
@@ -599,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8467A07F1CE6033C00B6E395 /* Undefined.swift in Sources */,
+				845324531D1F4EEA005277C4 /* Prism.swift in Sources */,
 				8467A0851CE6039C00B6E395 /* Fix.swift in Sources */,
 				8467A0761CE6015A00B6E395 /* Curry.swift in Sources */,
 				8467A0821CE6037800B6E395 /* Flip.swift in Sources */,
@@ -644,6 +649,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8467A0801CE6033C00B6E395 /* Undefined.swift in Sources */,
+				845324541D1F4EEA005277C4 /* Prism.swift in Sources */,
 				8467A0861CE6039C00B6E395 /* Fix.swift in Sources */,
 				8467A0771CE6015A00B6E395 /* Curry.swift in Sources */,
 				8467A0831CE6037800B6E395 /* Flip.swift in Sources */,
