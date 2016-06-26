@@ -3,15 +3,36 @@
 // MARK: - PrismType
 
 public protocol PrismType: OpticType {
-	func forward (_ x: Source) -> Target?
-	func backward (_ x: AltTarget) -> AltSource
+	var forward: (Source) -> Target? { get }
+	var backward: (AltTarget) -> AltSource { get }
+	
+	init(forward: (Source) -> Target?, backward: (AltTarget) -> AltSource)
+}
+
+extension PrismType {
+	public func compose <Other: PrismType, To: PrismType where Target == Other.Source, AltTarget == Other.AltSource, To.Source == Source, To.AltSource == AltSource, To.Target == Other.Target, To.AltTarget == Other.AltTarget> (_ other: Other) -> To {
+		
+		return To(
+			forward: { self.forward($0).flatMap(other.forward) },
+			backward: self.backward • other.backward
+		)
+	}
+}
+
+public func >>> <L: PrismType, R: PrismType, To: PrismType where L.Target == R.Source, L.AltTarget == R.AltSource, To.Source == L.Source, To.AltSource == L.AltSource, To.Target == R.Target, To.AltTarget == R.AltTarget>(lhs: L, rhs: R) -> To {
+	return lhs.compose(rhs)
 }
 
 // MARK: - Prism
 
 public struct Prism<S, T, A, B> {
-	private let _forward: (S) -> A?
-	private let _backward: (B) -> T
+	public let forward: (S) -> A?
+	public let backward: (B) -> T
+	
+	public init(forward: (S) -> A?, backward: (B) -> T) {
+		self.forward = forward
+		self.backward = backward
+	}
 }
 
 // MARK: - Prism: PrismType
@@ -21,12 +42,5 @@ extension Prism: PrismType {
 	public typealias Target = A
 	public typealias AltSource = T
 	public typealias AltTarget = B
-	
-	public func forward(_ x: S) -> A? {
-		return _forward(x)
-	}
-	
-	public func backward(_ x: B) -> T {
-		return _backward(x)
-	}
 }
+
