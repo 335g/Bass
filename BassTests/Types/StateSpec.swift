@@ -4,7 +4,7 @@ import Quick
 import Nimble
 @testable import Bass
 
-class StaSpec: QuickSpec {
+class StateSpec: QuickSpec {
 	override func spec() {
 		
 		// MARK: pure:
