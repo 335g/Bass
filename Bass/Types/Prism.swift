@@ -44,3 +44,23 @@ extension Prism: PrismType {
 	public typealias AltTarget = B
 }
 
+// MARK: - SimplePrism
+
+public struct SimplePrism<S, A> {
+	public let forward: (S) -> A?
+	public let backward: (A) -> S
+	
+	public init(forward: (S) -> A?, backward: (A) -> S){
+		self.forward = forward
+		self.backward = backward
+	}
+}
+
+// MARK: - SimplePrism: PrismType
+
+extension SimplePrism: PrismType {
+	public typealias Source = S
+	public typealias Target = A
+	public typealias AltSource = S
+	public typealias AltTarget = A
+}
