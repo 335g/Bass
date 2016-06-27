@@ -6,9 +6,9 @@ public protocol TheseType: Pointed, Foldable {
 	associatedtype ThisType
 	associatedtype ThatType
 	
-	static func this(_ x: ThisType) -> Self
-	static func that(_ x: ThatType) -> Self
-	static func both(this: ThisType, that: ThatType) -> Self
+	init(this: ThisType)
+	init(that: ThatType)
+	init(this: ThisType, that: ThatType)
 	
 	func these<T>(ifThis: @noescape (ThisType) throws -> T, ifThat: @noescape (ThatType) throws -> T, ifBoth: @noescape (ThisType, ThatType) throws -> T) rethrows -> T
 }
@@ -17,7 +17,7 @@ public protocol TheseType: Pointed, Foldable {
 
 public extension TheseType {
 	public static func pure(_ x: ThatType) -> Self {
-		return .that(x)
+		return Self(that: x)
 	}
 }
 
@@ -76,23 +76,23 @@ public extension TheseType where ThisType: Semigroup, ThatType: Semigroup {
 		return these(
 			ifThis: { a in
 				return x.these(
-					ifThis: { .this(a <> $0) },
-					ifThat: { .both(this: a, that: $0) },
-					ifBoth: { .both(this: a <> $0, that: $1) }
+					ifThis: { Self(this: a <> $0) },
+					ifThat: { Self(this: a, that: $0) },
+					ifBoth: { Self(this: a <> $0, that: $1) }
 				)
 			},
 			ifThat: { b in
 				return x.these(
-					ifThis: { .both(this: $0, that: b) },
-					ifThat: { .that(b <> $0) },
-					ifBoth: { .both(this: $0, that: b <> $1) }
+					ifThis: { Self(this: $0, that: b) },
+					ifThat: { Self(that: b <> $0) },
+					ifBoth: { Self(this: $0, that: b <> $1) }
 				)
 			},
 			ifBoth: { a, b in
 				return x.these(
-					ifThis: { .both(this: a <> $0, that: b) },
-					ifThat: { .both(this: a, that: b <> $0) },
-					ifBoth: { .both(this: a <> $0, that: b <> $1) }
+					ifThis: { Self(this: a <> $0, that: b) },
+					ifThat: { Self(this: a, that: b <> $0) },
+					ifBoth: { Self(this: a <> $0, that: b <> $1) }
 				)
 			}
 		)
@@ -168,18 +168,18 @@ public extension TheseType {
 	
 	public func bimap<T, U>(_ f: (ThisType) -> T, _ g: (ThatType) -> U) -> These<T, U> {
 		return these(
-			ifThis: { .this(f($0)) },
-			ifThat: { .that(g($0)) },
-			ifBoth: { .both(this: f($0), that: g($1)) })
+			ifThis: { These(this: f($0)) },
+			ifThat: { These(that: g($0)) },
+			ifBoth: { These(this: f($0), that: g($1)) })
 	}
 }
 
 // MARK; - These
 
 public enum These<A, B> {
-	case This(A)
-	case That(B)
-	case Both(A, B)
+	case this(A)
+	case that(B)
+	case both(A, B)
 }
 
 // MARK: - These: TheseType
@@ -188,25 +188,25 @@ extension These: TheseType {
 	public typealias ThisType = A
 	public typealias ThatType = B
 	
-	public static func this(_ x: A) -> These {
-		return .This(x)
+	public init(this: A) {
+		self = .this(this)
 	}
 	
-	public static func that(_ x: B) -> These {
-		return .That(x)
+	public init(that: B) {
+		self = .that(that)
 	}
 	
-	public static func both(this: A, that: B) -> These {
-		return .Both(this, that)
+	public init(this: A, that: B) {
+		self = .both(this, that)
 	}
 	
 	public func these<T>(ifThis: @noescape (A) throws -> T, ifThat: @noescape (B) throws -> T, ifBoth: @noescape (A, B) throws -> T) rethrows -> T {
 		switch self {
-		case .This(let a):
+		case .this(let a):
 			return try ifThis(a)
-		case .That(let b):
+		case .that(let b):
 			return try ifThat(b)
-		case .Both(let a, let b):
+		case .both(let a, let b):
 			return try ifBoth(a, b)
 		}
 	}

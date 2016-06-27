@@ -6,8 +6,8 @@ public protocol EitherType: Pointed, Foldable {
 	associatedtype LeftType
 	associatedtype RightType
 	
-	static func left(_ x: LeftType) -> Self
-	static func right(_ x: RightType) -> Self
+	init(left: LeftType)
+	init(right: RightType)
 	
 	func either<A>(ifLeft: @noescape (LeftType) throws -> A, ifRight: @noescape (RightType) throws -> A) rethrows -> A
 }
@@ -16,7 +16,7 @@ public protocol EitherType: Pointed, Foldable {
 
 public extension EitherType {
 	public static func pure(_ x: RightType) -> Self {
-		return .right(x)
+		return Self(right: x)
 	}
 }
 
@@ -183,8 +183,8 @@ public func lift<L, A, B, C, D, E>(_ f: (A, B, C, D) -> E) -> Either<L, (A) -> (
 // MARK: - Either
 
 public enum Either<L, R> {
-	case Left(L)
-	case Right(R)
+	case left(L)
+	case right(R)
 }
 
 // MARK: - Either: EitherType
@@ -195,19 +195,19 @@ extension Either: EitherType {
 	public typealias LeftType = L
 	public typealias RightType = R
 	
-	public static func left(_ x: LeftType) -> Either<L, R> {
-		return .Left(x)
+	public init(left: L) {
+		self = .left(left)
 	}
 	
-	public static func right(_ x: RightType) -> Either<L, R> {
-		return .Right(x)
+	public init(right: R) {
+		self = .right(right)
 	}
 	
 	public func either<A>(ifLeft: @noescape (L) throws -> A, ifRight: @noescape (R) throws -> A) rethrows -> A {
 		switch self {
-		case .Left(let x):
+		case .left(let x):
 			return try ifLeft(x)
-		case .Right(let x):
+		case .right(let x):
 			return try ifRight(x)
 		}
 	}
