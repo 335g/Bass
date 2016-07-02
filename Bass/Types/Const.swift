@@ -11,8 +11,8 @@ public extension ConstType {
 }
 
 public extension ConstType {
-	public func map<T>(_ f: (Other) -> T) -> Const<Value, T> {
-		return Const(value)
+	public func map<T, C: ConstType where C.Value == Value, C.Other == T, C.Target == T>(_ f: (Other) -> T) -> C {
+		return C(value)
 	}
 }
 
