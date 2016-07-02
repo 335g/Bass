@@ -3,10 +3,14 @@
 // MARK: - IdentityType
 
 public protocol IdentityType: Pointed, Foldable {
-	associatedtype Target = Value
+	associatedtype Target
 	
 	var value: Value { get }
 	init(_ value: Value)
+}
+
+public extension IdentityType {
+	public typealias Target = Value
 }
 
 // MARK: - IdentityType: Pointed
@@ -64,11 +68,11 @@ public extension IdentityType {
 // MARK: - IdentityType - map/flatMap/ap
 
 public extension IdentityType {
-	public func map<U>(_ f: (Value) -> U) -> Identity<U> {
-		return Identity(f(self.value))
+	public func map<U, I: IdentityType where I.Value == U, I.Target == U>(_ f: (Value) -> U) -> I {
+		return I(f(self.value))
 	}
 	
-	public func flatMap<U>(_ fn: (Value) -> Identity<U>) -> Identity<U> {
+	public func flatMap<U, I: IdentityType where I.Value == U, I.Target == U>(_ fn: (Value) -> I) -> I {
 		return fn(self.value)
 	}
 	
@@ -95,12 +99,12 @@ public func <*> <T, U, IT1: IdentityType, IT2: IdentityType where IT1.Value == (
 // MARK: - IdentityType (Value: OptionalType) - map/flatMap/ap
 
 public extension IdentityType where Value: OptionalType {
-	public func map<U>(_ f: (Value.Wrapped) -> U) -> Identity<U?> {
-		return Identity(f <^> self.value)
+	public func map<U, I: IdentityType where I.Value == U?, I.Target == U?>(_ f: (Value.Wrapped) -> U) -> I {
+		return I(f <^> self.value)
 	}
 	
-	public func flatMap<U>(_ fn: (Value.Wrapped) -> Identity<U>) -> Identity<U?> {
-		return Identity( (self.value >>- fn)?.value )
+	public func flatMap<U, I1: IdentityType, I2: IdentityType where I1.Value == U, I1.Target == U, I2.Value == U?, I2.Target == U?>(_ fn: (Value.Wrapped) -> I1) -> I2 {
+		return I2( (self.value >>- fn)?.value)
 	}
 	
 	public func ap<T, IT: IdentityType where IT.Value == (Value.Wrapped) -> T>(_ fn: IT) -> Identity<T?> {
@@ -133,6 +137,7 @@ public struct Identity<T> {
 
 extension Identity: IdentityType {
 	public typealias Value = T
+	public typealias Target = T
 	
 	public init(_ value: T) {
 		self.value = value

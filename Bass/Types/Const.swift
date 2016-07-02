@@ -55,4 +55,5 @@ public struct Const<A, B> {
 extension Const: ConstType {
 	public typealias Value = A
 	public typealias Other = B
+	public typealias Target = B
 }
