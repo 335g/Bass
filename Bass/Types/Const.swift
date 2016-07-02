@@ -2,13 +2,24 @@
 
 // MARK: - ConstType
 
-public protocol ConstType: IdentityType {
+public protocol ConstType: Foldable {
+	associatedtype Value
 	associatedtype Other
+	
+	var value: Value { get }
 }
 
 public extension ConstType {
-	public func cast<C: ConstType where C.Value == Value>(type: C.Other.Type) -> C {
-		return C(value)
+	public func map<T>(_ f: (Other) -> T) -> Const<Value, T> {
+		return Const(value)
+	}
+}
+
+// MARK: - ConstType: Foldable
+
+public extension ConstType {
+	public func foldMap<M : Monoid>(f: (Other) -> M) -> M {
+		return .mempty
 	}
 }
 
