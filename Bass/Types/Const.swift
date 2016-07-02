@@ -2,11 +2,8 @@
 
 // MARK: - ConstType
 
-public protocol ConstType: Foldable {
-	associatedtype Value
+public protocol ConstType: IdentityType {
 	associatedtype Other
-	
-	var value: Value { get }
 }
 
 public extension ConstType {
@@ -20,6 +17,22 @@ public extension ConstType {
 public extension ConstType {
 	public func foldMap<M : Monoid>(f: (Other) -> M) -> M {
 		return .mempty
+	}
+	
+	public func null() -> Bool {
+		return true
+	}
+	
+	public func length() -> Int {
+		return 0
+	}
+	
+	public func find(predicate: (Value) -> Bool) throws -> Value? {
+		return nil
+	}
+	
+	public func toList() -> [Value] {
+		return []
 	}
 }
 

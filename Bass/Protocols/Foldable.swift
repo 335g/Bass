@@ -176,31 +176,6 @@ extension Dual: Monoid {
 	}
 }
 
-// MARK: - First
-
-private struct First<A> {
-	let getFirst: A?
-	
-	init(_ a: A?){
-		getFirst = a
-	}
-}
-
-extension First: Monoid {
-	private static var mempty: First {
-		return First(nil)
-	}
-	
-	private func mappend(_ other: First) -> First {
-		switch (self.getFirst, other.getFirst) {
-		case (.some(_), _):
-			return self
-		case (.none, _):
-			return other
-		}
-	}
-}
-
 // MARK: - Max
 
 private struct Max<A: Comparable> {
