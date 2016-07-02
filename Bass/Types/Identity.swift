@@ -2,15 +2,11 @@
 
 // MARK: - IdentityType
 
-public protocol IdentityType: Pointed, Foldable {
-	associatedtype Target
+public protocol IdentityType: Pointed, Foldable, Mappable {
+	associatedtype Target = Value
 	
 	var value: Value { get }
 	init(_ value: Value)
-}
-
-public extension IdentityType {
-	public typealias Target = Value
 }
 
 // MARK: - IdentityType: Pointed
@@ -68,8 +64,8 @@ public extension IdentityType {
 // MARK: - IdentityType - map/flatMap/ap
 
 public extension IdentityType {
-	public func map<U, I: IdentityType where I.Value == U, I.Target == U>(_ f: (Value) -> U) -> I {
-		return I(f(self.value))
+	public func map<U, I: IdentityType where Value == Target, I.Value == U, I.Target == U>(_ f: (Target) -> U) -> I {
+		return I(f(value as! Target))
 	}
 	
 	public func flatMap<U, I: IdentityType where I.Value == U, I.Target == U>(_ fn: (Value) -> I) -> I {
@@ -82,7 +78,7 @@ public extension IdentityType {
 }
 
 /// Alias for `map(f:)`
-public func <^> <U, IT: IdentityType>(_ f: (IT.Value) -> U, g: IT) -> Identity<U> {
+public func <^> <U, I1: IdentityType, I2: IdentityType where I1.Value == I1.Target, I2.Value == I2.Target, I2.Value == U>(_ f: (I1.Target) -> U, g: I1) -> I2 {
 	return g.map(f)
 }
 
@@ -99,7 +95,7 @@ public func <*> <T, U, IT1: IdentityType, IT2: IdentityType where IT1.Value == (
 // MARK: - IdentityType (Value: OptionalType) - map/flatMap/ap
 
 public extension IdentityType where Value: OptionalType {
-	public func map<U, I: IdentityType where I.Value == U?, I.Target == U?>(_ f: (Value.Wrapped) -> U) -> I {
+	public func map<U, I: IdentityType where Value == Target, I.Value == U?, I.Target == U?>(_ f: (Value.Wrapped) -> U) -> I {
 		return I(f <^> self.value)
 	}
 	
@@ -113,7 +109,7 @@ public extension IdentityType where Value: OptionalType {
 }
 
 /// Alias for `map(f:)`
-public func <^> <U, IT: IdentityType where IT.Value: OptionalType>(_ f: (IT.Value.Wrapped) -> U, g: IT) -> Identity<U?> {
+public func <^> <U, I1: IdentityType, I2: IdentityType where I1.Value == I1.Target, I2.Value == I2.Target, I1.Target: OptionalType, I2.Value == U?>(_ f: (I1.Target.Wrapped) -> U, g: I1) -> I2 {
 	return g.map(f)
 }
 
