@@ -3,6 +3,8 @@
 // MARK: - IdentityType
 
 public protocol IdentityType: Pointed, Foldable {
+	associatedtype Target = Value
+	
 	var value: Value { get }
 	init(_ value: Value)
 }

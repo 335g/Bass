@@ -7,6 +7,10 @@ public protocol ConstType: IdentityType {
 }
 
 public extension ConstType {
+	public typealias Target = Other
+}
+
+public extension ConstType {
 	public func map<T>(_ f: (Other) -> T) -> Const<Value, T> {
 		return Const(value)
 	}
