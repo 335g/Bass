@@ -1,5 +1,5 @@
 //  Copyright © 2016 Yoshiki Kudo. All rights reserved.
 
-public protocol Mappable {
+public protocol HasTarget {
 	associatedtype Target
 }

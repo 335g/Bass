@@ -2,9 +2,7 @@
 
 // MARK: - IdentityType
 
-public protocol IdentityType: Pointed, Foldable, Mappable {
-	associatedtype Target = Value
-	
+public protocol IdentityType: Pointed, Foldable, HasTarget {
 	var value: Value { get }
 	init(_ value: Value)
 }
