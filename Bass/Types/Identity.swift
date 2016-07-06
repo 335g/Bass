@@ -11,7 +11,7 @@ public protocol IdentityType: Pointed, Foldable, HasTarget {
 
 public extension IdentityType {
 	public static func pure(_ a: Value) -> Self {
-		return Self.init(a)
+		return Self(a)
 	}
 }
 

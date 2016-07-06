@@ -2,8 +2,19 @@
 
 // MARK: - ConstType
 
-public protocol ConstType: IdentityType {
+public protocol ConstType: Pointed, Foldable, HasTarget {
 	associatedtype Other
+	
+	var value: Value { get }
+	init(_ value: Value)
+}
+
+// MARK: - ConstType: Pointed
+
+public extension ConstType {
+	public static func pure(_ a: Value) -> Self {
+		return Self(a)
+	}
 }
 
 public extension ConstType {
