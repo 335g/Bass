@@ -2,23 +2,16 @@
 
 // MARK: - ConstType
 
-public protocol ConstType: Pointed, Foldable, HasTarget {
+public protocol ConstType: Foldable {
+	associatedtype Value
 	associatedtype Other
 	
 	var value: Value { get }
 	init(_ value: Value)
 }
 
-// MARK: - ConstType: Pointed
-
 public extension ConstType {
-	public static func pure(_ a: Value) -> Self {
-		return Self(a)
-	}
-}
-
-public extension ConstType {
-	public func map<T, C: ConstType where Other == Target, C.Value == Value, C.Other == T, C.Target == T>(_ f: (Target) -> T) -> C {
+	public func map<T, C: ConstType where C.Value == Value, C.Other == T>(_ f: (Other) -> T) -> C {
 		return C(value)
 	}
 }
@@ -62,5 +55,4 @@ public struct Const<A, B> {
 extension Const: ConstType {
 	public typealias Value = A
 	public typealias Other = B
-	public typealias Target = B
 }

@@ -12,8 +12,6 @@
 		840261E91CEF78A30058B13B /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840261E71CEF78A30058B13B /* Either.swift */; };
 		8415FFCF1D2A8C97001F8F96 /* Last.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415FFCE1D2A8C97001F8F96 /* Last.swift */; };
 		8415FFD01D2A8C97001F8F96 /* Last.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415FFCE1D2A8C97001F8F96 /* Last.swift */; };
-		841665FB1D27BD750043FEC6 /* HasTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841665FA1D27BD750043FEC6 /* HasTarget.swift */; };
-		841665FC1D27BD750043FEC6 /* HasTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841665FA1D27BD750043FEC6 /* HasTarget.swift */; };
 		841708A61D2781AB006ACB47 /* First.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841708A51D2781AB006ACB47 /* First.swift */; };
 		841708A71D2781AB006ACB47 /* First.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841708A51D2781AB006ACB47 /* First.swift */; };
 		844889241CF1692100914320 /* Bass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8467A0141CE5FC4600B6E395 /* Bass.framework */; };
@@ -147,7 +145,6 @@
 /* Begin PBXFileReference section */
 		840261E71CEF78A30058B13B /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Either.swift; path = Types/Either.swift; sourceTree = "<group>"; };
 		8415FFCE1D2A8C97001F8F96 /* Last.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Last.swift; path = Types/Last.swift; sourceTree = "<group>"; };
-		841665FA1D27BD750043FEC6 /* HasTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HasTarget.swift; path = Protocols/HasTarget.swift; sourceTree = "<group>"; };
 		841708A51D2781AB006ACB47 /* First.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = First.swift; path = Types/First.swift; sourceTree = "<group>"; };
 		8448891F1CF1692100914320 /* Benchmarks-OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Benchmarks-OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8448892C1CF1699F00914320 /* Cont2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cont2.swift; path = Benchmark/Cont2.swift; sourceTree = "<group>"; };
@@ -337,7 +334,6 @@
 				8467A09F1CE6485000B6E395 /* Monoid.swift */,
 				8467A0A21CE648B500B6E395 /* Foldable.swift */,
 				8467A0901CE604AE00B6E395 /* OptionalType.swift */,
-				841665FA1D27BD750043FEC6 /* HasTarget.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -622,7 +618,6 @@
 				8467A0B01CE6CA8400B6E395 /* SequenceType.swift in Sources */,
 				8467A0911CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8415FFCF1D2A8C97001F8F96 /* Last.swift in Sources */,
-				841665FB1D27BD750043FEC6 /* HasTarget.swift in Sources */,
 				84B3976D1CFBDAB8009693D3 /* Zip.swift in Sources */,
 				8467A0A31CE648B500B6E395 /* Foldable.swift in Sources */,
 				84ED17001CEFC5FA0037140B /* These.swift in Sources */,
@@ -669,7 +664,6 @@
 				8467A0B11CE6CA8400B6E395 /* SequenceType.swift in Sources */,
 				8467A0921CE604AE00B6E395 /* OptionalType.swift in Sources */,
 				8415FFD01D2A8C97001F8F96 /* Last.swift in Sources */,
-				841665FC1D27BD750043FEC6 /* HasTarget.swift in Sources */,
 				84B3976E1CFBDAB8009693D3 /* Zip.swift in Sources */,
 				8467A0A41CE648B500B6E395 /* Foldable.swift in Sources */,
 				84ED17011CEFC5FA0037140B /* These.swift in Sources */,

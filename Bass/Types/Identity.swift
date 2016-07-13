@@ -2,7 +2,9 @@
 
 // MARK: - IdentityType
 
-public protocol IdentityType: Pointed, Foldable, HasTarget {
+public protocol IdentityType: Pointed, Foldable {
+	associatedtype Value
+	
 	var value: Value { get }
 	init(_ value: Value)
 }
@@ -62,11 +64,11 @@ public extension IdentityType {
 // MARK: - IdentityType - map/flatMap/ap
 
 public extension IdentityType {
-	public func map<U, I: IdentityType where Value == Target, I.Value == U, I.Target == U>(_ f: (Target) -> U) -> I {
-		return I(f(value as! Target))
+	public func map<U, I: IdentityType where I.Value == U>(_ f: (Value) -> U) -> I {
+		return I(f(value))
 	}
 	
-	public func flatMap<U, I: IdentityType where I.Value == U, I.Target == U>(_ fn: (Value) -> I) -> I {
+	public func flatMap<U, I: IdentityType where I.Value == U>(_ fn: (Value) -> I) -> I {
 		return fn(self.value)
 	}
 	
@@ -76,7 +78,7 @@ public extension IdentityType {
 }
 
 /// Alias for `map(f:)`
-public func <^> <U, I1: IdentityType, I2: IdentityType where I1.Value == I1.Target, I2.Value == I2.Target, I2.Value == U>(_ f: (I1.Target) -> U, g: I1) -> I2 {
+public func <^> <U, I1: IdentityType, I2: IdentityType where I2.Value == U>(_ f: (I1.Value) -> U, g: I1) -> I2 {
 	return g.map(f)
 }
 
@@ -93,11 +95,11 @@ public func <*> <T, U, IT1: IdentityType, IT2: IdentityType where IT1.Value == (
 // MARK: - IdentityType (Value: OptionalType) - map/flatMap/ap
 
 public extension IdentityType where Value: OptionalType {
-	public func map<U, I: IdentityType where Value == Target, I.Value == U?, I.Target == U?>(_ f: (Value.Wrapped) -> U) -> I {
+	public func map<U, I: IdentityType where I.Value == U?>(_ f: (Value.Wrapped) -> U) -> I {
 		return I(f <^> self.value)
 	}
 	
-	public func flatMap<U, I1: IdentityType, I2: IdentityType where I1.Value == U, I1.Target == U, I2.Value == U?, I2.Target == U?>(_ fn: (Value.Wrapped) -> I1) -> I2 {
+	public func flatMap<U, I1: IdentityType, I2: IdentityType where I1.Value == U, I2.Value == U?>(_ fn: (Value.Wrapped) -> I1) -> I2 {
 		return I2( (self.value >>- fn)?.value)
 	}
 	
@@ -107,7 +109,7 @@ public extension IdentityType where Value: OptionalType {
 }
 
 /// Alias for `map(f:)`
-public func <^> <U, I1: IdentityType, I2: IdentityType where I1.Value == I1.Target, I2.Value == I2.Target, I1.Target: OptionalType, I2.Value == U?>(_ f: (I1.Target.Wrapped) -> U, g: I1) -> I2 {
+public func <^> <U, I1: IdentityType, I2: IdentityType where I1.Value: OptionalType, I2.Value == U?>(_ f: (I1.Value.Wrapped) -> U, g: I1) -> I2 {
 	return g.map(f)
 }
 
@@ -131,7 +133,6 @@ public struct Identity<T> {
 
 extension Identity: IdentityType {
 	public typealias Value = T
-	public typealias Target = T
 	
 	public init(_ value: T) {
 		self.value = value
