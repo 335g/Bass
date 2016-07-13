@@ -100,6 +100,27 @@ public extension EitherType {
 			ifRight: const(true)
 		)
 	}
+	
+	public func getOrElse(_ x: RightType) -> RightType {
+		return either(
+			ifLeft: const(x),
+			ifRight: id
+		)
+	}
+	
+	public func toOptional() -> RightType? {
+		return either(
+			ifLeft: const(.none),
+			ifRight: { .some($0) }
+		)
+	}
+	
+	public func valueOr(_ x: (LeftType) -> RightType) -> RightType {
+		return either(
+			ifLeft: { x($0) },
+			ifRight: id
+		)
+	}
 }
 
 // MARK: - EitherType - map/flatMap/ap
