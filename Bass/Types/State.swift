@@ -29,13 +29,13 @@ public extension StateType where ValS == (ResS, StaS) {
 	
 	/// Evaluate a state computation with the given initial state and
 	/// return the final value, discarding the final state.
-	public func eval(state: StaS) -> ResS {
+	public func eval(_ state: StaS) -> ResS {
 		return run(state).value.0
 	}
 	
 	/// Evaluate a state computation with the given initial state and
 	/// return the final state, discarding the final value.
-	public func exec(state: StaS) -> StaS {
+	public func exec(_ state: StaS) -> StaS {
 		return run(state).value.1
 	}
 	
@@ -50,7 +50,7 @@ public extension StateType where ValS == (ResS, StaS) {
 // MARK: - StateType - map/flatMap
 
 public extension StateType where ValS == (ResS, StaS) {
-	public func map<Result2>(f: (ResS, StaS) -> (Result2, StaS)) -> State<StaS, Result2, (Result2, StaS)> {
+	public func map<Result2>(_ f: (ResS, StaS) -> (Result2, StaS)) -> State<StaS, Result2, (Result2, StaS)> {
 		return State {
 			let (r, s) = self.run($0).value
 			
@@ -96,7 +96,7 @@ public func <*> <S, R1, R2, ST1: StateType, ST2: StateType where ST1.StaS == S, 
 
 public extension StateType where ValS == (ResS, StaS)? {
 	
-	public func map<Result2>(f: (ResS, StaS) -> (Result2, StaS)) -> State<StaS, Result2, (Result2, StaS)?> {
+	public func map<Result2>(_ f: (ResS, StaS) -> (Result2, StaS)) -> State<StaS, Result2, (Result2, StaS)?> {
 		return State {
 			Identity(f <^> self.run($0).value)
 		}
@@ -196,7 +196,7 @@ public func get<S>() -> State<S, S, (S, S)> {
 }
 
 /// `put(state:)` sets the state within the monad to `s`
-public func put<S>(state: S) -> State<S, (), ((), S)> {
+public func put<S>(_ state: S) -> State<S, (), ((), S)> {
 	return State { _ in
 		Identity((), state)
 	}
@@ -220,5 +220,5 @@ public func modify<S>(_
 
 /// A variant of `modify(f:)` in which the computation is strict in the new state.
 public func modify2<S>(_ f: (S) -> S) -> State<S, (), ((), S)> {
-	return get() >>- { put(state: f($0)) }
+	return get() >>- { put(f($0)) }
 }

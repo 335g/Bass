@@ -99,7 +99,7 @@ extension Cont {
 
 // MARK: - Functions
 
-public func callCC<F, I1, I2>(f: ((I1) -> Cont<F, I2>) -> Cont<F, I1>) -> Cont<F, I1> {
+public func callCC<F, I1, I2>(_ f: ((I1) -> Cont<F, I2>) -> Cont<F, I1>) -> Cont<F, I1> {
 	return Cont { c in
 		f{ x in Cont{ _ in c(x) } }.run(c)
 	}

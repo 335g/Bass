@@ -20,7 +20,7 @@ public extension IdentityType {
 // MARK: - IdentityType: Foldable
 
 public extension IdentityType {
-	public func foldMap<M : Monoid>(f: (Value) -> M) -> M {
+	public func foldMap<M : Monoid>(_ f: (Value) -> M) -> M {
 		return f(value)
 	}
 	
@@ -28,7 +28,7 @@ public extension IdentityType {
 		return f(value)(initial)
 	}
 	
-	public func foldr1(f: (Value) -> (Value) -> Value) throws -> Value {
+	public func foldr1(_ f: (Value) -> (Value) -> Value) throws -> Value {
 		return value
 	}
 	
@@ -36,7 +36,7 @@ public extension IdentityType {
 		return f(initial)(value)
 	}
 	
-	public func foldl1(f: (Value) -> (Value) -> Value) throws -> Value {
+	public func foldl1(_ f: (Value) -> (Value) -> Value) throws -> Value {
 		return value
 	}
 	
@@ -48,7 +48,7 @@ public extension IdentityType {
 		return 1
 	}
 	
-	public func find(predicate: (Value) -> Bool) throws -> Value? {
+	public func find(_ predicate: (Value) -> Bool) throws -> Value? {
 		guard predicate(value) else {
 			return nil
 		}

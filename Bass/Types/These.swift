@@ -24,7 +24,7 @@ public extension TheseType {
 // MARK: - TheseType: Foldable
 
 public extension TheseType {
-	public func foldMap<M : Monoid>(f: (ThatType) -> M) -> M {
+	public func foldMap<M : Monoid>(_ f: (ThatType) -> M) -> M {
 		return these(
 			ifThis: const(.mempty),
 			ifThat: { f($0) },
@@ -52,7 +52,7 @@ public extension TheseType {
 		)
 	}
 	
-	public func find(predicate: (ThatType) -> Bool) throws -> ThatType? {
+	public func find(_ predicate: (ThatType) -> Bool) throws -> ThatType? {
 		return these(
 			ifThis: const(nil),
 			ifThat: { predicate($0) ? $0 : nil },

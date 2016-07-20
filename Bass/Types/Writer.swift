@@ -107,7 +107,7 @@ public func <*> <M: Monoid, T1, T2, WT1: WriterType, WT2: WriterType where WT1.O
 // MARK: - WriterType (Values: OptionalType) - map/flatMap/ap
 
 public extension WriterType where ValW == (ResW, OutW)? {
-	public func map<Result2, Output2: Monoid>(f: (ResW, OutW) -> (Result2, Output2)) -> Writer<Output2, Result2, (Result2, Output2)?> {
+	public func map<Result2, Output2: Monoid>(_ f: (ResW, OutW) -> (Result2, Output2)) -> Writer<Output2, Result2, (Result2, Output2)?> {
 		return Writer(f <^> run)
 	}
 	
@@ -200,6 +200,6 @@ public extension Writer {
 // MARK: - Functions
 
 /// `tell(output:)` is an action that produces the `output`.
-public func tell<M: Monoid>(output: M) -> Writer<M, (), ((), M)> {
+public func tell<M: Monoid>(_ output: M) -> Writer<M, (), ((), M)> {
 	return Writer( Identity((), output) )
 }

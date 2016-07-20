@@ -55,7 +55,7 @@ public extension EitherType {
 		)
 	}
 	
-	public func find(predicate: (RightType) -> Bool) throws -> RightType? {
+	public func find(_ predicate: (RightType) -> Bool) throws -> RightType? {
 		return either(
 			ifLeft: const(nil),
 			ifRight: { predicate($0) ? $0 : nil }

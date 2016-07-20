@@ -29,7 +29,7 @@ extension Array: Foldable {
 		return count
 	}
 	
-	public func find(predicate: (Element) -> Bool) throws -> Element? {
+	public func find(_ predicate: (Element) -> Bool) throws -> Element? {
 		guard let index = index(where: predicate) else {
 			return nil
 		}

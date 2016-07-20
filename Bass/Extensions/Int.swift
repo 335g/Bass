@@ -13,7 +13,7 @@ extension Int: Monoid {
 }
 
 extension Int: Foldable {
-	public func foldr<T>(initial: T, f: (Int) -> (T) -> T) -> T {
+	public func foldr<T>(initial: T, _ f: (Int) -> (T) -> T) -> T {
 		return f(self)(initial)
 	}
 }

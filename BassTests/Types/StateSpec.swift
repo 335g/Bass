@@ -48,7 +48,7 @@ class StateSpec: QuickSpec {
 				let state: State<Int, Int, (Int, Int)> = .pure(10)
 				
 				let s = 0
-				let f: Int -> Int = { return $0 + 1 }
+				let f: (Int) -> Int = { return $0 + 1 }
 				expect(state.with(f).exec(s)) == f(s)
 			}
 		}
@@ -150,7 +150,7 @@ class StateSpec: QuickSpec {
 	}
 }
 
-private func push<A>(x: A) -> State<[A], (), ((), [A])> {
+private func push<A>(_ x: A) -> State<[A], (), ((), [A])> {
 	return get() >>- {
 		var list = $0
 		list.insert(x, atIndex: 0)

@@ -5,22 +5,22 @@
 public protocol Foldable {
 	associatedtype Element
 	
-	func foldMap<M: Monoid>(f: (Element) -> M) -> M
-	func foldr<T>(initial: T, f: (Element) -> (T) -> T) -> T
+	func foldMap<M: Monoid>(_ f: (Element) -> M) -> M
+	func foldr<T>(initial: T, _ f: (Element) -> (T) -> T) -> T
 }
 
 // MARK: - Foldable - default implementation
 
 public extension Foldable {
-	public func foldMap<M: Monoid>(f: (Element) -> M) -> M {
-		return foldr(initial: M.mempty, f: { a in { f(a).mappend($0) } })
+	public func foldMap<M: Monoid>(_ f: (Element) -> M) -> M {
+		return foldr(initial: M.mempty){ a in { f(a).mappend($0) } }
 	}
 	
-	public func foldr<T>(initial: T, f: (Element) -> (T) -> T) -> T {
-		return ( foldMap(f: { Endo(f($0)) }) ).appEndo(initial)
+	public func foldr<T>(initial: T, _ f: (Element) -> (T) -> T) -> T {
+		return ( foldMap({ Endo(f($0)) }) ).appEndo(initial)
 	}
 	
-	public func foldr1(f: (Element) -> (Element) -> Element) throws -> Element {
+	public func foldr1(_ f: (Element) -> (Element) -> Element) throws -> Element {
 		let ifNotOptional: (Element) -> (Element?) -> Element = { x in
 			{ y in
 				switch y {
@@ -32,18 +32,18 @@ public extension Foldable {
 			}
 		}
 		
-		guard let folded = foldr(initial: nil, f: ifNotOptional) else {
-			throw FoldableError.OnlyOne
+		guard let folded = foldr(initial: nil, ifNotOptional) else {
+			throw FoldableError.onlyOne
 		}
 		
 		return folded
 	}
 	
-	public func foldl<T>(initial: T, f: (T) -> (Element) -> T) -> T {
-		return ( (foldMap(f: { Dual(Endo(flip(f)($0))) })).getDual ).appEndo(initial)
+	public func foldl<T>(initial: T, _ f: (T) -> (Element) -> T) -> T {
+		return ( (foldMap({ Dual(Endo(flip(f)($0))) })).getDual ).appEndo(initial)
 	}
 	
-	public func foldl1(f: (Element) -> (Element) -> Element) throws -> Element {
+	public func foldl1(_ f: (Element) -> (Element) -> Element) throws -> Element {
 		let ifNotOptional: (Element?) -> (Element) -> Element = { x in
 			{ y in
 				switch x {
@@ -55,33 +55,33 @@ public extension Foldable {
 			}
 		}
 		
-		guard let folded = foldl(initial: nil, f: ifNotOptional) else {
-			throw FoldableError.OnlyOne
+		guard let folded = foldl(initial: nil, ifNotOptional) else {
+			throw FoldableError.onlyOne
 		}
 		
 		return folded
 	}
 	
 	public func null() -> Bool {
-		return foldr(initial: true, f: { _ in { _ in false }})
+		return foldr(initial: true){ _ in { _ in false }}
 	}
 	
 	public func length() -> Int {
-		return foldl(initial: 0, f: { a in { _ in a + 1 }})
+		return foldl(initial: 0){ a in { _ in a + 1 }}
 	}
 	
-	public func find(predicate: (Element) -> Bool) throws -> Element? {
-		return foldMap(f: { First(predicate($0) ? $0 : nil) }).getFirst
+	public func find(_ predicate: (Element) -> Bool) throws -> Element? {
+		return foldMap({ First(predicate($0) ? $0 : nil) }).getFirst
 	}
 	
 	public func toList() -> [Element] {
-		return foldr(initial: [], f: { elem in
+		return foldr(initial: []){ elem in
 			{ box in
 				var aBox = box
 				aBox.insert(elem, at: 0)
 				return aBox
 			}
-		})
+		}
 	}
 }
 
@@ -89,7 +89,7 @@ public extension Foldable {
 
 public extension Foldable where Element: Monoid {
 	public func fold() -> Element {
-		return foldMap(f: id)
+		return foldMap(id)
 	}
 }
 
@@ -97,14 +97,14 @@ public extension Foldable where Element: Monoid {
 
 public extension Foldable where Element: Equatable {
 	public func elem(_ this: Element) -> Bool {
-		return foldl(initial: false, f: { bool in
+		return foldl(initial: false){ bool in
 			return { element in
 				return bool || (element == this)
 			}
-		})
+		}
 	}
 	
-	public func notElem(this: Element) -> Bool {
+	public func notElem(_ this: Element) -> Bool {
 		return !(elem(this))
 	}
 }
@@ -113,18 +113,18 @@ public extension Foldable where Element: Equatable {
 
 public extension Foldable where Element: Comparable {
 	public func maximum() throws -> Element {
-		if let folded = foldMap(f: { Max($0) }).getMax {
+		if let folded = foldMap({ Max($0) }).getMax {
 			return folded
 		}else {
-			throw FoldableError.Null
+			throw FoldableError.null
 		}
 	}
 	
 	public func minimum() throws -> Element {
-		if let folded = foldMap(f: { Min($0) }).getMin {
+		if let folded = foldMap({ Min($0) }).getMin {
 			return folded
 		}else {
-			throw FoldableError.Null
+			throw FoldableError.null
 		}
 	}
 }
@@ -132,8 +132,8 @@ public extension Foldable where Element: Comparable {
 // MARK: - FoldableError
 
 public enum FoldableError: ErrorProtocol {
-	case Null
-	case OnlyOne
+	case null
+	case onlyOne
 }
 
 // MARK: - Endo

@@ -23,7 +23,7 @@ class ReaderSpec: QuickSpec {
 			it("should execute a computation in a modified environment"){
 				let reader: Reader<Int, String> = Reader{ String($0) }
 				
-				let f: Int -> Int = { $0 + 1 }
+				let f: (Int) -> Int = { $0 + 1 }
 				let x = 0
 				expect(reader.local(f).run(x)) == String(f(x))
 			}

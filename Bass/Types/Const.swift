@@ -19,7 +19,7 @@ public extension ConstType {
 // MARK: - ConstType: Foldable
 
 public extension ConstType {
-	public func foldMap<M : Monoid>(f: (Other) -> M) -> M {
+	public func foldMap<M : Monoid>(_ f: (Other) -> M) -> M {
 		return .mempty
 	}
 	
@@ -31,7 +31,7 @@ public extension ConstType {
 		return 0
 	}
 	
-	public func find(predicate: (Value) -> Bool) throws -> Value? {
+	public func find(_ predicate: (Value) -> Bool) throws -> Value? {
 		return nil
 	}
 	
