@@ -429,9 +429,9 @@
 			productReference = 8448891F1CF1692100914320 /* Benchmarks-OSX.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8467A0131CE5FC4600B6E395 /* Bass-OSX */ = {
+		8467A0131CE5FC4600B6E395 /* Bass-mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8467A0281CE5FC4600B6E395 /* Build configuration list for PBXNativeTarget "Bass-OSX" */;
+			buildConfigurationList = 8467A0281CE5FC4600B6E395 /* Build configuration list for PBXNativeTarget "Bass-mac" */;
 			buildPhases = (
 				8467A00F1CE5FC4600B6E395 /* Sources */,
 				8467A0101CE5FC4600B6E395 /* Frameworks */,
@@ -442,7 +442,7 @@
 			);
 			dependencies = (
 			);
-			name = "Bass-OSX";
+			name = "Bass-mac";
 			productName = Bass;
 			productReference = 8467A0141CE5FC4600B6E395 /* Bass.framework */;
 			productType = "com.apple.product-type.framework";
@@ -546,7 +546,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8467A0131CE5FC4600B6E395 /* Bass-OSX */,
+				8467A0131CE5FC4600B6E395 /* Bass-mac */,
 				8467A01D1CE5FC4600B6E395 /* Bass-MacTests */,
 				8467A0321CE5FE2A00B6E395 /* Bass-iOS */,
 				8467A03B1CE5FE2A00B6E395 /* Bass-iOSTests */,
@@ -699,12 +699,12 @@
 /* Begin PBXTargetDependency section */
 		844889261CF1692100914320 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8467A0131CE5FC4600B6E395 /* Bass-OSX */;
+			target = 8467A0131CE5FC4600B6E395 /* Bass-mac */;
 			targetProxy = 844889251CF1692100914320 /* PBXContainerItemProxy */;
 		};
 		8467A0211CE5FC4600B6E395 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8467A0131CE5FC4600B6E395 /* Bass-OSX */;
+			target = 8467A0131CE5FC4600B6E395 /* Bass-mac */;
 			targetProxy = 8467A0201CE5FC4600B6E395 /* PBXContainerItemProxy */;
 		};
 		8467A03F1CE5FE2A00B6E395 /* PBXTargetDependency */ = {
@@ -1028,7 +1028,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8467A0281CE5FC4600B6E395 /* Build configuration list for PBXNativeTarget "Bass-OSX" */ = {
+		8467A0281CE5FC4600B6E395 /* Build configuration list for PBXNativeTarget "Bass-mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8467A0291CE5FC4600B6E395 /* Debug */,
