@@ -71,7 +71,7 @@ public extension WriterType where ValW == (ResW, OutW) {
 		return map { (f($0), $1) }
 	}
 	
-	public func flatMap<Result2>(_ fn: (ResW) -> Writer<OutW, Result2, (Result2, OutW)>) -> Writer<OutW, Result2, (Result2, OutW)> {
+	public func flatMap<Result2>(_ fn: @escaping (ResW) -> Writer<OutW, Result2, (Result2, OutW)>) -> Writer<OutW, Result2, (Result2, OutW)> {
 		let f2: (ResW, OutW) -> (Result2, OutW) = { r, o in
 			let (r2, o2) = fn(r).run.value
 			return (r2, o.mappend(o2))
@@ -83,25 +83,28 @@ public extension WriterType where ValW == (ResW, OutW) {
 		return Writer( .pure(r2, o2) )
 	}
 	
-	public func ap<Result2, WT: WriterType where WT.ResW == (ResW) -> Result2, WT.OutW == OutW, WT.ValW == ((ResW) -> Result2, OutW)>(_ fn: WT) -> Writer<OutW, Result2, (Result2, OutW)> {
-		return self >>- { m in fn >>- { f in .pure(f(m)) } }
+	public func ap<Result2, WT: WriterType>(_ fn: WT) -> Writer<OutW, Result2, (Result2, OutW)>
+		where WT.ResW == (ResW) -> Result2, WT.OutW == OutW, WT.ValW == ((ResW) -> Result2, OutW) {
+			return self >>- { m in fn >>- { f in .pure(f(m)) } }
 	}
 }
 
 /// Alias for `map(f:)`
-public func <^> <M: Monoid, T1, T2, WT: WriterType where WT.OutW == M, WT.ResW == T1, WT.ValW == (T1, M)>(_ f: (T1) -> T2, _ g: WT) -> Writer<M, T2, (T2, M)> {
-	return g.map(f)
+public func <^> <M: Monoid, T1, T2, WT: WriterType>(_ f: (T1) -> T2, _ g: WT) -> Writer<M, T2, (T2, M)>
+	where WT.OutW == M, WT.ResW == T1, WT.ValW == (T1, M) {
+		return g.map(f)
 }
 
 /// Alias for `flatMap(g:)`
-public func >>- <M: Monoid, T1, T2, WT: WriterType where WT.OutW == M, WT.ResW == T1, WT.ValW == (T1, M)>(_ m: WT, _
-	fn: (T1) -> Writer<M, T2, (T2, M)>) -> Writer<M, T2, (T2, M)> {
-	return m.flatMap(fn)
+public func >>- <M: Monoid, T1, T2, WT: WriterType >(_ m: WT, _ fn: @escaping (T1) -> Writer<M, T2, (T2, M)>) -> Writer<M, T2, (T2, M)>
+	where WT.OutW == M, WT.ResW == T1, WT.ValW == (T1, M) {
+		return m.flatMap(fn)
 }
 
 /// Alias for `ap(fn:)`
-public func <*> <M: Monoid, T1, T2, WT1: WriterType, WT2: WriterType where WT1.OutW == M, WT1.ResW == (T1) -> T2, WT1.ValW == ((T1) -> T2, M), WT2.OutW == M, WT2.ResW == T1, WT2.ValW == (T1, M)>(_ fn: WT1, _ g: WT2) -> Writer<M, T2, (T2, M)> {
-	return g.ap(fn)
+public func <*> <M: Monoid, T1, T2, WT1: WriterType, WT2: WriterType>(_ fn: WT1, _ g: WT2) -> Writer<M, T2, (T2, M)>
+	where WT1.OutW == M, WT1.ResW == (T1) -> T2, WT1.ValW == ((T1) -> T2, M), WT2.OutW == M, WT2.ResW == T1, WT2.ValW == (T1, M) {
+		return g.ap(fn)
 }
 
 // MARK: - WriterType (Values: OptionalType) - map/flatMap/ap
@@ -115,7 +118,7 @@ public extension WriterType where ValW == (ResW, OutW)? {
 		return map { (f($0), $1) }
 	}
 	
-	public func flatMap<Result2>(_ fn: (ResW) -> Writer<OutW, Result2, (Result2, OutW)>) -> Writer<OutW, Result2, (Result2, OutW)?> {
+	public func flatMap<Result2>(_ fn: @escaping (ResW) -> Writer<OutW, Result2, (Result2, OutW)>) -> Writer<OutW, Result2, (Result2, OutW)?> {
 		let f2: (ResW, OutW) -> (Result2, OutW) = { r, o in
 			let (r2, o2) = fn(r).run.value
 			return (r2, o.mappend(o2))
@@ -124,48 +127,51 @@ public extension WriterType where ValW == (ResW, OutW)? {
 		return Writer( .pure(f2 <^> run.value) )
 	}
 	
-	public func ap<Result2, WT: WriterType where WT.ResW == (ResW) -> Result2, WT.OutW == OutW, WT.ValW == ((ResW) -> Result2, OutW)>(_ fn: WT) -> Writer<OutW, Result2, (Result2, OutW)?> {
-		return self >>- { m in fn >>- { f in .pure(f(m)) } }
+	public func ap<Result2, WT: WriterType>(_ fn: WT) -> Writer<OutW, Result2, (Result2, OutW)?>
+		where WT.ResW == (ResW) -> Result2, WT.OutW == OutW, WT.ValW == ((ResW) -> Result2, OutW) {
+			return self >>- { m in fn >>- { f in .pure(f(m)) } }
 	}
 }
 
 /// Alias for `map(f:)`
-public func <^> <M: Monoid, T1, T2, WT: WriterType where WT.OutW == M, WT.ResW == T1, WT.ValW == (T1, M)?>(_ f: (T1) -> T2, _ g: WT) -> Writer<M, T2, (T2, M)?> {
-	return g.map(f)
+public func <^> <M: Monoid, T1, T2, WT: WriterType>(_ f: (T1) -> T2, _ g: WT) -> Writer<M, T2, (T2, M)?>
+	where WT.OutW == M, WT.ResW == T1, WT.ValW == (T1, M)? {
+		return g.map(f)
 }
 
 /// Alias for `flatMap(g:)`
-public func >>- <M: Monoid, T1, T2, WT: WriterType where WT.OutW == M, WT.ResW == T1, WT.ValW == (T1, M)?>(_ m: WT, _
-	fn: (T1) -> Writer<M, T2, (T2, M)>) -> Writer<M, T2, (T2, M)?> {
-	return m.flatMap(fn)
+public func >>- <M: Monoid, T1, T2, WT: WriterType>(_ m: WT, _ fn: @escaping (T1) -> Writer<M, T2, (T2, M)>) -> Writer<M, T2, (T2, M)?>
+	where WT.OutW == M, WT.ResW == T1, WT.ValW == (T1, M)? {
+		return m.flatMap(fn)
 }
 
 /// Alias for `ap(fn:)`
-public func <*> <M: Monoid, T1, T2, WT1: WriterType, WT2: WriterType where WT1.OutW == M, WT1.ResW == (T1) -> T2, WT1.ValW == ((T1) -> T2, M), WT2.OutW == M, WT2.ResW == T1, WT2.ValW == (T1, M)?>(_ fn: WT1, _ g: WT2) -> Writer<M, T2, (T2, M)?> {
-	return g.ap(fn)
+public func <*> <M: Monoid, T1, T2, WT1: WriterType, WT2: WriterType>(_ fn: WT1, _ g: WT2) -> Writer<M, T2, (T2, M)?>
+	where WT1.OutW == M, WT1.ResW == (T1) -> T2, WT1.ValW == ((T1) -> T2, M), WT2.OutW == M, WT2.ResW == T1, WT2.ValW == (T1, M)? {
+		return g.ap(fn)
 }
 
 // MARK: - Writer - Kleisli
 
-public func >>->> <W: Monoid, A, B, C>(_ left: (A) -> Writer<W, B, (B, W)>, _ right: (B) -> Writer<W, C, (C, W)>) -> (A) -> Writer<W, C, (C, W)> {
+public func >>->> <W: Monoid, A, B, C>(_ left: @escaping (A) -> Writer<W, B, (B, W)>, _ right: @escaping (B) -> Writer<W, C, (C, W)>) -> (A) -> Writer<W, C, (C, W)> {
 	return { left($0) >>- right }
 }
 
-public func <<-<< <W: Monoid, A, B, C>(_ left: (B) -> Writer<W, C, (C, W)>, _ right: (A) -> Writer<W, B, (B, W)>) -> (A) -> Writer<W, C, (C, W)> {
+public func <<-<< <W: Monoid, A, B, C>(_ left: @escaping (B) -> Writer<W, C, (C, W)>, _ right: @escaping (A) -> Writer<W, B, (B, W)>) -> (A) -> Writer<W, C, (C, W)> {
 	return right >>->> left
 }
 
 // MARK: - Lift
 
-public func lift<W: Monoid, A, B, C>(_ f: (A, B) -> C) -> Writer<W, (A) -> (B) -> C, ((A) -> (B) -> C, W)> {
+public func lift<W: Monoid, A, B, C>(_ f: @escaping (A, B) -> C) -> Writer<W, (A) -> (B) -> C, ((A) -> (B) -> C, W)> {
 	return .pure(curry(f))
 }
 
-public func lift<W: Monoid, A, B, C, D>(_ f: (A, B, C) -> D) -> Writer<W, (A) -> (B) -> (C) -> D, ((A) -> (B) -> (C) -> D, W)> {
+public func lift<W: Monoid, A, B, C, D>(_ f: @escaping (A, B, C) -> D) -> Writer<W, (A) -> (B) -> (C) -> D, ((A) -> (B) -> (C) -> D, W)> {
 	return .pure(curry(f))
 }
 
-public func lift<W: Monoid, A, B, C, D, E>(_ f: (A, B, C, D) -> E) -> Writer<W, (A) -> (B) -> (C) -> (D) -> E, ((A) -> (B) -> (C) -> (D) -> E, W)> {
+public func lift<W: Monoid, A, B, C, D, E>(_ f: @escaping (A, B, C, D) -> E) -> Writer<W, (A) -> (B) -> (C) -> (D) -> E, ((A) -> (B) -> (C) -> (D) -> E, W)> {
 	return .pure(curry(f))
 }
 

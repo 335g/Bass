@@ -9,7 +9,7 @@ public protocol EitherType: Pointed, Foldable {
 	init(left: LeftType)
 	init(right: RightType)
 	
-	func either<A>(ifLeft: @noescape (LeftType) throws -> A, ifRight: @noescape (RightType) throws -> A) rethrows -> A
+	func either<A>(ifLeft: (LeftType) throws -> A, ifRight: (RightType) throws -> A) rethrows -> A
 }
 
 // MARK: - EitherType: Pointed
@@ -140,21 +140,21 @@ public extension EitherType {
 		)
 	}
 	
-	public func bimap<T, U>(_ f: @noescape (LeftType) -> T, _ g: @noescape (RightType) -> U) -> Either<T, U> {
+	public func bimap<T, U>(_ f: (LeftType) -> T, _ g: (RightType) -> U) -> Either<T, U> {
 		return either(
 			ifLeft: { .left(f($0)) },
 			ifRight: { .right(g($0)) }
 		)
 	}
 	
-	public func flatMap<T>(_ fn: @noescape (RightType) -> Either<LeftType, T>) -> Either<LeftType, T> {
+	public func flatMap<T>(_ fn: (RightType) -> Either<LeftType, T>) -> Either<LeftType, T> {
 		return either(
 			ifLeft: Either.left,
 			ifRight: fn
 		)
 	}
 	
-	public func ap<T, ET: EitherType where ET.LeftType == LeftType, ET.RightType == (RightType) -> T>(_ fn: ET) -> Either<LeftType, T> {
+	public func ap<T, ET: EitherType>(_ fn: ET) -> Either<LeftType, T> where ET.LeftType == LeftType, ET.RightType == (RightType) -> T {
 		return fn.either(
 			ifLeft: { .left($0) },
 			ifRight: { map($0) }
@@ -163,41 +163,45 @@ public extension EitherType {
 }
 
 /// Alias for `map(f:)`
-public func <^> <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(_ f: (B) -> C, _ g: ET) -> Either<A, C> {
+public func <^> <A, B, C, ET: EitherType>(_ f: (B) -> C, _ g: ET) -> Either<A, C> where ET.LeftType == A, ET.RightType == B {
 	return g.map(f)
 }
 
 /// Alias for `flatMap(fn:)`
-public func >>- <A, B, C, ET: EitherType where ET.LeftType == A, ET.RightType == B>(_ m: ET, _ fn: (B) -> Either<A, C>) -> Either<A, C> {
+public func >>- <A, B, C, ET: EitherType>(_ m: ET, _ fn: (B) -> Either<A, C>) -> Either<A, C> where
+	ET.LeftType == A, ET.RightType == B
+{
 	return m.flatMap(fn)
 }
 
 /// Alias for `ap(fn:)`
-public func <*> <L, T, U, ET1: EitherType, ET2: EitherType where ET1.LeftType == L, ET1.RightType == (T) -> U, ET2.LeftType == L, ET2.RightType == T>(_ fn: ET1, _ m: ET2) -> Either<L, U> {
+public func <*> <L, T, U, ET1: EitherType, ET2: EitherType>(_ fn: ET1, _ m: ET2) -> Either<L, U> where
+	ET1.LeftType == L, ET1.RightType == (T) -> U, ET2.LeftType == L, ET2.RightType == T
+{
 	return m.ap(fn)
 }
 
 // MAKR: - State - Kleisli
 
-public func >>->> <L, A, B, C>(_ left: (A) -> Either<L, B>, _ right: (B) -> Either<L, C>) -> (A) -> Either<L, C> {
+public func >>->> <L, A, B, C>(_ left: @escaping (A) -> Either<L, B>, _ right: @escaping (B) -> Either<L, C>) -> (A) -> Either<L, C> {
 	return { a in left(a) >>- right }
 }
 
-public func <<-<< <L, A, B, C>(_ left: (B) -> Either<L, C>, _ right: (A) -> Either<L, B>) -> (A) -> Either<L, C> {
+public func <<-<< <L, A, B, C>(_ left: @escaping (B) -> Either<L, C>, _ right: @escaping (A) -> Either<L, B>) -> (A) -> Either<L, C> {
 	return right >>->> left
 }
 
 // MARK: - Lift
 
-public func lift<L, A, B, C>(_ f: (A, B) -> C) -> Either<L, (A) -> (B) -> C> {
+public func lift<L, A, B, C>(_ f: @escaping (A, B) -> C) -> Either<L, (A) -> (B) -> C> {
 	return .pure(curry(f))
 }
 
-public func lift<L, A, B, C, D>(_ f: (A, B, C) -> D) -> Either<L, (A) -> (B) -> (C) -> D> {
+public func lift<L, A, B, C, D>(_ f: @escaping (A, B, C) -> D) -> Either<L, (A) -> (B) -> (C) -> D> {
 	return .pure(curry(f))
 }
 
-public func lift<L, A, B, C, D, E>(_ f: (A, B, C, D) -> E) -> Either<L, (A) -> (B) -> (C) -> (D) -> E> {
+public func lift<L, A, B, C, D, E>(_ f: @escaping (A, B, C, D) -> E) -> Either<L, (A) -> (B) -> (C) -> (D) -> E> {
 	return .pure(curry(f))
 }
 
@@ -224,7 +228,7 @@ extension Either: EitherType {
 		self = .right(right)
 	}
 	
-	public func either<A>(ifLeft: @noescape (L) throws -> A, ifRight: @noescape (R) throws -> A) rethrows -> A {
+	public func either<A>(ifLeft: (L) throws -> A, ifRight: (R) throws -> A) rethrows -> A {
 		switch self {
 		case .left(let x):
 			return try ifLeft(x)

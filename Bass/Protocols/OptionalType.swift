@@ -17,27 +17,29 @@ extension Optional: OptionalType {
 // MARK: - OptionalType - map/flatMap/ap
 
 public extension OptionalType {
-	public func map<A>(_ f: @noescape (Wrapped) throws -> A) rethrows -> A? {
+	public func map<A>(_ f: (Wrapped) throws -> A) rethrows -> A? {
 		return try optional.map(f)
 	}
 	
-	public func flatMap<A>(_ f: @noescape (Wrapped) throws -> A?) rethrows -> A? {
+	public func flatMap<A>(_ f: (Wrapped) throws -> A?) rethrows -> A? {
 		return try optional.flatMap(f)
 	}
 	
-	public func ap<A, OT: OptionalType where OT.Wrapped == (Wrapped) -> A>(_ fn: OT) -> A? {
-		return fn >>- { f in map(f) }
+	public func ap<A, OT: OptionalType>(_ fn: OT) -> A?
+		where OT.Wrapped == (Wrapped) -> A {
+			return fn >>- { f in map(f) }
 	}
 }
 
-public func <^> <A, OT: OptionalType>(_ f: @noescape (OT.Wrapped) throws -> A, _ optional: OT) rethrows -> A? {
+public func <^> <A, OT: OptionalType>(_ f: (OT.Wrapped) throws -> A, _ optional: OT) rethrows -> A? {
 	return try optional.map(f)
 }
 
-public func >>- <A, OT: OptionalType>(_ optional: OT, _ f: @noescape (OT.Wrapped) throws -> A?) rethrows -> A? {
+public func >>- <A, OT: OptionalType>(_ optional: OT, _ f: (OT.Wrapped) throws -> A?) rethrows -> A? {
 	return try optional.flatMap(f)
 }
 
-public func <*> <A, B, OT1: OptionalType, OT2: OptionalType where OT1.Wrapped == (A) -> B, OT2.Wrapped == A>(fn: OT1, g: OT2) -> B? {
-	return g.ap(fn)
+public func <*> <A, B, OT1: OptionalType, OT2: OptionalType>(fn: OT1, g: OT2) -> B?
+	where OT1.Wrapped == (A) -> B, OT2.Wrapped == A {
+		return g.ap(fn)
 }

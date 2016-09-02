@@ -10,7 +10,7 @@ public protocol TheseType: Pointed, Foldable {
 	init(that: ThatType)
 	init(this: ThisType, that: ThatType)
 	
-	func these<T>(ifThis: @noescape (ThisType) throws -> T, ifThat: @noescape (ThatType) throws -> T, ifBoth: @noescape (ThisType, ThatType) throws -> T) rethrows -> T
+	func these<T>(ifThis: (ThisType) throws -> T, ifThat: (ThatType) throws -> T, ifBoth: (ThisType, ThatType) throws -> T) rethrows -> T
 }
 
 // MARK: - TheseType: Pointed
@@ -24,7 +24,7 @@ public extension TheseType {
 // MARK: - TheseType: Foldable
 
 public extension TheseType {
-	public func foldMap<M : Monoid>(_ f: (ThatType) -> M) -> M {
+	public func foldMap<M : Monoid>(_ f: @escaping (ThatType) -> M) -> M {
 		return these(
 			ifThis: const(.mempty),
 			ifThat: { f($0) },
@@ -99,8 +99,10 @@ public extension TheseType where ThisType: Semigroup, ThatType: Semigroup {
 	}
 }
 
-public func <> <TT: TheseType where TT.ThisType: Semigroup, TT.ThatType: Semigroup>(_ lhs: TT, _ rhs: TT) -> TT {
-	return lhs.mappend(rhs)
+public func <> <TT: TheseType>(_ lhs: TT, _ rhs: TT) -> TT
+	where TT.ThisType: Semigroup, TT.ThatType: Semigroup {
+	
+		return lhs.mappend(rhs)
 }
 
 // MARK: - TheseType - method
@@ -200,7 +202,7 @@ extension These: TheseType {
 		self = .both(this, that)
 	}
 	
-	public func these<T>(ifThis: @noescape (A) throws -> T, ifThat: @noescape (B) throws -> T, ifBoth: @noescape (A, B) throws -> T) rethrows -> T {
+	public func these<T>(ifThis: (A) throws -> T, ifThat: (B) throws -> T, ifBoth: (A, B) throws -> T) rethrows -> T {
 		switch self {
 		case .this(let a):
 			return try ifThis(a)

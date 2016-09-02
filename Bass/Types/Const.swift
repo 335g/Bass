@@ -11,15 +11,17 @@ public protocol ConstType: Foldable {
 }
 
 public extension ConstType {
-	public func map<T, C: ConstType where C.Value == Value, C.Other == T>(_ f: (Other) -> T) -> C {
-		return C(value)
+	public func map<T, C: ConstType>(_ f: (Other) -> T) -> C
+		where C.Value == Value, C.Other == T {
+			
+			return C(value)
 	}
 }
 
 // MARK: - ConstType: Foldable
 
 public extension ConstType {
-	public func foldMap<M : Monoid>(_ f: (Other) -> M) -> M {
+	public func foldMap<M : Monoid>(_ f: @escaping (Other) -> M) -> M {
 		return .mempty
 	}
 	
@@ -31,7 +33,7 @@ public extension ConstType {
 		return 0
 	}
 	
-	public func find(_ predicate: (Value) -> Bool) throws -> Value? {
+	public func find(_ predicate: @escaping (Value) -> Bool) throws -> Value? {
 		return nil
 	}
 	
