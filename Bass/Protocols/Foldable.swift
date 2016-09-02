@@ -5,83 +5,83 @@
 public protocol Foldable {
 	associatedtype Element
 	
-	func foldMap<M: Monoid>(f: Element -> M) -> M
-	func foldr<T>(initial: T, _ f: Element -> T -> T) -> T
+	func foldMap<M: Monoid>(_ f: @escaping (Element) -> M) -> M
+	func foldr<T>(initial: T, _ f: @escaping (Element) -> (T) -> T) -> T
 }
 
 // MARK: - Foldable - default implementation
 
 public extension Foldable {
-	public func foldMap<M: Monoid>(f: Element -> M) -> M {
-		return foldr(M.mempty, { a in { f(a).mappend($0) } })
+	public func foldMap<M: Monoid>(_ f: @escaping (Element) -> M) -> M {
+		return foldr(initial: M.mempty){ a in { f(a).mappend($0) } }
 	}
 	
-	public func foldr<T>(initial: T, _ f: Element -> T -> T) -> T {
+	public func foldr<T>(initial: T, _ f: @escaping (Element) -> (T) -> T) -> T {
 		return ( foldMap({ Endo(f($0)) }) ).appEndo(initial)
 	}
 	
-	public func foldr1(f: Element -> Element -> Element) throws -> Element {
-		let ifNotOptional: Element -> Element? -> Element = { x in
+	public func foldr1(_ f: @escaping (Element) -> (Element) -> Element) throws -> Element {
+		let ifNotOptional: (Element) -> (Element?) -> Element = { x in
 			{ y in
 				switch y {
-				case .None:
+				case .none:
 					return x
-				case let .Some(a):
+				case let .some(a):
 					return f(x)(a)
 				}
 			}
 		}
 		
-		guard let folded = foldr(nil, ifNotOptional) else {
-			throw FoldableError.OnlyOne
+		guard let folded = foldr(initial: nil, ifNotOptional) else {
+			throw FoldableError.onlyOne
 		}
 		
 		return folded
 	}
 	
-	public func foldl<T>(initial: T, _ f: T -> Element -> T) -> T {
+	public func foldl<T>(initial: T, _ f: @escaping (T) -> (Element) -> T) -> T {
 		return ( (foldMap({ Dual(Endo(flip(f)($0))) })).getDual ).appEndo(initial)
 	}
 	
-	public func foldl1(f: Element -> Element -> Element) throws -> Element {
-		let ifNotOptional: Element? -> Element -> Element = { x in
+	public func foldl1(_ f: @escaping (Element) -> (Element) -> Element) throws -> Element {
+		let ifNotOptional: (Element?) -> (Element) -> Element = { x in
 			{ y in
 				switch x {
-				case .None:
+				case .none:
 					return y
-				case let .Some(a):
+				case let .some(a):
 					return f(a)(y)
 				}
 			}
 		}
 		
-		guard let folded = foldl(nil, ifNotOptional) else {
-			throw FoldableError.OnlyOne
+		guard let folded = foldl(initial: nil, ifNotOptional) else {
+			throw FoldableError.onlyOne
 		}
 		
 		return folded
 	}
 	
 	public func null() -> Bool {
-		return foldr(true, { _ in { _ in false }})
+		return foldr(initial: true){ _ in { _ in false }}
 	}
 	
 	public func length() -> Int {
-		return foldl(0, { a in { _ in a + 1 }})
+		return foldl(initial: 0){ a in { _ in a + 1 }}
 	}
 	
-	public func find(predicate: Element -> Bool) throws -> Element? {
+	public func find(_ predicate: @escaping (Element) -> Bool) throws -> Element? {
 		return foldMap({ First(predicate($0) ? $0 : nil) }).getFirst
 	}
 	
 	public func toList() -> [Element] {
-		return foldr([], { ele in
+		return foldr(initial: []){ elem in
 			{ box in
 				var aBox = box
-				aBox.insert(ele, atIndex: 0)
+				aBox.insert(elem, at: 0)
 				return aBox
 			}
-		})
+		}
 	}
 }
 
@@ -96,15 +96,15 @@ public extension Foldable where Element: Monoid {
 // MARK: - Foldable (Element: Equatable)
 
 public extension Foldable where Element: Equatable {
-	public func elem(this: Element) -> Bool {
-		return foldl(false){ bool in
+	public func elem(_ this: Element) -> Bool {
+		return foldl(initial: false){ bool in
 			return { element in
 				return bool || (element == this)
 			}
 		}
 	}
 	
-	public func notElem(this: Element) -> Bool {
+	public func notElem(_ this: Element) -> Bool {
 		return !(elem(this))
 	}
 }
@@ -116,7 +116,7 @@ public extension Foldable where Element: Comparable {
 		if let folded = foldMap({ Max($0) }).getMax {
 			return folded
 		}else {
-			throw FoldableError.Null
+			throw FoldableError.null
 		}
 	}
 	
@@ -124,41 +124,41 @@ public extension Foldable where Element: Comparable {
 		if let folded = foldMap({ Min($0) }).getMin {
 			return folded
 		}else {
-			throw FoldableError.Null
+			throw FoldableError.null
 		}
 	}
 }
 
 // MARK: - FoldableError
 
-public enum FoldableError: ErrorType {
-	case Null
-	case OnlyOne
+public enum FoldableError: Error {
+	case null
+	case onlyOne
 }
 
 // MARK: - Endo
 
-private struct Endo<A> {
-	let appEndo: A -> A
+fileprivate struct Endo<A> {
+	let appEndo: (A) -> A
 	
-	init(_ a: A -> A){
+	init(_ a: @escaping (A) -> A){
 		self.appEndo = a
 	}
 }
 
 extension Endo: Monoid {
-	private static var mempty: Endo {
+	fileprivate static var mempty: Endo {
 		return Endo(id)
 	}
 	
-	private func mappend(other: Endo) -> Endo {
+	fileprivate func mappend(_ other: Endo) -> Endo {
 		return Endo({ self.appEndo(other.appEndo($0)) })
 	}
 }
 
 // MARK: - Dual
 
-private struct Dual<A: Monoid>{
+fileprivate struct Dual<A: Monoid>{
 	let getDual: A
 	
 	init(_ a: A){
@@ -167,43 +167,18 @@ private struct Dual<A: Monoid>{
 }
 
 extension Dual: Monoid {
-	private static var mempty: Dual {
+	fileprivate static var mempty: Dual {
 		return Dual(A.mempty)
 	}
 	
-	private func mappend(other: Dual) -> Dual {
+	fileprivate func mappend(_ other: Dual) -> Dual {
 		return Dual(self.getDual <> other.getDual)
-	}
-}
-
-// MARK: - First
-
-private struct First<A> {
-	let getFirst: A?
-	
-	init(_ a: A?){
-		getFirst = a
-	}
-}
-
-extension First: Monoid {
-	private static var mempty: First {
-		return First(nil)
-	}
-	
-	private func mappend(other: First) -> First {
-		switch (self.getFirst, other.getFirst) {
-		case (.Some(_), _):
-			return self
-		case (.None, _):
-			return other
-		}
 	}
 }
 
 // MARK: - Max
 
-private struct Max<A: Comparable> {
+fileprivate struct Max<A: Comparable> {
 	let getMax: A?
 	
 	init(_ a: A?){
@@ -212,19 +187,19 @@ private struct Max<A: Comparable> {
 }
 
 extension Max: Monoid {
-	private static var mempty: Max {
+	fileprivate static var mempty: Max {
 		return Max(nil)
 	}
 	
-	private func mappend(other: Max) -> Max {
+	fileprivate func mappend(_ other: Max) -> Max {
 		switch (self.getMax, other.getMax){
-		case (.None, .None):
+		case (.none, .none):
 			return Max(nil)
-		case let (.Some(a), .None):
+		case let (.some(a), .none):
 			return Max(a)
-		case let (.None, .Some(a)):
+		case let (.none, .some(a)):
 			return Max(a)
-		case let (.Some(a), .Some(b)):
+		case let (.some(a), .some(b)):
 			return Max(max(a, b))
 		}
 	}
@@ -232,7 +207,7 @@ extension Max: Monoid {
 
 // MARK: - Min
 
-private struct Min<A: Comparable> {
+fileprivate struct Min<A: Comparable> {
 	let getMin: A?
 	
 	init(_ a: A?){
@@ -241,19 +216,19 @@ private struct Min<A: Comparable> {
 }
 
 extension Min: Monoid {
-	private static var mempty: Min {
+	fileprivate static var mempty: Min {
 		return Min(nil)
 	}
 	
-	private func mappend(other: Min) -> Min {
+	fileprivate func mappend(_ other: Min) -> Min {
 		switch (self.getMin, other.getMin){
-		case (.None, .None):
+		case (.none, .none):
 			return Min(nil)
-		case let (.Some(a), .None):
+		case let (.some(a), .none):
 			return Min(a)
-		case let (.None, .Some(a)):
+		case let (.none, .some(a)):
 			return Min(a)
-		case let (.Some(a), .Some(b)):
+		case let (.some(a), .some(b)):
 			return Min(min(a, b))
 		}
 	}

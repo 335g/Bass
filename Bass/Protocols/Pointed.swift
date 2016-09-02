@@ -3,7 +3,7 @@
 // MARK: - Pointed
 
 public protocol Pointed {
-	associatedtype PointedValue
+	associatedtype Value
 	
-	static func pure(a: PointedValue) -> Self
+	static func pure(_ a: Value) -> Self
 }
